@@ -181,3 +181,12 @@ class DailyScrum(models.Model):
     actual_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     comment = models.TextField(default='')
+
+class OverTime(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+    work_date = models.DateField(default=None)
+    description = models.TextField(default='')
+    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assignee_over_times')
+    assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_over_times')
+    comment = models.TextField(default='')
+    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)

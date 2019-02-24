@@ -59,3 +59,10 @@ DELIVERABLE_STATUS_CHOICES = (
     (6, _("Not Done")),
     (7, _("Rejected")),
 )
+
+OVER_TIME_STTUS_CHOICES = (
+    (1, _("Pending")),
+    (2, _("Acknowledged")),
+    (3, _("Done")),
+    (4, _("Rejected")),
+)
