@@ -32,3 +32,20 @@ COLUMN_CHOICES = (
     (2, _("Two")),
     (3, _("Three")),
 )
+
+CATEGORY_CHOICES = (
+    (1, _("Analysis")),
+    (2, _("Development")),
+    (3, _("Testing")),
+    (4, _("Implementation")),
+)
+
+TASK_CHOICES = (
+    (1, _("Pending")),
+    (2, _("In Progress")),
+    (3, _("Partially Done")),
+    (4, _("Done")),
+    (5, _("Delivered")),
+    (6, _("Not Done")),
+    (7, _("Rejected")),
+)

@@ -1,9 +1,20 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES
+    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES
 
 User = get_user_model()
+
+
+class Priority(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+
+class Label(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
 
 
 class UserActivity(models.Model):
@@ -95,3 +106,17 @@ class UserStory(models.Model):
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_user_stories')
     status = models.IntegerField(choices=USERSTORY_STATUS_CHOICES, default=1)
     comment = models.TextField(default='')
+
+
+class Issue(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+    user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
+    raise_date = models.DateField(default=None)
+    resolve_date = models.DateField(default=None)
+    raised_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='raised_issues')
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_issues')
+    comment = models.TextField(default='')
+
