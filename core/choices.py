@@ -20,3 +20,9 @@ USERSTORY_STATUS_CHOICES = (
     (5, _("Development Complete")),
     (6, _("Delivered")),
 )
+
+SPRINT_STATUS_CHOICES = (
+    (1, _("Pending")),
+    (2, _("On Going")),
+    (3, _("Completed")),
+)

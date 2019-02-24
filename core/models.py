@@ -1,8 +1,30 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES
+from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES
 
 User = get_user_model()
+
+
+class Division(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+    division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
+
+
+class Designation(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+    parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
+    department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
+    rank = models.IntegerField(default=None)
 
 
 class ProjectType(models.Model):
