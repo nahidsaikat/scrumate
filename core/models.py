@@ -120,3 +120,35 @@ class Issue(models.Model):
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_issues')
     comment = models.TextField(default='')
 
+
+class Sprint(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
+    start_date = models.DateField(default=None)
+    end_date = models.DateField(default=None)
+    day_wise_label = models.TextField(default='')
+    status = models.IntegerField(choices=SPRINT_STATUS_CHOICES, default=1)
+
+
+class Task(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+    user_story = models.ForeignKey(UserStory, on_delete=models.CASCADE)
+    sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
+    issue = models.ForeignKey(Issue, on_delete=models.SET_NULL, default=None, null=True)
+    category = models.IntegerField(choices=CATEGORY_CHOICES, default=1)
+    responsible = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='responsible_tasks')
+    estimation = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
+    start_date = models.DateField(default=None)
+    end_date = models.DateField(default=None)
+    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, default=None, null=True)
+    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_tasks')
+    assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_tasks')
+    assign_date = models.DateField(default=None)
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_by_tasks')
+    approved_date = models.DateField(default=None)
+    status = models.IntegerField(choices=TASK_CHOICES, default=1)
+    parent_task = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
