@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES
+    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES
 
 User = get_user_model()
 
@@ -152,3 +152,32 @@ class Task(models.Model):
     approved_date = models.DateField(default=None)
     status = models.IntegerField(choices=TASK_CHOICES, default=1)
     parent_task = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
+
+
+class Deliverable(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(default='')
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+    release = models.ForeignKey(Release, on_delete=models.SET_NULL, default=None, null=True)
+    user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
+    sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
+    estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
+    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, default=None, null=True)
+    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    assign_date = models.DateField(default=None)
+    release_date = models.DateField(default=None)
+    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
+
+
+class DailyScrum(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+    release = models.ForeignKey(Release, on_delete=models.SET_NULL, default=None, null=True)
+    user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
+    sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
+    task = models.ForeignKey(Task, on_delete=models.SET_NULL, default=None, null=True)
+    deliverable = models.ForeignKey(Deliverable, on_delete=models.SET_NULL, default=None, null=True)
+    entry_date = models.DateField(default=None)
+    estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
+    actual_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    comment = models.TextField(default='')

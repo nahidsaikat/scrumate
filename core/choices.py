@@ -49,3 +49,13 @@ TASK_CHOICES = (
     (6, _("Not Done")),
     (7, _("Rejected")),
 )
+
+DELIVERABLE_STATUS_CHOICES = (
+    (1, _("Pending")),
+    (2, _("In Progress")),
+    (3, _("Partially Done")),
+    (4, _("Done")),
+    (5, _("Delivered")),
+    (6, _("Not Done")),
+    (7, _("Rejected")),
+)
