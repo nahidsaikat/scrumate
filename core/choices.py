@@ -26,3 +26,9 @@ SPRINT_STATUS_CHOICES = (
     (2, _("On Going")),
     (3, _("Completed")),
 )
+
+COLUMN_CHOICES = (
+    (1, _("One")),
+    (2, _("Two")),
+    (3, _("Three")),
+)
