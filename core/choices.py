@@ -66,3 +66,14 @@ OVER_TIME_STTUS_CHOICES = (
     (3, _("Done")),
     (4, _("Rejected")),
 )
+
+PARTY_TYPE_CHOICES = (
+    (1, _("Employee")),
+    (2, _("Customer")),
+    (3, _("Vendor")),
+)
+
+PARTY_GENDER_CHOICES = (
+    (1, _("Male")),
+    (2, _("Female")),
+)

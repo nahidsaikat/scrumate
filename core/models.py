@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES
+    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES
 
 User = get_user_model()
 
@@ -182,6 +182,7 @@ class DailyScrum(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     comment = models.TextField(default='')
 
+
 class OverTime(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
     work_date = models.DateField(default=None)
@@ -190,3 +191,28 @@ class OverTime(models.Model):
     assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_over_times')
     comment = models.TextField(default='')
     status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
+
+
+class Party(models.Model):
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
+    full_name = models.CharField(max_length=200)
+    nick_name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=100, null=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    code = models.CharField(max_length=100, null=True, blank=True)
+    type = models.IntegerField(choices=PARTY_TYPE_CHOICES)
+    sub_type = models.CharField(max_length=50, null=True, blank=True)
+    username = models.CharField(max_length=100, null=True)
+    password = models.CharField(max_length=100, null=True)
+    address_line_1 = models.CharField(max_length=100, null=True)
+    address_line_2 = models.CharField(max_length=100, null=True, blank=True)
+    address_line_3 = models.CharField(max_length=100, null=True, blank=True)
+    address_line_4 = models.CharField(max_length=100, null=True, blank=True)
+
+
+class Employee(Party):
+    gender = models.IntegerField(choices=PARTY_GENDER_CHOICES)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
+    designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)
