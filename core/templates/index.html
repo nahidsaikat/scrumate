@@ -366,7 +366,9 @@
             <!--</li>-->
         <!--</ol>-->
         <div class="container-fluid">
-            <div id="ui-view"></div>
+            {% block content %}
+                <div id="ui-view"></div>
+            {% endblock %}
         </div>
     </main>
     <aside class="aside-menu">
