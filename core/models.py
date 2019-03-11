@@ -10,11 +10,18 @@ class Priority(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
     description = models.TextField(default='')
+    
+    def __str__(self):
+        return self.name
+
 
 class Label(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
     description = models.TextField(default='')
+
+    def __str__(self):
+        return self.name
 
 
 class UserActivity(models.Model):
@@ -27,6 +34,9 @@ class Dashboard(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Portlet(models.Model):
     name = models.CharField(max_length=100)
@@ -34,6 +44,9 @@ class Portlet(models.Model):
     title = models.CharField(max_length=100)
     html_template = models.CharField(max_length=100)
     data_url = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class DashboardPortlet(models.Model):
@@ -49,12 +62,18 @@ class Division(models.Model):
     code = models.CharField(max_length=50)
     description = models.TextField(default='')
 
+    def __str__(self):
+        return self.name
+
 
 class Department(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
     description = models.TextField(default='')
     division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Designation(models.Model):
@@ -65,10 +84,8 @@ class Designation(models.Model):
     department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
     rank = models.IntegerField(default=None)
 
-
-class ProjectType(models.Model):
-    name = models.CharField(max_length=500)
-    description = models.TextField(default='')
+    def __str__(self):
+        return self.name
 
 
 class Project(models.Model):
@@ -78,6 +95,9 @@ class Project(models.Model):
     status = models.IntegerField(choices=PROJECT_STATUS_CHOICES, default=1)
     client = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     entry_date = models.DateField(default=None)
+
+    def __str__(self):
+        return self.name
 
 
 class Release(models.Model):
@@ -91,6 +111,9 @@ class Release(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='created_releases')
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_releases')
     comment = models.TextField(default='')
+
+    def __str__(self):
+        return self.name
 
 
 class UserStory(models.Model):
@@ -107,6 +130,9 @@ class UserStory(models.Model):
     status = models.IntegerField(choices=USERSTORY_STATUS_CHOICES, default=1)
     comment = models.TextField(default='')
 
+    def __str__(self):
+        return self.summary
+
 
 class Issue(models.Model):
     name = models.CharField(max_length=100)
@@ -120,6 +146,9 @@ class Issue(models.Model):
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_issues')
     comment = models.TextField(default='')
 
+    def __str__(self):
+        return self.name
+
 
 class Sprint(models.Model):
     name = models.CharField(max_length=100)
@@ -130,6 +159,9 @@ class Sprint(models.Model):
     end_date = models.DateField(default=None)
     day_wise_label = models.TextField(default='')
     status = models.IntegerField(choices=SPRINT_STATUS_CHOICES, default=1)
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
@@ -153,6 +185,9 @@ class Task(models.Model):
     status = models.IntegerField(choices=TASK_CHOICES, default=1)
     parent_task = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Deliverable(models.Model):
     name = models.CharField(max_length=100)
@@ -168,6 +203,9 @@ class Deliverable(models.Model):
     release_date = models.DateField(default=None)
     status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
 
+    def __str__(self):
+        return self.name
+
 
 class DailyScrum(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
@@ -181,6 +219,9 @@ class DailyScrum(models.Model):
     actual_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     comment = models.TextField(default='')
+
+    def __str__(self):
+        return self.project.name + ' ' + self.task.name
 
 
 class OverTime(models.Model):
@@ -210,6 +251,9 @@ class Party(models.Model):
     address_line_2 = models.CharField(max_length=100, null=True, blank=True)
     address_line_3 = models.CharField(max_length=100, null=True, blank=True)
     address_line_4 = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.full_name
 
 
 class Employee(Party):
