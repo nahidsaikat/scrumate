@@ -17,13 +17,13 @@
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>SCRUMATE</title>
     <!-- Icons-->
-    <link href="vendors/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
-    <link href="vendors/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="vendors/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="/vendors/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="/vendors/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/vendors/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/vendors/pace-progress/css/pace.min.css" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
     <script>
@@ -44,9 +44,9 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">
-        <!--<img class="navbar-brand-full" src="img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">-->
-        <!--<img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">-->
+    <a class="navbar-brand" href="/">
+        <!--<img class="navbar-brand-full" src="/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">-->
+        <!--<img class="navbar-brand-minimized" src="/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">-->
         SCRUMATE
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
@@ -82,7 +82,7 @@
         <!--</li>-->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
+                <img class="img-avatar" src="/img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <!--<div class="dropdown-header text-center">-->
@@ -144,15 +144,20 @@
                         <!--<span class="badge badge-primary">NEW</span>-->
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'project_list' %}">
+                        <i class="nav-icon icon-docs"></i> Projects</a>
+                </li>
                 <!--<li class="nav-title">Theme</li>-->
-                <li class="nav-item">
-                    <a class="nav-link" href="colors.html">
-                        <i class="nav-icon icon-drop"></i> Colors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="typography.html">
-                        <i class="nav-icon icon-pencil"></i> Typography</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="colors.html">-->
+                        <!--<i class="nav-icon icon-drop"></i> Colors</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="typography.html">-->
+                        <!--<i class="nav-icon icon-pencil"></i> Typography</a>-->
+                <!--</li>-->
                 <!--<li class="nav-title">Components</li>-->
                 <!--<li class="nav-item nav-dropdown">-->
                     <!--<a class="nav-link nav-dropdown-toggle" href="#">-->
@@ -396,7 +401,7 @@
                     <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Today</div>
                     <div class="list-group-item list-group-item-accent-warning list-group-item-divider">
                         <div class="avatar float-right">
-                            <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                         </div>
                         <div>Meeting with
                             <strong>Lucas</strong>
@@ -408,7 +413,7 @@
                     </div>
                     <div class="list-group-item list-group-item-accent-info">
                         <div class="avatar float-right">
-                            <img class="img-avatar" src="img/avatars/4.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/4.jpg" alt="admin@bootstrapmaster.com">
                         </div>
                         <div>Skype with
                             <strong>Megan</strong>
@@ -429,19 +434,19 @@
                             <i class="icon-home"></i>  creativeLabs HQ</small>
                         <div class="avatars-stack mt-2">
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/2.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/2.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/3.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/3.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/4.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/4.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/5.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/5.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                         </div>
                     </div>
@@ -463,25 +468,25 @@
                             <i class="icon-home"></i>  creativeLabs HQ</small>
                         <div class="avatars-stack mt-2">
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/2.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/2.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/3.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/3.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/4.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/4.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/5.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/5.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                             <div class="avatar avatar-xs">
-                                <img class="img-avatar" src="img/avatars/8.jpg" alt="admin@bootstrapmaster.com">
+                                <img class="img-avatar" src="/img/avatars/8.jpg" alt="admin@bootstrapmaster.com">
                             </div>
                         </div>
                     </div>
@@ -491,7 +496,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -506,7 +511,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -521,7 +526,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -536,7 +541,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -551,7 +556,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
+                            <img class="img-avatar" src="/img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -669,17 +674,19 @@
     </div>
 </footer>
 <!-- CoreUI and necessary plugins-->
-<script src="vendors/jquery/js/jquery.min.js"></script>
-<script src="vendors/popper.js/js/popper.min.js"></script>
-<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendors/pace-progress/js/pace.min.js"></script>
-<script src="vendors/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
-<script src="vendors/@coreui/coreui/js/coreui.min.js"></script>
+<script src="/vendors/jquery/js/jquery.min.js"></script>
+<script src="/vendors/popper.js/js/popper.min.js"></script>
+<script src="/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendors/pace-progress/js/pace.min.js"></script>
+<script src="/vendors/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="/vendors/@coreui/coreui/js/coreui.min.js"></script>
 <script>
-      $('#ui-view').ajaxLoad();
+      // $('#ui-view').ajaxLoad();
       $(document).ajaxComplete(function() {
         Pace.restart()
       });
     </script>
+{% block js %}
+{% endblock %}
 </body>
 </html>

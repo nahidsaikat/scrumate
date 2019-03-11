@@ -24,8 +24,8 @@ from core.views import index
 urlpatterns = [
     path('', index, name='index'),
     path('', include('django.contrib.auth.urls')),
+    path('', include('core.urls')),
     path('admin/', admin.site.urls),
-    # path('', include('core.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
