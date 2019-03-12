@@ -3,8 +3,8 @@
 {% block content %}
 <form method="get">
     {{ filter.form.as_table }}
-        <button class="btn-outline-dark active" type="submit">Search</button>
-  </form>
+    <button class="btn-outline-dark active" type="submit">Search</button>
+</form>
 
 <div class="animated fadeIn">
     <div class="row">
@@ -12,6 +12,9 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-align-justify"></i> Projects
+                    <a class="ml-3" href="#">
+                        <i class="fa fa-plus-square-o fa-lg"></i>
+                    </a>
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm table-bordered">
