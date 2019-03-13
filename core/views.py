@@ -26,3 +26,8 @@ def project_list(request, **kwargs):
         projects = paginator.page(paginator.num_pages)
 
     return render(request, 'projects/project_list.html', {'projects': projects, 'filter': project_filter})
+
+@login_required(login_url='/login/')
+def project_add(request, **kwargs):
+    return render(request, 'projects/project_add.html', {})
+

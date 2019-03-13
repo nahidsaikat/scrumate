@@ -70,7 +70,7 @@ class Department(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
     description = models.TextField(default='')
-    division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
+    # division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
 
     def __str__(self):
         return self.name
