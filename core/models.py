@@ -169,7 +169,7 @@ class Task(models.Model):
     code = models.CharField(max_length=50)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
     user_story = models.ForeignKey(UserStory, on_delete=models.CASCADE)
-    sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
+    # sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
     issue = models.ForeignKey(Issue, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     category = models.IntegerField(choices=CATEGORY_CHOICES, default=1)
     responsible = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='responsible_tasks')
