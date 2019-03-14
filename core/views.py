@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from .models import Project
 from .filters import ProjectFilter
+from .forms import ProjectForm
 
 
 @login_required(login_url='/login/')
@@ -29,5 +30,6 @@ def project_list(request, **kwargs):
 
 @login_required(login_url='/login/')
 def project_add(request, **kwargs):
-    return render(request, 'projects/project_add.html', {})
+    form = ProjectForm()
+    return render(request, 'projects/project_add.html', {'form': form})
 
