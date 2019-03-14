@@ -372,7 +372,8 @@
         <!--</ol>-->
         <div class="container-fluid">
             {% block content %}
-                <div id="ui-view"></div>
+                <!--<div id="ui-view"></div>-->
+                {% include 'dashboard.html' %}
             {% endblock %}
         </div>
     </main>
@@ -680,6 +681,11 @@
 <script src="/vendors/pace-progress/js/pace.min.js"></script>
 <script src="/vendors/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
 <script src="/vendors/@coreui/coreui/js/coreui.min.js"></script>
+
+<script src="/vendors/chart.js/js/Chart.min.js"></script>
+<script src="/vendors/@coreui/coreui-plugin-chartjs-custom-tooltips/js/custom-tooltips.min.js"></script>
+<script src="/js/main.js"></script>
+
 <script>
       // $('#ui-view').ajaxLoad();
       $(document).ajaxComplete(function() {
