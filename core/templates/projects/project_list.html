@@ -34,9 +34,9 @@
                             {% for pro in projects %}
                                 <tr>
                                     <td>{{ pro.name }}</td>
-                                    <td>{{ pro.type }}</td>
+                                    <td>{{ pro.get_type_display }}</td>
                                     <td>{{ pro.entry_date }}</td>
-                                    <td>{{ pro.status }}</td>
+                                    <td>{{ pro.get_status_display }}</td>
                                     <td>{{ pro.client }}</td>
                                     <td>{{ pro.description }}</td>
                                 </tr>
