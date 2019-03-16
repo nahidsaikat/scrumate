@@ -7,6 +7,68 @@ from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STA
 User = get_user_model()
 
 
+class Division(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+
+    def __str__(self):
+        return self.name
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+    # division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Designation(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    description = models.TextField(default='')
+    parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
+    department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
+    rank = models.IntegerField(default=None)
+
+    def __str__(self):
+        return self.name
+
+
+class Party(models.Model):
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
+    full_name = models.CharField(max_length=200)
+    nick_name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=100, null=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    code = models.CharField(max_length=100, null=True, blank=True)
+    type = models.IntegerField(choices=PARTY_TYPE_CHOICES)
+    username = models.CharField(max_length=100, null=True)
+    password = models.CharField(max_length=100, null=True)
+    address_line_1 = models.CharField(max_length=100, null=True)
+    address_line_2 = models.CharField(max_length=100, null=True, blank=True)
+    address_line_3 = models.CharField(max_length=100, null=True, blank=True)
+    address_line_4 = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.full_name
+
+
+class Employee(Party):
+    gender = models.IntegerField(choices=PARTY_GENDER_CHOICES)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
+    designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)
+
+
+class Client(Party):
+    sub_type = models.IntegerField(choices=PARTY_TYPE_CHOICES)
+
+
 class Priority(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
@@ -58,43 +120,12 @@ class DashboardPortlet(models.Model):
     width = models.DecimalField(default=100, decimal_places=2, max_digits=15)
 
 
-class Division(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
-    description = models.TextField(default='')
-
-    def __str__(self):
-        return self.name
-
-
-class Department(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
-    description = models.TextField(default='')
-    # division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Designation(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
-    description = models.TextField(default='')
-    parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
-    department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
-    rank = models.IntegerField(default=None)
-
-    def __str__(self):
-        return self.name
-
-
 class Project(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(default='')
     type = models.IntegerField(choices=PROJECT_TYPE_CHOICES, default=1)
     status = models.IntegerField(choices=PROJECT_STATUS_CHOICES, default=1)
-    client = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True)
     entry_date = models.DateField("Entry Date", default=datetime.date.today)
 
     def __str__(self):
@@ -234,30 +265,3 @@ class OverTime(models.Model):
     comment = models.TextField(default='')
     status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
 
-
-class Party(models.Model):
-    first_name = models.CharField(max_length=100, null=True, blank=True)
-    last_name = models.CharField(max_length=100, null=True, blank=True)
-    full_name = models.CharField(max_length=200)
-    nick_name = models.CharField(max_length=100, null=True, blank=True)
-    email = models.CharField(max_length=100, null=True)
-    phone = models.CharField(max_length=100, null=True)
-    title = models.CharField(max_length=100, null=True, blank=True)
-    code = models.CharField(max_length=100, null=True, blank=True)
-    type = models.IntegerField(choices=PARTY_TYPE_CHOICES)
-    sub_type = models.CharField(max_length=50, null=True, blank=True)
-    username = models.CharField(max_length=100, null=True)
-    password = models.CharField(max_length=100, null=True)
-    address_line_1 = models.CharField(max_length=100, null=True)
-    address_line_2 = models.CharField(max_length=100, null=True, blank=True)
-    address_line_3 = models.CharField(max_length=100, null=True, blank=True)
-    address_line_4 = models.CharField(max_length=100, null=True, blank=True)
-
-    def __str__(self):
-        return self.full_name
-
-
-class Employee(Party):
-    gender = models.IntegerField(choices=PARTY_GENDER_CHOICES)
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
-    designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)

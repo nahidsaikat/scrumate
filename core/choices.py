@@ -73,6 +73,11 @@ PARTY_TYPE_CHOICES = (
     (3, _("Vendor")),
 )
 
+PARTY_SUBTYPE_CHOICES = (
+    (1, _("Individual")),
+    (2, _("Organization")),
+)
+
 PARTY_GENDER_CHOICES = (
     (1, _("Male")),
     (2, _("Female")),
