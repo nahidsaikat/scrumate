@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form method="get">
+    {{ filter.form.as_table }}
+    <button class="btn btn-outline-dark active" type="submit">Search</button>
+</form>
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Releases
+                    {% if user.is_authenticated %}
+                    <a class="ml-3" href="{% url 'release_add' %}">
+                        <i class="fa fa-plus-square-o fa-lg"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Entry Date</th>
+                            <th>Status</th>
+                            <th>Client</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for rel in releases %}
+                                <tr>
+                                    <td>{{ rel.name }}</td>
+                                    <td>{{ rel.get_type_display }}</td>
+                                    <td>{{ rel.entry_date }}</td>
+                                    <td>{{ rel.get_status_display }}</td>
+                                    <td>{{ rel.client }}</td>
+                                    <td>{{ rel.description }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if releases.has_other_pages %}
+                        <ul class="pagination">
+                            {% if releases.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ releases.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in releases.paginator.page_range %}
+                                {% if releases.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if releases.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ releases.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                      </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
