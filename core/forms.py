@@ -44,4 +44,6 @@ class SprintForm(ModelForm):
         exclude = ('day_wise_label', )
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'})
         }
