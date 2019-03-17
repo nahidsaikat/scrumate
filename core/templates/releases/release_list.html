@@ -23,10 +23,9 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Type</th>
-                            <th>Entry Date</th>
-                            <th>Status</th>
-                            <th>Client</th>
+                            <th>Version</th>
+                            <th>Project</th>
+                            <th>Release Date</th>
                             <th>Description</th>
                         </tr>
                         </thead>
@@ -34,10 +33,9 @@
                             {% for rel in releases %}
                                 <tr>
                                     <td>{{ rel.name }}</td>
-                                    <td>{{ rel.get_type_display }}</td>
-                                    <td>{{ rel.entry_date }}</td>
-                                    <td>{{ rel.get_status_display }}</td>
-                                    <td>{{ rel.client }}</td>
+                                    <td>{{ rel.version }}</td>
+                                    <td>{{ rel.project.name }}</td>
+                                    <td>{{ rel.release_date }}</td>
                                     <td>{{ rel.description }}</td>
                                 </tr>
                             {% endfor %}
