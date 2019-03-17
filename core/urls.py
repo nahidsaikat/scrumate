@@ -9,6 +9,6 @@ urlpatterns = [
     path('release/add/', views.release_add, name='release_add'),
     path('user_story/', views.user_story_list, name='user_story_list'),
     path('user_story/add/', views.user_story_add, name='user_story_add'),
-    path('sprint/', views.user_story_list, name='sprint_list'),
-    path('sprint/add/', views.user_story_add, name='sprint_add'),
+    path('sprint/', views.sprint_list, name='sprint_list'),
+    path('sprint/add/', views.sprint_add, name='sprint_add'),
 ]

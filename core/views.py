@@ -97,3 +97,32 @@ def user_story_add(request, **kwargs):
     else:
         form = UserStoryForm()
     return render(request, 'user_stories/user_story_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def sprint_list(request, **kwargs):
+    sprint_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.all())
+    sprint_list = sprint_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(sprint_list, settings.PAGE_SIZE)
+    try:
+        user_stories = paginator.page(page)
+    except PageNotAnInteger:
+        user_stories = paginator.page(1)
+    except EmptyPage:
+        user_stories = paginator.page(paginator.num_pages)
+
+    return render(request, 'sprint/sprint_list.html', {'user_stories': user_stories, 'filter': sprint_filter})
+
+
+@login_required(login_url='/login/')
+def sprint_add(request, **kwargs):
+    if request.method == 'POST':
+        form = UserStoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sprint_list', permanent=True)
+    else:
+        form = UserStoryForm()
+    return render(request, 'sprint/sprint_add.html', {'form': form})
