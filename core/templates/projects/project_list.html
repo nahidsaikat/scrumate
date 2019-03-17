@@ -22,6 +22,7 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead>
                         <tr>
+                            <th>S/L</th>
                             <th>Name</th>
                             <th>Type</th>
                             <th>Entry Date</th>
@@ -33,6 +34,7 @@
                         <tbody>
                             {% for pro in projects %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ pro.name }}</td>
                                     <td>{{ pro.get_type_display }}</td>
                                     <td>{{ pro.entry_date }}</td>

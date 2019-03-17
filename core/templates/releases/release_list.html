@@ -22,6 +22,7 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead>
                         <tr>
+                            <th>S/L</th>
                             <th>Name</th>
                             <th>Version</th>
                             <th>Project</th>
@@ -32,6 +33,7 @@
                         <tbody>
                             {% for rel in releases %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ rel.name }}</td>
                                     <td>{{ rel.version }}</td>
                                     <td>{{ rel.project.name }}</td>
