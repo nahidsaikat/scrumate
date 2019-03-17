@@ -7,4 +7,6 @@ urlpatterns = [
     path('project/add/', views.project_add, name='project_add'),
     path('release/', views.release_list, name='release_list'),
     path('release/add/', views.release_add, name='release_add'),
+    path('user_story/', views.user_story_list, name='user_story_list'),
+    path('user_story/add/', views.user_story_add, name='user_story_add'),
 ]

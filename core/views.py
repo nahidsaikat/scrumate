@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release
+from .models import Project, Release, UserStory
 from .filters import ProjectFilter, ReleaseFilter
 from .forms import ProjectForm, ReleaseForm
 
@@ -68,3 +68,32 @@ def release_add(request, **kwargs):
     else:
         form = ReleaseForm()
     return render(request, 'releases/release_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def user_story_list(request, **kwargs):
+    user_story_filter = ReleaseFilter(request.GET, queryset=Release.objects.all())
+    user_story_list = user_story_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(user_story_list, settings.PAGE_SIZE)
+    try:
+        user_stories = paginator.page(page)
+    except PageNotAnInteger:
+        user_stories = paginator.page(1)
+    except EmptyPage:
+        user_stories = paginator.page(paginator.num_pages)
+
+    return render(request, 'user_stories/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter})
+
+
+@login_required(login_url='/login/')
+def user_story_add(request, **kwargs):
+    if request.method == 'POST':
+        form = ReleaseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user_story_list', permanent=True)
+    else:
+        form = ReleaseForm()
+    return render(request, 'user_stories/user_story_add.html', {'form': form})
