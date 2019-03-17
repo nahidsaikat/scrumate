@@ -1,6 +1,5 @@
-from django.forms import ModelForm, Textarea, DateInput, CharField
-
-from .models import Project, Release, UserStory
+from django.forms import ModelForm, Textarea, DateInput
+from .models import Project, Release, UserStory, Sprint
 
 
 class ProjectForm(ModelForm):
@@ -35,4 +34,14 @@ class UserStoryForm(ModelForm):
             'details': Textarea(attrs={'cols': 25, 'rows': 3}),
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'})
+        }
+
+
+class SprintForm(ModelForm):
+    class Meta:
+        model = Sprint
+        fields = '__all__'
+        exclude = ('day_wise_label', )
+        widgets = {
+            'description': Textarea(attrs={'cols': 25, 'rows': 3}),
         }

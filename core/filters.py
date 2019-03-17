@@ -1,5 +1,5 @@
 import django_filters
-from .models import Project, Release, UserStory
+from .models import Project, Release, UserStory, Sprint
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -24,3 +24,11 @@ class UserStoryFilter(django_filters.FilterSet):
     class Meta:
         model = UserStory
         fields = ['project', 'release']
+
+
+class SprintFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Sprint
+        fields = ['name', 'department']
+
