@@ -24,41 +24,43 @@
                         <tr>
                             <th>S/L</th>
                             <th>Name</th>
-                            <th>Version</th>
-                            <th>Project</th>
-                            <th>Release Date</th>
+                            <th>Code</th>
+                            <th>Department</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                             <th>Description</th>
                         </tr>
                         </thead>
                         <tbody>
-                            {% for rel in releases %}
+                            {% for spr in sprints %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ rel.name }}</td>
-                                    <td>{{ rel.version }}</td>
-                                    <td>{{ rel.project.name }}</td>
-                                    <td>{{ rel.release_date }}</td>
-                                    <td>{{ rel.description }}</td>
+                                    <td>{{ spr.name }}</td>
+                                    <td>{{ spr.code }}</td>
+                                    <td>{{ spr.department.name }}</td>
+                                    <td>{{ spr.start_date }}</td>
+                                    <td>{{ spr.end_date }}</td>
+                                    <td>{{ spr.description }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if releases.has_other_pages %}
+                    {% if sprints.has_other_pages %}
                         <ul class="pagination">
-                            {% if releases.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ releases.previous_page_number }}">&laquo;</a></li>
+                            {% if sprints.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ sprints.previous_page_number }}">&laquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                             {% endif %}
-                            {% for i in releases.paginator.page_range %}
-                                {% if releases.number == i %}
+                            {% for i in sprints.paginator.page_range %}
+                                {% if sprints.number == i %}
                                     <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
                                 {% else %}
                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if releases.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ releases.next_page_number }}">&raquo;</a></li>
+                            {% if sprints.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ sprints.next_page_number }}">&raquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
                             {% endif %}
