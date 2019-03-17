@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from .models import Project, Release, UserStory
-from .filters import ProjectFilter, ReleaseFilter
-from .forms import ProjectForm, ReleaseForm
+from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter
+from .forms import ProjectForm, ReleaseForm, UserStoryForm
 
 
 @login_required(login_url='/login/')
@@ -72,7 +72,7 @@ def release_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def user_story_list(request, **kwargs):
-    user_story_filter = ReleaseFilter(request.GET, queryset=Release.objects.all())
+    user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.all())
     user_story_list = user_story_filter.qs
     page = request.GET.get('page', 1)
 
@@ -90,10 +90,10 @@ def user_story_list(request, **kwargs):
 @login_required(login_url='/login/')
 def user_story_add(request, **kwargs):
     if request.method == 'POST':
-        form = ReleaseForm(request.POST)
+        form = UserStoryForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('user_story_list', permanent=True)
     else:
-        form = ReleaseForm()
+        form = UserStoryForm()
     return render(request, 'user_stories/user_story_add.html', {'form': form})

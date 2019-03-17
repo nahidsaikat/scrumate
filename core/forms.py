@@ -1,6 +1,6 @@
-from django.forms import ModelForm, Textarea, DateInput
+from django.forms import ModelForm, Textarea, DateInput, CharField
 
-from .models import Project, Release
+from .models import Project, Release, UserStory
 
 
 class ProjectForm(ModelForm):
@@ -22,4 +22,17 @@ class ReleaseForm(ModelForm):
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'release_date': DateInput(attrs={'type': 'date'}),
             'delivery_date': DateInput(attrs={'type': 'date'})
+        }
+
+
+class UserStoryForm(ModelForm):
+    class Meta:
+        model = UserStory
+        fields = '__all__'
+        exclude = ('description', 'comment')
+        widgets = {
+            'summary': Textarea(attrs={'cols': 25, 'rows': 1}),
+            'details': Textarea(attrs={'cols': 25, 'rows': 3}),
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'})
         }
