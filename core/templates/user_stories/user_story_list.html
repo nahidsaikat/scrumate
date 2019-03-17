@@ -11,10 +11,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> User Stories
+                    <i class="fa fa-list fa-lg"></i> User Stories
                     {% if user.is_authenticated %}
-                    <a class="ml-3" href="{% url 'user_story_add' %}">
-                        <i class="fa fa-plus-square-o fa-lg"></i>
+                    <a class="float-right" href="{% url 'user_story_add' %}">
+                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
                     </a>
                     {% endif %}
                 </div>
@@ -22,41 +22,43 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Version</th>
+                            <th>Title</th>
+                            <th>Details</th>
                             <th>Project</th>
-                            <th>Release Date</th>
-                            <th>Description</th>
+                            <th>Release</th>
+                            <th>Code</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                            {% for rel in releases %}
+                            {% for story in user_stories %}
                                 <tr>
-                                    <td>{{ rel.name }}</td>
-                                    <td>{{ rel.version }}</td>
-                                    <td>{{ rel.project.name }}</td>
-                                    <td>{{ rel.release_date }}</td>
-                                    <td>{{ rel.description }}</td>
+                                    <td>{{ story.summary }}</td>
+                                    <td>{{ story.details }}</td>
+                                    <td>{{ story.project.name }}</td>
+                                    <td>{{ story.release.name }}</td>
+                                    <td>{{ story.code }}</td>
+                                    <td>{{ story.get_status_display }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if releases.has_other_pages %}
+                    {% if user_stories.has_other_pages %}
                         <ul class="pagination">
-                            {% if releases.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ releases.previous_page_number }}">&laquo;</a></li>
+                            {% if user_stories.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ user_stories.previous_page_number }}">&laquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                             {% endif %}
-                            {% for i in releases.paginator.page_range %}
-                                {% if releases.number == i %}
+                            {% for i in user_stories.paginator.page_range %}
+                                {% if user_stories.number == i %}
                                     <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
                                 {% else %}
                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if releases.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ releases.next_page_number }}">&raquo;</a></li>
+                            {% if user_stories.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ user_stories.next_page_number }}">&raquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
                             {% endif %}
