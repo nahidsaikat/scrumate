@@ -89,13 +89,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'user_story_list' %}">
-                        <i class="icon-notebook icons mr-3"></i>
-                        <!--<i class="fa fa-book mr-3"></i>-->
+                        <i class="fa fa-book mr-3"></i>
                         User Story</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sprint_list' %}">
                         <i class="icon-clock icons mr-3"></i> Sprint</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'issue_list' %}">
+                        <i class="fa fa-bug mr-3"></i> Issues</a>
                 </li>
                 {% endif %}
             </ul>
