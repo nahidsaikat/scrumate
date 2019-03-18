@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form method="get">
+    {{ filter.form.as_table }}
+    <button class="btn btn-outline-dark active" type="submit">Search</button>
+</form>
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> Client
+                    {% if user.is_authenticated %}
+                    <a class="float-right" href="{% url 'client_add' %}">
+                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>S/L</th>
+                            <th> </th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Department</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for cli in clients %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ cli.get_title_display }}</td>
+                                    <td>{{ cli.full_name }}</td>
+                                    <td>{{ cli.code }}</td>
+                                    <td>{{ cli.email }}</td>
+                                    <td>{{ cli.phone }}</td>
+                                    <td>{{ cli.department.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if clients.has_other_pages %}
+                        <ul class="pagination">
+                            {% if clients.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ clients.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in clients.paginator.page_range %}
+                                {% if clients.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if clients.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ clients.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                      </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

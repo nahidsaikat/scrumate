@@ -248,3 +248,33 @@ def employee_add(request, **kwargs):
     else:
         form = EmployeeForm()
     return render(request, 'employee/employee_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def client_list(request, **kwargs):
+    client_filter = EmployeeFilter(request.GET, queryset=Employee.objects.all())
+    client_list = client_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(client_list, settings.PAGE_SIZE)
+    try:
+        clients = paginator.page(page)
+    except PageNotAnInteger:
+        clients = paginator.page(1)
+    except EmptyPage:
+        clients = paginator.page(paginator.num_pages)
+
+    return render(request, 'client/client_list.html', {'clients': clients, 'filter': client_filter})
+
+
+@login_required(login_url='/login/')
+def client_add(request, **kwargs):
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.cleaned_data['full_name'] = form.cleaned_data['first_name'] + ' ' + form.cleaned_data['last_name']
+            form.save()
+            return redirect('client_list', permanent=True)
+    else:
+        form = EmployeeForm()
+    return render(request, 'client/client_add.html', {'form': form})
