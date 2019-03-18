@@ -155,3 +155,35 @@ def issue_add(request, **kwargs):
     else:
         form = IssueForm()
     return render(request, 'issue/issue_add.html', {'form': form})
+
+
+
+
+
+@login_required(login_url='/login/')
+def department_list(request, **kwargs):
+    department_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
+    department_list = department_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(department_list, settings.PAGE_SIZE)
+    try:
+        departments = paginator.page(page)
+    except PageNotAnInteger:
+        departments = paginator.page(1)
+    except EmptyPage:
+        departments = paginator.page(paginator.num_pages)
+
+    return render(request, 'department/department_list.html', {'departments': departments, 'filter': department_filter})
+
+
+@login_required(login_url='/login/')
+def department_add(request, **kwargs):
+    if request.method == 'POST':
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('department_list', permanent=True)
+    else:
+        form = IssueForm()
+    return render(request, 'department/department_add.html', {'form': form})

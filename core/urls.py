@@ -15,6 +15,6 @@ urlpatterns = [
     path('issue/add/', views.issue_add, name='issue_add'),
 
     # Settings
-    path('department/', views.issue_list, name='department_list'),
-    path('department/add/', views.issue_add, name='department_add'),
+    path('department/', views.department_list, name='department_list'),
+    path('department/add/', views.department_add, name='department_add'),
 ]
