@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
     COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
-    PRIORITY_CHOICES
+    PRIORITY_CHOICES, PARTY_TITLE_CHOICES
 
 User = get_user_model()
 
@@ -40,17 +40,17 @@ class Designation(models.Model):
 
 
 class Party(models.Model):
+    title = models.IntegerField(choices=PARTY_TITLE_CHOICES, default=1)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    full_name = models.CharField(max_length=200)
+    full_name = models.CharField(max_length=200, blank=True)
     nick_name = models.CharField(max_length=100, null=True, blank=True)
     email = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=100, null=True)
-    title = models.CharField(max_length=100, null=True, blank=True)
     code = models.CharField(max_length=100, null=True, blank=True)
-    type = models.IntegerField(choices=PARTY_TYPE_CHOICES)
-    username = models.CharField(max_length=100, null=True)
-    password = models.CharField(max_length=100, null=True)
+    type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=1)
+    username = models.CharField(max_length=100, null=True, blank=True)
+    password = models.CharField(max_length=100, null=True, blank=True)
     address_line_1 = models.CharField(max_length=100, null=True)
     address_line_2 = models.CharField(max_length=100, null=True, blank=True)
     address_line_3 = models.CharField(max_length=100, null=True, blank=True)

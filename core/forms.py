@@ -1,5 +1,5 @@
-from django.forms import ModelForm, Textarea, DateInput
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation
+from django.forms import ModelForm, Textarea, DateInput, HiddenInput
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee
 
 
 class ProjectForm(ModelForm):
@@ -76,3 +76,17 @@ class DesignationForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
         }
+
+
+class EmployeeForm(ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['title', 'full_name', 'first_name', 'last_name', 'nick_name', 'email', 'phone', 'gender', 'code', 'type',
+                  'department', 'designation', 'username', 'password', 'address_line_1', 'address_line_2']
+        exclude = ('address_line_3', 'address_line_4')
+        widgets = {
+            'full_name': HiddenInput()
+        }
+
+    def clean_full_name(self):
+        return self.data['first_name'] + ' ' + self.data['last_name']

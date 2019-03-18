@@ -23,10 +23,11 @@
                         <thead>
                         <tr>
                             <th>S/L</th>
+                            <th> </th>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Description</th>
-                            <th>Rank</th>
+                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Department</th>
                         </tr>
                         </thead>
@@ -34,10 +35,11 @@
                             {% for emp in employees %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ emp.name }}</td>
+                                    <td>{{ emp.get_title_display }}</td>
+                                    <td>{{ emp.full_name }}</td>
                                     <td>{{ emp.code }}</td>
-                                    <td>{{ emp.description }}</td>
-                                    <td>{{ emp.rank }}</td>
+                                    <td>{{ emp.email }}</td>
+                                    <td>{{ emp.phone }}</td>
                                     <td>{{ emp.department.name }}</td>
                                 </tr>
                             {% endfor %}

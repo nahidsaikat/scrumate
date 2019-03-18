@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
-    DesignationFilter
-from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm
+    DesignationFilter, EmployeeFilter
+from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
+    EmployeeForm
 
 
 @login_required(login_url='/login/')
@@ -221,7 +222,7 @@ def designation_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def employee_list(request, **kwargs):
-    employee_filter = DesignationFilter(request.GET, queryset=Designation.objects.all())
+    employee_filter = EmployeeFilter(request.GET, queryset=Employee.objects.all())
     employee_list = employee_filter.qs
     page = request.GET.get('page', 1)
 
@@ -239,10 +240,11 @@ def employee_list(request, **kwargs):
 @login_required(login_url='/login/')
 def employee_add(request, **kwargs):
     if request.method == 'POST':
-        form = DesignationForm(request.POST)
+        form = EmployeeForm(request.POST)
         if form.is_valid():
+            form.cleaned_data['full_name'] = form.cleaned_data['first_name'] + ' ' + form.cleaned_data['last_name']
             form.save()
             return redirect('employee_list', permanent=True)
     else:
-        form = DesignationForm()
+        form = EmployeeForm()
     return render(request, 'employee/employee_add.html', {'form': form})

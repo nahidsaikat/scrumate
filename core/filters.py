@@ -1,6 +1,6 @@
 import django_filters
 from django.forms import DateInput
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -58,3 +58,12 @@ class DesignationFilter(django_filters.FilterSet):
     class Meta:
         model = Designation
         fields = ['name', 'code', 'department']
+
+
+class EmployeeFilter(django_filters.FilterSet):
+    full_name = django_filters.CharFilter(lookup_expr='icontains', label='Name')
+    code = django_filters.CharFilter(lookup_expr='icontains', label='Code')
+
+    class Meta:
+        model = Employee
+        fields = ['full_name', 'code', 'department']

@@ -88,3 +88,9 @@ PARTY_GENDER_CHOICES = (
     (1, _("Male")),
     (2, _("Female")),
 )
+
+PARTY_TITLE_CHOICES = (
+    (1, _("Mr.")),
+    (2, _("Mrs.")),
+    (3, _("Miss")),
+)
