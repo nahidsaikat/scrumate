@@ -217,3 +217,32 @@ def designation_add(request, **kwargs):
     else:
         form = DesignationForm()
     return render(request, 'designation/designation_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def employee_list(request, **kwargs):
+    employee_filter = DesignationFilter(request.GET, queryset=Designation.objects.all())
+    employee_list = employee_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(employee_list, settings.PAGE_SIZE)
+    try:
+        employees = paginator.page(page)
+    except PageNotAnInteger:
+        employees = paginator.page(1)
+    except EmptyPage:
+        employees = paginator.page(paginator.num_pages)
+
+    return render(request, 'employee/employee_list.html', {'employees': employees, 'filter': employee_filter})
+
+
+@login_required(login_url='/login/')
+def employee_add(request, **kwargs):
+    if request.method == 'POST':
+        form = DesignationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employee_list', permanent=True)
+    else:
+        form = DesignationForm()
+    return render(request, 'employee/employee_add.html', {'form': form})

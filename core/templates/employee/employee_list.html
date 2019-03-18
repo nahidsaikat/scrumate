@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form method="get">
+    {{ filter.form.as_table }}
+    <button class="btn btn-outline-dark active" type="submit">Search</button>
+</form>
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> Employee
+                    {% if user.is_authenticated %}
+                    <a class="float-right" href="{% url 'employee_add' %}">
+                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>S/L</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Rank</th>
+                            <th>Department</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for emp in employees %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ emp.name }}</td>
+                                    <td>{{ emp.code }}</td>
+                                    <td>{{ emp.description }}</td>
+                                    <td>{{ emp.rank }}</td>
+                                    <td>{{ emp.department.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if employees.has_other_pages %}
+                        <ul class="pagination">
+                            {% if employees.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ employees.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in employees.paginator.page_range %}
+                                {% if employees.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if employees.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ employees.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                      </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
