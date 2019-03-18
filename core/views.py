@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint
-from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter
+from .models import Project, Release, UserStory, Sprint, Issue
+from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm
 
 
@@ -130,7 +130,7 @@ def sprint_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def issue_list(request, **kwargs):
-    issue_filter = SprintFilter(request.GET, queryset=Sprint.objects.all())
+    issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
     issue_list = issue_filter.qs
     page = request.GET.get('page', 1)
 

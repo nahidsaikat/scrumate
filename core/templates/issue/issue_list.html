@@ -25,9 +25,10 @@
                             <th>S/L</th>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Department</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Project</th>
+                            <th>User Story</th>
+                            <th>Raise Date</th>
+                            <th>Raised By</th>
                             <th>Description</th>
                         </tr>
                         </thead>
@@ -37,9 +38,10 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ iss.name }}</td>
                                     <td>{{ iss.code }}</td>
-                                    <td>{{ iss.department.name }}</td>
-                                    <td>{{ iss.start_date }}</td>
-                                    <td>{{ iss.end_date }}</td>
+                                    <td>{{ iss.project.name }}</td>
+                                    <td>{{ iss.user_story.summary }}</td>
+                                    <td>{{ iss.raise_date }}</td>
+                                    <td>{{ iss.raised_by.full_name }}</td>
                                     <td>{{ iss.description }}</td>
                                 </tr>
                             {% endfor %}

@@ -158,8 +158,8 @@ class UserStory(models.Model):
     start_date = models.DateField(default=None, null=True, blank=True)
     end_date = models.DateField(default=None, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
-    analysed_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='analysed_user_stories')
-    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='approved_user_stories')
+    analysed_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='analysed_user_stories')
+    approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='approved_user_stories')
     status = models.IntegerField(choices=USERSTORY_STATUS_CHOICES, default=1, null=True, blank=True)
     comment = models.TextField(default='', null=True, blank=True)
 
@@ -175,8 +175,8 @@ class Issue(models.Model):
     user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
     raise_date = models.DateField(default=None)
     resolve_date = models.DateField(default=None, blank=True, null=True)
-    raised_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='raised_issues')
-    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_issues')
+    raised_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='raised_issues')
+    approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='approved_issues')
     comment = models.TextField(default='', blank=True, null=True)
 
     def __str__(self):
