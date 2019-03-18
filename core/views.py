@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from .models import Project, Release, UserStory, Sprint
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter
-from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm
+from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm
 
 
 @login_required(login_url='/login/')
@@ -148,10 +148,10 @@ def issue_list(request, **kwargs):
 @login_required(login_url='/login/')
 def issue_add(request, **kwargs):
     if request.method == 'POST':
-        form = SprintForm(request.POST)
+        form = IssueForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('issue_list', permanent=True)
     else:
-        form = SprintForm()
+        form = IssueForm()
     return render(request, 'issue/issue_add.html', {'form': form})

@@ -170,14 +170,14 @@ class UserStory(models.Model):
 class Issue(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True, null=True)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
     user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
     raise_date = models.DateField(default=None)
-    resolve_date = models.DateField(default=None)
+    resolve_date = models.DateField(default=None, blank=True, null=True)
     raised_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='raised_issues')
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_issues')
-    comment = models.TextField(default='')
+    comment = models.TextField(default='', blank=True, null=True)
 
     def __str__(self):
         return self.name
