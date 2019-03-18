@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<form method="post" class="post-form">
+    {% csrf_token %}
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>New Issue</strong>
+                {% if user.is_authenticated %}
+                <span class="float-right">
+                    <a class="ml-3" href="{% url 'issue_list' %}">
+                        <i class="fa fa-list fa-lg"></i>
+                    </a>
+                </span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% include 'includes/form.html' with form=form %}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

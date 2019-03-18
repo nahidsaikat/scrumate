@@ -126,3 +126,32 @@ def sprint_add(request, **kwargs):
     else:
         form = SprintForm()
     return render(request, 'sprint/sprint_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def issue_list(request, **kwargs):
+    issue_filter = SprintFilter(request.GET, queryset=Sprint.objects.all())
+    issue_list = issue_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(issue_list, settings.PAGE_SIZE)
+    try:
+        issues = paginator.page(page)
+    except PageNotAnInteger:
+        issues = paginator.page(1)
+    except EmptyPage:
+        issues = paginator.page(paginator.num_pages)
+
+    return render(request, 'issue/issue_list.html', {'issues': issues, 'filter': issue_filter})
+
+
+@login_required(login_url='/login/')
+def issue_add(request, **kwargs):
+    if request.method == 'POST':
+        form = SprintForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('issue_list', permanent=True)
+    else:
+        form = SprintForm()
+    return render(request, 'issue/issue_add.html', {'form': form})

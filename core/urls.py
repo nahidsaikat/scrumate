@@ -11,6 +11,6 @@ urlpatterns = [
     path('user_story/add/', views.user_story_add, name='user_story_add'),
     path('sprint/', views.sprint_list, name='sprint_list'),
     path('sprint/add/', views.sprint_add, name='sprint_add'),
-    path('issue/', views.sprint_list, name='issue_list'),
-    path('issue/add/', views.sprint_add, name='issue_add'),
+    path('issue/', views.issue_list, name='issue_list'),
+    path('issue/add/', views.issue_add, name='issue_add'),
 ]

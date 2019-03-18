@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form method="get">
+    {{ filter.form.as_table }}
+    <button class="btn btn-outline-dark active" type="submit">Search</button>
+</form>
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> Issue List
+                    {% if user.is_authenticated %}
+                    <a class="float-right" href="{% url 'issue_add' %}">
+                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>S/L</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Department</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for iss in issues %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ iss.name }}</td>
+                                    <td>{{ iss.code }}</td>
+                                    <td>{{ iss.department.name }}</td>
+                                    <td>{{ iss.start_date }}</td>
+                                    <td>{{ iss.end_date }}</td>
+                                    <td>{{ iss.description }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if issues.has_other_pages %}
+                        <ul class="pagination">
+                            {% if issues.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ issues.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in issues.paginator.page_range %}
+                                {% if issues.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if issues.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ issues.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                      </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
