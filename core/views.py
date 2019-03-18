@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint, Issue
-from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter
-from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm
+from .models import Project, Release, UserStory, Sprint, Issue, Department
+from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter
+from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm
 
 
 @login_required(login_url='/login/')
@@ -162,7 +162,7 @@ def issue_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def department_list(request, **kwargs):
-    department_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
+    department_filter = DepartmentFilter(request.GET, queryset=Department.objects.all())
     department_list = department_filter.qs
     page = request.GET.get('page', 1)
 
@@ -180,10 +180,10 @@ def department_list(request, **kwargs):
 @login_required(login_url='/login/')
 def department_add(request, **kwargs):
     if request.method == 'POST':
-        form = IssueForm(request.POST)
+        form = DepartmentForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('department_list', permanent=True)
     else:
-        form = IssueForm()
+        form = DepartmentForm()
     return render(request, 'department/department_add.html', {'form': form})

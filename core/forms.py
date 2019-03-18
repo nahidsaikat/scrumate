@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea, DateInput
-from .models import Project, Release, UserStory, Sprint, Issue
+from .models import Project, Release, UserStory, Sprint, Issue, Department
 
 
 class ProjectForm(ModelForm):
@@ -57,4 +57,13 @@ class IssueForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'raise_date': DateInput(attrs={'type': 'date'}),
+        }
+
+
+class DepartmentForm(ModelForm):
+    class Meta:
+        model = Department
+        fields = '__all__'
+        widgets = {
+            'description': Textarea(attrs={'cols': 25, 'rows': 3}),
         }

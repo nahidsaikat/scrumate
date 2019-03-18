@@ -25,9 +25,6 @@
                             <th>S/L</th>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Department</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
                             <th>Description</th>
                         </tr>
                         </thead>
@@ -37,9 +34,6 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ dep.name }}</td>
                                     <td>{{ dep.code }}</td>
-                                    <td>{{ dep.department.name }}</td>
-                                    <td>{{ dep.start_date }}</td>
-                                    <td>{{ dep.end_date }}</td>
                                     <td>{{ dep.description }}</td>
                                 </tr>
                             {% endfor %}
