@@ -12,6 +12,12 @@ PROJECT_TYPE_CHOICES = (
     (3, _("In House")),
 )
 
+PRIORITY_CHOICES = (
+    (1, _("Low")),
+    (2, _("Medium")),
+    (3, _("High")),
+)
+
 USERSTORY_STATUS_CHOICES = (
     (1, _("Pending")),
     (2, _("Analysing")),

@@ -2,7 +2,8 @@ import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES
+    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
+    PRIORITY_CHOICES
 
 User = get_user_model()
 
@@ -208,7 +209,7 @@ class Task(models.Model):
     estimation = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
     start_date = models.DateField(default=None)
     end_date = models.DateField(default=None)
-    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, default=None, null=True)
+    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True)
     assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_tasks')
     assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_tasks')
     assign_date = models.DateField(default=None)
@@ -229,7 +230,7 @@ class Deliverable(models.Model):
     user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
     sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
     estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
-    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, default=None, null=True)
+    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True)
     assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     assign_date = models.DateField(default=None)
     release_date = models.DateField(default=None)

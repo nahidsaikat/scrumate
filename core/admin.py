@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Project, Release, UserStory, Division, Department, Designation, Dashboard, Portlet, \
-    DashboardPortlet, Priority, Label, Issue, Sprint, Task, Deliverable, DailyScrum, OverTime, Party, Employee, Client
+
+from .models import Project, Release, UserStory, Department, Designation, Sprint, Task, Deliverable, DailyScrum, \
+    Employee, Client
 
 admin.site.register(Project)
 admin.site.register(Release)
@@ -11,7 +12,7 @@ admin.site.register(Designation)
 # admin.site.register(Dashboard)
 # admin.site.register(Portlet)
 # admin.site.register(DashboardPortlet)
-admin.site.register(Priority)
+# admin.site.register(Priority)
 # admin.site.register(Label)
 # admin.site.register(Issue)
 admin.site.register(Sprint)
