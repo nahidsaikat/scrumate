@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
     DesignationFilter, EmployeeFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
-    EmployeeForm
+    EmployeeForm, ClientForm
 
 
 @login_required(login_url='/login/')
@@ -242,7 +242,6 @@ def employee_add(request, **kwargs):
     if request.method == 'POST':
         form = EmployeeForm(request.POST)
         if form.is_valid():
-            form.cleaned_data['full_name'] = form.cleaned_data['first_name'] + ' ' + form.cleaned_data['last_name']
             form.save()
             return redirect('employee_list', permanent=True)
     else:
@@ -270,11 +269,10 @@ def client_list(request, **kwargs):
 @login_required(login_url='/login/')
 def client_add(request, **kwargs):
     if request.method == 'POST':
-        form = EmployeeForm(request.POST)
+        form = ClientForm(request.POST)
         if form.is_valid():
-            form.cleaned_data['full_name'] = form.cleaned_data['first_name'] + ' ' + form.cleaned_data['last_name']
             form.save()
             return redirect('client_list', permanent=True)
     else:
-        form = EmployeeForm()
+        form = ClientForm()
     return render(request, 'client/client_add.html', {'form': form})

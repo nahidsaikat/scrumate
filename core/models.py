@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
     COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
-    PRIORITY_CHOICES, PARTY_TITLE_CHOICES
+    PRIORITY_CHOICES, PARTY_TITLE_CHOICES, PARTY_SUBTYPE_CHOICES
 
 User = get_user_model()
 
@@ -48,7 +48,6 @@ class Party(models.Model):
     email = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=100, null=True)
     code = models.CharField(max_length=100, null=True, blank=True)
-    type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=1)
     username = models.CharField(max_length=100, null=True, blank=True)
     password = models.CharField(max_length=100, null=True, blank=True)
     address_line_1 = models.CharField(max_length=100, null=True)
@@ -61,13 +60,15 @@ class Party(models.Model):
 
 
 class Employee(Party):
+    type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=1)
     gender = models.IntegerField(choices=PARTY_GENDER_CHOICES)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
     designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)
 
 
 class Client(Party):
-    sub_type = models.IntegerField(choices=PARTY_TYPE_CHOICES)
+    type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=2)
+    sub_type = models.IntegerField(choices=PARTY_SUBTYPE_CHOICES, default=2)
 
 
 class Priority(models.Model):
