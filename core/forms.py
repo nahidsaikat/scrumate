@@ -101,3 +101,6 @@ class ClientForm(ModelForm):
         widgets = {
             'full_name': HiddenInput()
         }
+
+    def clean_full_name(self):
+        return self.data['first_name'] + ' ' + self.data['last_name']
