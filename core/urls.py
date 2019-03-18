@@ -13,4 +13,8 @@ urlpatterns = [
     path('sprint/add/', views.sprint_add, name='sprint_add'),
     path('issue/', views.issue_list, name='issue_list'),
     path('issue/add/', views.issue_add, name='issue_add'),
+
+    # Settings
+    path('department/', views.issue_list, name='department_list'),
+    path('department/add/', views.issue_add, name='department_add'),
 ]
