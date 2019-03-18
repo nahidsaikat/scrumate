@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
-    DesignationFilter, EmployeeFilter
+    DesignationFilter, EmployeeFilter, ClientFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm
 
@@ -251,7 +251,7 @@ def employee_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def client_list(request, **kwargs):
-    client_filter = EmployeeFilter(request.GET, queryset=Employee.objects.all())
+    client_filter = ClientFilter(request.GET, queryset=Client.objects.all())
     client_list = client_filter.qs
     page = request.GET.get('page', 1)
 

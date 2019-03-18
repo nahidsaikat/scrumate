@@ -28,7 +28,7 @@
                             <th>Code</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th>Department</th>
+                            <th>Sub Type</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -40,7 +40,7 @@
                                     <td>{{ cli.code }}</td>
                                     <td>{{ cli.email }}</td>
                                     <td>{{ cli.phone }}</td>
-                                    <td>{{ cli.department.name }}</td>
+                                    <td>{{ cli.get_sub_type_display }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
