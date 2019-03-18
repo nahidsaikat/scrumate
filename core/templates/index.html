@@ -100,22 +100,28 @@
                     <a class="nav-link" href="{% url 'issue_list' %}">
                         <i class="fa fa-bug mr-3"></i> Issues</a>
                 </li>
-                <li class="nav-title">Settings</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'department_list' %}">
-                        <i class="fa fa-empire mr-3"></i> Department</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'designation_list' %}">
-                        <i class="fa fa-connectdevelop mr-3"></i> Designation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'employee_list' %}">
-                        <i class="icons icon-people mr-3"></i> Employee</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'client_list' %}">
-                        <i class="icons cui-people mr-3"></i> Client</a>
+
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="fa fa-cogs mr-3"></i> Settings</a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'department_list' %}">
+                                <i class="fa fa-empire mr-3"></i> Department</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'designation_list' %}">
+                                <i class="fa fa-connectdevelop mr-3"></i> Designation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'employee_list' %}">
+                                <i class="icons icon-people mr-3"></i> Employee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'client_list' %}">
+                                <i class="icons cui-people mr-3"></i> Client</a>
+                        </li>
+                    </ul>
                 </li>
                 {% endif %}
             </ul>
