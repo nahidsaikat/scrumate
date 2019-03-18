@@ -32,8 +32,8 @@ class Designation(models.Model):
     code = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
-    department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     rank = models.IntegerField(default=None, null=True)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True, blank=True)
 
     def __str__(self):
         return self.name

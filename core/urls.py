@@ -17,4 +17,6 @@ urlpatterns = [
     # Settings
     path('department/', views.department_list, name='department_list'),
     path('department/add/', views.department_add, name='department_add'),
+    path('designation/', views.designation_list, name='designation_list'),
+    path('designation/add/', views.designation_add, name='designation_add'),
 ]

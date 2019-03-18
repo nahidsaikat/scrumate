@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint, Issue, Department
-from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter
-from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation
+from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
+    DesignationFilter
+from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm
 
 
 @login_required(login_url='/login/')
@@ -187,3 +188,32 @@ def department_add(request, **kwargs):
     else:
         form = DepartmentForm()
     return render(request, 'department/department_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def designation_list(request, **kwargs):
+    designation_filter = DesignationFilter(request.GET, queryset=Designation.objects.all())
+    designation_list = designation_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(designation_list, settings.PAGE_SIZE)
+    try:
+        designations = paginator.page(page)
+    except PageNotAnInteger:
+        designations = paginator.page(1)
+    except EmptyPage:
+        designations = paginator.page(paginator.num_pages)
+
+    return render(request, 'designation/designation_list.html', {'designations': designations, 'filter': designation_filter})
+
+
+@login_required(login_url='/login/')
+def designation_add(request, **kwargs):
+    if request.method == 'POST':
+        form = DesignationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('designation_list', permanent=True)
+    else:
+        form = DesignationForm()
+    return render(request, 'designation/designation_add.html', {'form': form})
