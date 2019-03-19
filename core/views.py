@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
-    DesignationFilter, EmployeeFilter, ClientFilter
+    DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm, TaskForm
 
@@ -132,7 +132,7 @@ def sprint_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def task_list(request, **kwargs):
-    task_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
+    task_filter = TaskFilter(request.GET, queryset=Task.objects.all())
     task_list = task_filter.qs
     page = request.GET.get('page', 1)
 

@@ -1,6 +1,6 @@
 import django_filters
 from django.forms import DateInput
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -32,6 +32,13 @@ class SprintFilter(django_filters.FilterSet):
     class Meta:
         model = Sprint
         fields = ['name', 'department']
+
+
+class TaskFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Task
+        fields = ['name', 'project', 'category', 'responsible']
 
 
 class IssueFilter(django_filters.FilterSet):

@@ -24,11 +24,13 @@
                         <tr>
                             <th>S/L</th>
                             <th>Name</th>
-                            <th>Code</th>
-                            <th>Department</th>
+                            <th>Project</th>
+                            <th>Category</th>
+                            <th>Responsible</th>
+                            <th>Priority</th>
                             <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Description</th>
+                            <th>Assignee</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,11 +38,13 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ tas.name }}</td>
-                                    <td>{{ tas.code }}</td>
-                                    <td>{{ tas.department.name }}</td>
+                                    <td>{{ tas.project.name }}</td>
+                                    <td>{{ tas.get_category_display }}</td>
+                                    <td>{{ tas.responsible.full_name }}</td>
+                                    <td>{{ tas.get_priority_display }}</td>
                                     <td>{{ tas.start_date }}</td>
-                                    <td>{{ tas.end_date }}</td>
-                                    <td>{{ tas.description }}</td>
+                                    <td>{{ tas.assignee.full_name }}</td>
+                                    <td>{{ tas.get_status_display }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
