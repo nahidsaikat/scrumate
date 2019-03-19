@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea, DateInput, HiddenInput
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task
 
 
 class ProjectForm(ModelForm):
@@ -46,6 +46,19 @@ class SprintForm(ModelForm):
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'})
+        }
+
+
+class TaskForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = '__all__'
+        exclude = ()
+        widgets = {
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'}),
+            'assign_date': DateInput(attrs={'type': 'date'}),
+            'approved_date': DateInput(attrs={'type': 'date'}),
         }
 
 

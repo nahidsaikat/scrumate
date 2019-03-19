@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
     DesignationFilter, EmployeeFilter, ClientFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
-    EmployeeForm, ClientForm
+    EmployeeForm, ClientForm, TaskForm
 
 
 @login_required(login_url='/login/')
@@ -150,12 +150,12 @@ def task_list(request, **kwargs):
 @login_required(login_url='/login/')
 def task_add(request, **kwargs):
     if request.method == 'POST':
-        form = IssueForm(request.POST)
+        form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('task_list', permanent=True)
     else:
-        form = IssueForm()
+        form = TaskForm()
     return render(request, 'task/task_add.html', {'form': form})
 
 
