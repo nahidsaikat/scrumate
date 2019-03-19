@@ -134,6 +134,7 @@ STATICFILES_FINDERS = (
 )
 
 LOGIN_URL='/login'
-LOGIN_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 DATE_INPUT_FORMATS = ('%Y-%m-%d', '%d-%m-%Y')
