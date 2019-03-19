@@ -225,17 +225,17 @@ class Task(models.Model):
 
 class Deliverable(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(default='')
+    description = models.TextField(default='', null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
     release = models.ForeignKey(Release, on_delete=models.SET_NULL, default=None, null=True)
     user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
     sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
-    estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
-    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True)
-    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
-    assign_date = models.DateField(default=None)
-    release_date = models.DateField(default=None)
-    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
+    estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
+    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True, blank=True)
+    assignee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True)
+    assign_date = models.DateField(default=None, null=True, blank=True)
+    release_date = models.DateField(default=None, null=True, blank=True)
+    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1, null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -6,7 +6,7 @@ from .models import Project, Release, UserStory, Sprint, Issue, Department, Desi
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
     DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
-    EmployeeForm, ClientForm, TaskForm
+    EmployeeForm, ClientForm, TaskForm, DeliverableForm
 
 
 @login_required(login_url='/login/')
@@ -179,12 +179,12 @@ def deliverable_list(request, **kwargs):
 @login_required(login_url='/login/')
 def deliverable_add(request, **kwargs):
     if request.method == 'POST':
-        form = TaskForm(request.POST)
+        form = DeliverableForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('deliverable_list', permanent=True)
     else:
-        form = TaskForm()
+        form = DeliverableForm()
     return render(request, 'deliverable/deliverable_add.html', {'form': form})
 
 
