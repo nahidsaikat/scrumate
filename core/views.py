@@ -131,6 +131,35 @@ def sprint_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def task_list(request, **kwargs):
+    task_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
+    task_list = task_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(task_list, settings.PAGE_SIZE)
+    try:
+        tasks = paginator.page(page)
+    except PageNotAnInteger:
+        tasks = paginator.page(1)
+    except EmptyPage:
+        tasks = paginator.page(paginator.num_pages)
+
+    return render(request, 'task/task_list.html', {'tasks': tasks, 'filter': task_filter})
+
+
+@login_required(login_url='/login/')
+def task_add(request, **kwargs):
+    if request.method == 'POST':
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('task_list', permanent=True)
+    else:
+        form = IssueForm()
+    return render(request, 'task/task_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def issue_list(request, **kwargs):
     issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
     issue_list = issue_filter.qs
