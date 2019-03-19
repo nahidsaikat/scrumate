@@ -13,6 +13,8 @@ urlpatterns = [
     path('sprint/add/', views.sprint_add, name='sprint_add'),
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
+    path('deliverable/', views.task_list, name='deliverable_list'),
+    path('deliverable/add/', views.task_add, name='deliverable_add'),
     path('issue/', views.issue_list, name='issue_list'),
     path('issue/add/', views.issue_add, name='issue_add'),
 
