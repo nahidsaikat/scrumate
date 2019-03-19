@@ -25,10 +25,10 @@
                             <th>S/L</th>
                             <th>Name</th>
                             <th>Project</th>
-                            <th>Category</th>
-                            <th>Responsible</th>
+                            <th>Release</th>
+                            <th>Sprint</th>
+                            <th>Estimated</th>
                             <th>Priority</th>
-                            <th>Start Date</th>
                             <th>Assignee</th>
                             <th>Status</th>
                         </tr>
@@ -39,10 +39,10 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ deli.name }}</td>
                                     <td>{{ deli.project.name }}</td>
-                                    <td>{{ deli.get_category_display }}</td>
-                                    <td>{{ deli.responsible.full_name }}</td>
+                                    <td>{{ deli.release.name }}</td>
+                                    <td>{{ deli.sprint.name }}</td>
+                                    <td>{{ deli.estimated }}</td>
                                     <td>{{ deli.get_priority_display }}</td>
-                                    <td>{{ deli.start_date }}</td>
                                     <td>{{ deli.assignee.full_name }}</td>
                                     <td>{{ deli.get_status_display }}</td>
                                 </tr>

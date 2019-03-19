@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
+    Deliverable
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
-    DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter
+    DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter, DeliverableFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm, TaskForm, DeliverableForm
 
@@ -161,7 +162,7 @@ def task_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def deliverable_list(request, **kwargs):
-    deliverable_filter = TaskFilter(request.GET, queryset=Task.objects.all())
+    deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
     deliverable_list = deliverable_filter.qs
     page = request.GET.get('page', 1)
 

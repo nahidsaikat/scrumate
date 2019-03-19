@@ -1,6 +1,7 @@
 import django_filters
 from django.forms import DateInput
-from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task
+from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
+    Deliverable
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -40,6 +41,14 @@ class TaskFilter(django_filters.FilterSet):
     class Meta:
         model = Task
         fields = ['name', 'project', 'category', 'responsible']
+
+
+class DeliverableFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='icontains', label='Name')
+
+    class Meta:
+        model = Deliverable
+        fields = ['name', 'project', 'release', 'sprint', 'assignee']
 
 
 class IssueFilter(django_filters.FilterSet):
