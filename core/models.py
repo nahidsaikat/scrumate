@@ -248,11 +248,11 @@ class DailyScrum(models.Model):
     sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
     task = models.ForeignKey(Task, on_delete=models.SET_NULL, default=None, null=True)
     deliverable = models.ForeignKey(Deliverable, on_delete=models.SET_NULL, default=None, null=True)
-    entry_date = models.DateField(default=None)
-    estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
-    actual_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
-    comment = models.TextField(default='')
+    entry_date = models.DateField(default=None, null=True, blank=True)
+    estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
+    actual_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True)
+    comment = models.TextField(default='', null=True, blank=True)
 
     def __str__(self):
         return self.project.name + ' ' + self.task.name

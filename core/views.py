@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
-    Deliverable
+    Deliverable, DailyScrum
 from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, DepartmentFilter, \
-    DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter, DeliverableFilter
+    DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter, DeliverableFilter, DailyScrumFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm, TaskForm, DeliverableForm, DailyScrumForm
 
@@ -191,7 +191,7 @@ def deliverable_add(request, **kwargs):
 
 @login_required(login_url='/login/')
 def daily_scrum_list(request, **kwargs):
-    daily_scrum_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
+    daily_scrum_filter = DailyScrumFilter(request.GET, queryset=DailyScrum.objects.all())
     daily_scrum_list = daily_scrum_filter.qs
     page = request.GET.get('page', 1)
 

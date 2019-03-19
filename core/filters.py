@@ -1,7 +1,7 @@
 import django_filters
 from django.forms import DateInput
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
-    Deliverable
+    Deliverable, DailyScrum
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -49,6 +49,13 @@ class DeliverableFilter(django_filters.FilterSet):
     class Meta:
         model = Deliverable
         fields = ['name', 'project', 'release', 'sprint', 'assignee']
+
+
+class DailyScrumFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = DailyScrum
+        fields = ['project', 'release', 'sprint', 'employee']
 
 
 class IssueFilter(django_filters.FilterSet):

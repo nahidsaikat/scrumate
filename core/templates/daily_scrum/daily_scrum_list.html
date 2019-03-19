@@ -23,28 +23,28 @@
                         <thead>
                         <tr>
                             <th>S/L</th>
-                            <th>Name</th>
                             <th>Project</th>
                             <th>Release</th>
                             <th>Sprint</th>
+                            <th>Task</th>
+                            <th>Deliverable</th>
                             <th>Estimated</th>
-                            <th>Priority</th>
-                            <th>Assignee</th>
-                            <th>Status</th>
+                            <th>Actual</th>
+                            <th>Employee</th>
                         </tr>
                         </thead>
                         <tbody>
                             {% for daily in daily_scrums %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ daily.name }}</td>
                                     <td>{{ daily.project.name }}</td>
                                     <td>{{ daily.release.name }}</td>
                                     <td>{{ daily.sprint.name }}</td>
-                                    <td>{{ daily.estimated }}</td>
-                                    <td>{{ daily.get_priority_display }}</td>
-                                    <td>{{ daily.assignee.full_name }}</td>
-                                    <td>{{ daily.get_status_display }}</td>
+                                    <td>{{ daily.task.name }}</td>
+                                    <td>{{ daily.deliverable.name }}</td>
+                                    <td>{{ daily.estimated_hour }}</td>
+                                    <td>{{ daily.actual_hour }}</td>
+                                    <td>{{ daily.employee.full_name }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
