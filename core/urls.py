@@ -17,8 +17,8 @@ urlpatterns = [
     path('deliverable/add/', views.deliverable_add, name='deliverable_add'),
     path('issue/', views.issue_list, name='issue_list'),
     path('issue/add/', views.issue_add, name='issue_add'),
-    path('daily_scrum/', views.issue_list, name='daily_scrum_list'),
-    path('daily_scrum/add/', views.issue_add, name='daily_scrum_add'),
+    path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
+    path('daily_scrum/add/', views.daily_scrum_add, name='daily_scrum_add'),
 
     # Settings
     path('department/', views.department_list, name='department_list'),

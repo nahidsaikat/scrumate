@@ -190,6 +190,35 @@ def deliverable_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def daily_scrum_list(request, **kwargs):
+    daily_scrum_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
+    daily_scrum_list = daily_scrum_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(daily_scrum_list, settings.PAGE_SIZE)
+    try:
+        daily_scrums = paginator.page(page)
+    except PageNotAnInteger:
+        daily_scrums = paginator.page(1)
+    except EmptyPage:
+        daily_scrums = paginator.page(paginator.num_pages)
+
+    return render(request, 'daily_scrum/daily_scrum_list.html', {'daily_scrums': daily_scrums, 'filter': daily_scrum_filter})
+
+
+@login_required(login_url='/login/')
+def daily_scrum_add(request, **kwargs):
+    if request.method == 'POST':
+        form = DeliverableForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('daily_scrum_list', permanent=True)
+    else:
+        form = DeliverableForm()
+    return render(request, 'daily_scrum/daily_scrum_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def issue_list(request, **kwargs):
     issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
     issue_list = issue_filter.qs

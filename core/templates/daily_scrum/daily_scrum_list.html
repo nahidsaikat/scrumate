@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form method="get">
+    {{ filter.form.as_table }}
+    <button class="btn btn-outline-dark active" type="submit">Search</button>
+</form>
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> Daily Scrum Log
+                    {% if user.is_authenticated %}
+                    <a class="float-right" href="{% url 'daily_scrum_add' %}">
+                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>S/L</th>
+                            <th>Name</th>
+                            <th>Project</th>
+                            <th>Release</th>
+                            <th>Sprint</th>
+                            <th>Estimated</th>
+                            <th>Priority</th>
+                            <th>Assignee</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for daily in daily_scrums %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ daily.name }}</td>
+                                    <td>{{ daily.project.name }}</td>
+                                    <td>{{ daily.release.name }}</td>
+                                    <td>{{ daily.sprint.name }}</td>
+                                    <td>{{ daily.estimated }}</td>
+                                    <td>{{ daily.get_priority_display }}</td>
+                                    <td>{{ daily.assignee.full_name }}</td>
+                                    <td>{{ daily.get_status_display }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if daily_scrums.has_other_pages %}
+                        <ul class="pagination">
+                            {% if daily_scrums.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ daily_scrums.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in daily_scrums.paginator.page_range %}
+                                {% if daily_scrums.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if daily_scrums.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ daily_scrums.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                      </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
