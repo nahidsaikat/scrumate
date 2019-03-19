@@ -35,6 +35,7 @@ class SprintFilter(django_filters.FilterSet):
 
 
 class TaskFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='icontains', label='Name')
 
     class Meta:
         model = Task
