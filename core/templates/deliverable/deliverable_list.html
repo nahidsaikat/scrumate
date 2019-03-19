@@ -11,9 +11,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-list fa-lg"></i> Task List
+                    <i class="fa fa-list fa-lg"></i> Deliverables
                     {% if user.is_authenticated %}
-                    <a class="float-right" href="{% url 'task_add' %}">
+                    <a class="float-right" href="{% url 'deliverable_add' %}">
                         <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
                     </a>
                     {% endif %}
@@ -34,37 +34,37 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for tas in tasks %}
+                            {% for deli in deliverables %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ tas.name }}</td>
-                                    <td>{{ tas.project.name }}</td>
-                                    <td>{{ tas.get_category_display }}</td>
-                                    <td>{{ tas.responsible.full_name }}</td>
-                                    <td>{{ tas.get_priority_display }}</td>
-                                    <td>{{ tas.start_date }}</td>
-                                    <td>{{ tas.assignee.full_name }}</td>
-                                    <td>{{ tas.get_status_display }}</td>
+                                    <td>{{ deli.name }}</td>
+                                    <td>{{ deli.project.name }}</td>
+                                    <td>{{ deli.get_category_display }}</td>
+                                    <td>{{ deli.responsible.full_name }}</td>
+                                    <td>{{ deli.get_priority_display }}</td>
+                                    <td>{{ deli.start_date }}</td>
+                                    <td>{{ deli.assignee.full_name }}</td>
+                                    <td>{{ deli.get_status_display }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if tasks.has_other_pages %}
+                    {% if deliverables.has_other_pages %}
                         <ul class="pagination">
-                            {% if tasks.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">&laquo;</a></li>
+                            {% if deliverables.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ deliverables.previous_page_number }}">&laquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                             {% endif %}
-                            {% for i in tasks.paginator.page_range %}
-                                {% if tasks.number == i %}
+                            {% for i in deliverables.paginator.page_range %}
+                                {% if deliverables.number == i %}
                                     <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
                                 {% else %}
                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if tasks.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">&raquo;</a></li>
+                            {% if deliverables.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ deliverables.next_page_number }}">&raquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
                             {% endif %}

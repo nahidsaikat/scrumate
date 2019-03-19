@@ -160,6 +160,35 @@ def task_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def deliverable_list(request, **kwargs):
+    deliverable_filter = TaskFilter(request.GET, queryset=Task.objects.all())
+    deliverable_list = deliverable_filter.qs
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(deliverable_list, settings.PAGE_SIZE)
+    try:
+        deliverables = paginator.page(page)
+    except PageNotAnInteger:
+        deliverables = paginator.page(1)
+    except EmptyPage:
+        deliverables = paginator.page(paginator.num_pages)
+
+    return render(request, 'deliverable/deliverable_list.html', {'deliverables': deliverables, 'filter': deliverable_filter})
+
+
+@login_required(login_url='/login/')
+def deliverable_add(request, **kwargs):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('deliverable_list', permanent=True)
+    else:
+        form = TaskForm()
+    return render(request, 'deliverable/deliverable_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def issue_list(request, **kwargs):
     issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
     issue_list = issue_filter.qs
