@@ -1,6 +1,6 @@
 from django.forms import ModelForm, Textarea, DateInput, HiddenInput
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
-    Deliverable
+    Deliverable, DailyScrum
 
 
 class ProjectForm(ModelForm):
@@ -72,6 +72,17 @@ class DeliverableForm(ModelForm):
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'assign_date': DateInput(attrs={'type': 'date'}),
             'release_date': DateInput(attrs={'type': 'date'}),
+        }
+
+
+class DailyScrumForm(ModelForm):
+    class Meta:
+        model = DailyScrum
+        fields = '__all__'
+        exclude = ()
+        widgets = {
+            'comment': Textarea(attrs={'cols': 25, 'rows': 3}),
+            'entry_date': DateInput(attrs={'type': 'date'}),
         }
 
 
