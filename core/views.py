@@ -16,6 +16,11 @@ def index(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def profile(request, **kwargs):
+    return render(request, 'profile.html', {'user': request.user})
+
+
+@login_required(login_url='/login/')
 def project_list(request, **kwargs):
     project_filter = ProjectFilter(request.GET, queryset=Project.objects.all())
     project_list = project_filter.qs
