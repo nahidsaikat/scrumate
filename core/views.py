@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
@@ -8,6 +9,8 @@ from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter
     DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter, DeliverableFilter, DailyScrumFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm, TaskForm, DeliverableForm, DailyScrumForm
+
+User = get_user_model()
 
 
 @login_required(login_url='/login/')
@@ -335,6 +338,15 @@ def employee_add(request, **kwargs):
     if request.method == 'POST':
         form = EmployeeForm(request.POST)
         if form.is_valid():
+            user = User.objects.create_user(
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+                email=form.cleaned_data['email']
+            )
+            if user:
+                form.cleaned_data['user'] = user
             form.save()
             return redirect('employee_list', permanent=True)
     else:
@@ -364,6 +376,15 @@ def client_add(request, **kwargs):
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
+            user = User.objects.create_user(
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+                email=form.cleaned_data['email']
+            )
+            if user:
+                form.cleaned_data['user'] = user
             form.save()
             return redirect('client_list', permanent=True)
     else:

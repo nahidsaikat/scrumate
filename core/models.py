@@ -40,6 +40,7 @@ class Designation(models.Model):
 
 
 class Party(models.Model):
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     title = models.IntegerField(choices=PARTY_TITLE_CHOICES, default=1)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
