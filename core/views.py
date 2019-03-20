@@ -20,7 +20,8 @@ def index(request, **kwargs):
 
 @login_required(login_url='/login/')
 def profile(request, **kwargs):
-    return render(request, 'profile.html', {'user': request.user})
+    employee = request.user.employee if request.user and hasattr(request.user, 'employee') else None
+    return render(request, 'profile.html', {'employee': employee})
 
 
 @login_required(login_url='/login/')
@@ -346,7 +347,7 @@ def employee_add(request, **kwargs):
                 email=form.cleaned_data['email']
             )
             if user:
-                form.cleaned_data['user'] = user
+                form.cleaned_data['user_id'] = user.id
             form.save()
             return redirect('employee_list', permanent=True)
     else:
@@ -384,7 +385,7 @@ def client_add(request, **kwargs):
                 email=form.cleaned_data['email']
             )
             if user:
-                form.cleaned_data['user'] = user
+                form.cleaned_data['user_id'] = user.id
             form.save()
             return redirect('client_list', permanent=True)
     else:

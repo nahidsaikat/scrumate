@@ -40,7 +40,6 @@ class Designation(models.Model):
 
 
 class Party(models.Model):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     title = models.IntegerField(choices=PARTY_TITLE_CHOICES, default=1)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
@@ -61,6 +60,7 @@ class Party(models.Model):
 
 
 class Employee(Party):
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='employee')
     type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=1)
     gender = models.IntegerField(choices=PARTY_GENDER_CHOICES)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
@@ -68,6 +68,7 @@ class Employee(Party):
 
 
 class Client(Party):
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='client')
     type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=2)
     sub_type = models.IntegerField(choices=PARTY_SUBTYPE_CHOICES, default=2)
 
