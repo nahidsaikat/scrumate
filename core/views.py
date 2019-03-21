@@ -344,6 +344,16 @@ def issue_add(request, **kwargs):
     return render(request, 'issue/issue_add.html', {'form': form})
 
 
+@login_required(login_url='/login/')
+def issue_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Issue, id=pk)
+    form = IssueForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('issue_list')
+    return render(request, 'issue/issue_add.html', {'form': form})
+
+
 
 
 
