@@ -419,3 +419,13 @@ def client_add(request, **kwargs):
     else:
         form = ClientForm()
     return render(request, 'client/client_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def client_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Client, id=pk)
+    form = ClientForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('client_list')
+    return render(request, 'client/client_add.html', {'form': form})

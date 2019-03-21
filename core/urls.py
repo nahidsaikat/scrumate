@@ -35,4 +35,5 @@ urlpatterns = [
     path('employee/<int:pk>/edit/', views.employee_edit, name='employee_edit'),
     path('client/', views.client_list, name='client_list'),
     path('client/add/', views.client_add, name='client_add'),
+    path('client/<int:pk>/edit/', views.client_edit, name='client_edit'),
 ]
