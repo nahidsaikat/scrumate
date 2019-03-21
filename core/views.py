@@ -111,6 +111,16 @@ def release_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def release_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Release, id=pk)
+    form = ReleaseForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('release_list')
+    return render(request, 'releases/release_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def user_story_list(request, **kwargs):
     user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.all())
     user_story_list = user_story_filter.qs
