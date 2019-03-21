@@ -7,7 +7,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <strong>New Project</strong>
+                <strong>{% if form.instance.id %}Edit{% else %}New{% endif %} Project</strong>
                 {% if user.is_authenticated %}
                 <span class="float-right">
                     <a class="ml-3" href="{% url 'project_list' %}">

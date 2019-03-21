@@ -10,6 +10,7 @@ urlpatterns = [
     # Main functionalities
     path('project/', views.project_list, name='project_list'),
     path('project/add/', views.project_add, name='project_add'),
+    path('project/<int:pk>/edit/', views.project_edit, name='project_edit'),
     path('release/', views.release_list, name='release_list'),
     path('release/add/', views.release_add, name='release_add'),
     path('user_story/', views.user_story_list, name='user_story_list'),

@@ -72,6 +72,16 @@ def project_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def project_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Project, id=pk)
+    form = ProjectForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('project_list')
+    return render(request, 'projects/project_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def release_list(request, **kwargs):
     release_filter = ReleaseFilter(request.GET, queryset=Release.objects.all())
     release_list = release_filter.qs
