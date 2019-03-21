@@ -22,6 +22,7 @@ urlpatterns = [
     path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
+    path('task/<int:pk>/edit/', views.task_edit, name='task_edit'),
     path('deliverable/', views.deliverable_list, name='deliverable_list'),
     path('deliverable/add/', views.deliverable_add, name='deliverable_add'),
     path('issue/', views.issue_list, name='issue_list'),

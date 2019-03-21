@@ -228,6 +228,16 @@ def task_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def task_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Task, id=pk)
+    form = TaskForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('task_list')
+    return render(request, 'task/task_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def deliverable_list(request, **kwargs):
     deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
     deliverable_list = deliverable_filter.qs
