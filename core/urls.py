@@ -19,6 +19,7 @@ urlpatterns = [
     path('user_story/<int:pk>/edit/', views.user_story_edit, name='user_story_edit'),
     path('sprint/', views.sprint_list, name='sprint_list'),
     path('sprint/add/', views.sprint_add, name='sprint_add'),
+    path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
     path('deliverable/', views.deliverable_list, name='deliverable_list'),

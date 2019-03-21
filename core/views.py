@@ -189,6 +189,16 @@ def sprint_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def sprint_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Sprint, id=pk)
+    form = SprintForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('sprint_list')
+    return render(request, 'sprint/sprint_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def task_list(request, **kwargs):
     task_filter = TaskFilter(request.GET, queryset=Task.objects.all())
     task_list = task_filter.qs

@@ -29,6 +29,7 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Description</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,6 +42,9 @@
                                     <td>{{ spr.start_date }}</td>
                                     <td>{{ spr.end_date }}</td>
                                     <td>{{ spr.description }}</td>
+                                    <td><a class="float-right" href="{% url 'sprint_edit' spr.id %}">
+                                        <i class="fa fa-edit fa-lg font-2xl"></i></a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
