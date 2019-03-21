@@ -306,6 +306,16 @@ def daily_scrum_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def daily_scrum_edit(request, pk, **kwargs):
+    instance = get_object_or_404(DailyScrum, id=pk)
+    form = DailyScrumForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('daily_scrum_list')
+    return render(request, 'daily_scrum/daily_scrum_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def issue_list(request, **kwargs):
     issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
     issue_list = issue_filter.qs
