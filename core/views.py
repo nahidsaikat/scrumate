@@ -267,6 +267,16 @@ def deliverable_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def deliverable_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Deliverable, id=pk)
+    form = DeliverableForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('deliverable_list')
+    return render(request, 'deliverable/deliverable_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def daily_scrum_list(request, **kwargs):
     daily_scrum_filter = DailyScrumFilter(request.GET, queryset=DailyScrum.objects.all())
     daily_scrum_list = daily_scrum_filter.qs

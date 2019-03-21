@@ -31,6 +31,7 @@
                             <th>Priority</th>
                             <th>Assignee</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,10 +42,13 @@
                                     <td>{{ deli.project.name }}</td>
                                     <td>{{ deli.release.name }}</td>
                                     <td>{{ deli.sprint.name }}</td>
-                                    <td>{{ deli.estimated }}</td>
+                                    <td>{{ deli.estimated_hour }}</td>
                                     <td>{{ deli.get_priority_display }}</td>
                                     <td>{{ deli.assignee.full_name }}</td>
                                     <td>{{ deli.get_status_display }}</td>
+                                    <td><a class="float-right" href="{% url 'deliverable_edit' deli.id %}">
+                                        <i class="fa fa-edit fa-lg font-2xl"></i></a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

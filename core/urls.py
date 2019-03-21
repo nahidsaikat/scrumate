@@ -25,6 +25,7 @@ urlpatterns = [
     path('task/<int:pk>/edit/', views.task_edit, name='task_edit'),
     path('deliverable/', views.deliverable_list, name='deliverable_list'),
     path('deliverable/add/', views.deliverable_add, name='deliverable_add'),
+    path('deliverable/<int:pk>/edit/', views.deliverable_edit, name='deliverable_edit'),
     path('issue/', views.issue_list, name='issue_list'),
     path('issue/add/', views.issue_add, name='issue_add'),
     path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
