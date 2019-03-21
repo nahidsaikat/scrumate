@@ -150,6 +150,16 @@ def user_story_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def user_story_edit(request, pk, **kwargs):
+    instance = get_object_or_404(UserStory, id=pk)
+    form = UserStoryForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('user_story_list')
+    return render(request, 'user_stories/user_story_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def sprint_list(request, **kwargs):
     sprint_filter = SprintFilter(request.GET, queryset=Sprint.objects.all())
     sprint_list = sprint_filter.qs
