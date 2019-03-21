@@ -336,6 +336,16 @@ def designation_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def designation_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Designation, id=pk)
+    form = DesignationForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('designation_list')
+    return render(request, 'designation/designation_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def employee_list(request, **kwargs):
     employee_filter = EmployeeFilter(request.GET, queryset=Employee.objects.all())
     employee_list = employee_filter.qs

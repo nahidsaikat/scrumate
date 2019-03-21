@@ -28,6 +28,7 @@
                             <th>Description</th>
                             <th>Rank</th>
                             <th>Department</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,6 +40,9 @@
                                     <td>{{ des.description }}</td>
                                     <td>{{ des.rank }}</td>
                                     <td>{{ des.department.name }}</td>
+                                    <td><a class="float-right" href="{% url 'designation_edit' des.id %}">
+                                        <i class="fa fa-edit fa-lg font-2xl"></i></a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
