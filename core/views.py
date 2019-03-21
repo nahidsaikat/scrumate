@@ -307,6 +307,16 @@ def department_add(request, **kwargs):
 
 
 @login_required(login_url='/login/')
+def department_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Department, id=pk)
+    form = DepartmentForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('department_list')
+    return render(request, 'department/department_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
 def designation_list(request, **kwargs):
     designation_filter = DesignationFilter(request.GET, queryset=Designation.objects.all())
     designation_list = designation_filter.qs
