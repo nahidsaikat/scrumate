@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -370,6 +370,16 @@ def employee_add(request, **kwargs):
             return redirect('employee_list', permanent=True)
     else:
         form = EmployeeForm()
+    return render(request, 'employee/employee_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+def employee_edit(request, pk, **kwargs):
+    instance = get_object_or_404(Employee, id=pk)
+    form = EmployeeForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('employee_list')
     return render(request, 'employee/employee_add.html', {'form': form})
 
 
