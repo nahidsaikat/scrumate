@@ -45,9 +45,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/">
-        <!--<img class="navbar-brand-full" src="/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">-->
-        <!--<img class="navbar-brand-minimized" src="/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">-->
-        SCRUMATE
+        <img class="navbar-brand-full" src="/img/brand/logo.png" width="89" height="25" alt="CoreUI Logo">
+        <img class="navbar-brand-minimized" src="/img/brand/sygnet.png" width="30" height="30" alt="CoreUI Logo">
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
@@ -77,68 +76,68 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/">
-                        <i class="icons cui-dashboard mr-3"></i> Dashboard</a>
+                        <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'project_list' %}">
-                        <i class="fa fa-cube mr-3"></i> Projects</a>
+                        <i class="nav-icon fa fa-cube mr-3"></i> Projects</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'release_list' %}">
-                        <i class="icon-briefcase icons mr-3"></i> Releases</a>
+                        <i class="nav-icon icon-briefcase icons mr-3"></i> Releases</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'user_story_list' %}">
-                        <i class="fa fa-book mr-3"></i>
+                        <i class="nav-icon fa fa-book mr-3"></i>
                         User Story</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sprint_list' %}">
-                        <i class="icon-clock icons mr-3"></i> Sprint</a>
+                        <i class="nav-icon icon-clock icons mr-3"></i> Sprint</a>
                 </li>
 
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="fa fa-sort-alpha-asc mr-3"></i> Activities</a>
+                        <i class="nav-icon fa fa-sort-alpha-asc mr-3"></i> Activities</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'task_list' %}">
-                                <i class="fa fa-tasks mr-3"></i> Tasks</a>
+                                <i class="nav-icon fa fa-tasks mr-3"></i> Tasks</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'deliverable_list' %}">
-                                <i class="fa fa-truck mr-3"></i> Deliverable</a>
+                                <i class="nav-icon fa fa-truck mr-3"></i> Deliverable</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'issue_list' %}">
-                                <i class="fa fa-bug mr-3"></i> Issues</a>
+                                <i class="nav-icon fa fa-bug mr-3"></i> Issues</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'daily_scrum_list' %}">
-                                <i class="icons icon-equalizer mr-3"></i> Daily Scrum</a>
+                                <i class="nav-icon icons icon-equalizer mr-3"></i> Daily Scrum</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="fa fa-cogs mr-3"></i> Settings</a>
+                        <i class="nav-icon fa fa-cogs mr-3"></i> Settings</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'department_list' %}">
-                                <i class="fa fa-empire mr-3"></i> Department</a>
+                                <i class="nav-icon fa fa-empire mr-3"></i> Department</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'designation_list' %}">
-                                <i class="fa fa-connectdevelop mr-3"></i> Designation</a>
+                                <i class="nav-icon fa fa-connectdevelop mr-3"></i> Designation</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'employee_list' %}">
-                                <i class="icons icon-people mr-3"></i> Employee</a>
+                                <i class="nav-icon icons icon-people mr-3"></i> Employee</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'client_list' %}">
-                                <i class="icons cui-people mr-3"></i> Client</a>
+                                <i class="nav-icon icons cui-people mr-3"></i> Client</a>
                         </li>
                     </ul>
                 </li>
