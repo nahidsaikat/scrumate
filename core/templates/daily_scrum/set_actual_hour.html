@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<form method="post" class="post-form">
+    {% csrf_token %}
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Set Actual Hour</strong>
+                {% if user.is_authenticated %}
+                <span class="float-right">
+                    <a class="ml-3" href="{% url 'daily_scrum_list' %}">
+                        <i class="fa fa-list fa-lg"></i>
+                    </a>
+                </span>
+                {% endif %}
+            </div>
+            <div class="card-body col-sm-6">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+
+                        {% if form.is_bound %}
+                            {% if field.errors %}
+                                {% render_field field class="form-control is-invalid" placeholder=field.text.label %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                    {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {% render_field field class="form-control is-valid" placeholder=field.text.label %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field field class="form-control" placeholder=field.text.label %}
+                        {% endif %}
+
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Set</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

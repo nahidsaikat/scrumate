@@ -44,7 +44,19 @@
                                     <td>{{ daily.task.name }}</td>
                                     <td>{{ daily.deliverable.name }}</td>
                                     <td>{{ daily.estimated_hour }}</td>
-                                    <td>{% if daily.actual_hour %}{{ daily.actual_hour }}{% else %}<a href="#">Set</a>{% endif %}</td>
+                                    <td>
+                                        {% if daily.actual_hour %}
+                                            {% if perms.core.update_actual_hour %}
+                                                <a href="{% url 'update_actual_hour' daily.id %}">{{ daily.actual_hour }}</a>
+                                            {% else %}
+                                                {{ daily.actual_hour }}
+                                            {% endif %}
+                                        {% else %}
+                                            {% if perms.core.set_actual_hour %}
+                                                <a href="{% url 'set_actual_hour' daily.id %}">Set</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
                                     <td>{{ daily.employee.full_name }}</td>
                                     <td><a class="float-right" href="{% url 'daily_scrum_edit' daily.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>

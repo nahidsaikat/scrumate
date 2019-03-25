@@ -259,6 +259,12 @@ class DailyScrum(models.Model):
     def __str__(self):
         return self.project.name + ' ' + self.task.name
 
+    class Meta:
+        permissions = (
+            ("set_actual_hour", "Can Set Actual Hour of Daily Scrum"),
+            ("update_actual_hour", "Can Update Actual Hour of Daily Scrum"),
+        )
+
 
 class OverTime(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)

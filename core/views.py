@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -313,6 +313,29 @@ def daily_scrum_edit(request, pk, **kwargs):
         form.save()
         return redirect('daily_scrum_list')
     return render(request, 'daily_scrum/daily_scrum_add.html', {'form': form})
+
+
+@login_required(login_url='/login/')
+@permission_required('core.set_actual_hour', raise_exception=True)
+def set_actual_hour(request, pk, **kwargs):
+    return change_actual_hour(pk, request)
+
+
+@login_required(login_url='/login/')
+@permission_required('core.update_actual_hour', raise_exception=True)
+def update_actual_hour(request, pk, **kwargs):
+    return change_actual_hour(pk, request)
+
+
+def change_actual_hour(pk, request):
+    instance = get_object_or_404(DailyScrum, id=pk)
+    form = DailyScrumForm(request.POST or None, instance=instance)
+    if request.POST:
+        actual_hour = request.POST.get('actual_hour')
+        instance.actual_hour = actual_hour
+        instance.save()
+        return redirect('daily_scrum_list')
+    return render(request, 'daily_scrum/set_actual_hour.html', {'field': form.visible_fields()[8]})
 
 
 @login_required(login_url='/login/')

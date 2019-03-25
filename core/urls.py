@@ -32,6 +32,8 @@ urlpatterns = [
     path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
     path('daily_scrum/add/', views.daily_scrum_add, name='daily_scrum_add'),
     path('daily_scrum/<int:pk>/edit/', views.daily_scrum_edit, name='daily_scrum_edit'),
+    path('daily_scrum/<int:pk>/set_actual_hour/', views.set_actual_hour, name='set_actual_hour'),
+    path('daily_scrum/<int:pk>/update_actual_hour/', views.update_actual_hour, name='update_actual_hour'),
 
     # Settings
     path('department/', views.department_list, name='department_list'),
