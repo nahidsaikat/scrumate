@@ -2,7 +2,7 @@ import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
+    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
     PRIORITY_CHOICES, PARTY_TITLE_CHOICES, PARTY_SUBTYPE_CHOICES
 
 User = get_user_model()
@@ -218,7 +218,7 @@ class Task(models.Model):
     assign_date = models.DateField(default=None, null=True, blank=True)
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_by_tasks')
     approved_date = models.DateField(default=None, null=True, blank=True)
-    status = models.IntegerField(choices=TASK_CHOICES, default=1)
+    status = models.IntegerField(choices=TASK_STATUS_CHOICES, default=1)
     parent_task = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
 
     def __str__(self):

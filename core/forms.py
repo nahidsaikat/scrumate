@@ -1,7 +1,10 @@
 from django.forms import ModelForm, Textarea, DateInput, HiddenInput
-from django_select2.forms import ModelSelect2Widget
+from django_select2.forms import ModelSelect2Widget, Select2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
     Deliverable, DailyScrum
+from .choices import PROJECT_TYPE_CHOICES, PROJECT_STATUS_CHOICES, PARTY_TITLE_CHOICES, PARTY_TYPE_CHOICES, \
+    PARTY_SUBTYPE_CHOICES, PARTY_GENDER_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, CATEGORY_CHOICES, \
+    PRIORITY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES
 
 
 class ProjectForm(ModelForm):
@@ -11,6 +14,8 @@ class ProjectForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
+            'type': Select2Widget(choices=PROJECT_TYPE_CHOICES),
+            'status': Select2Widget(choices=PROJECT_STATUS_CHOICES),
             'client': ModelSelect2Widget(model=Client, search_fields=['full_name__icontains']),
         }
 
@@ -45,6 +50,7 @@ class UserStoryForm(ModelForm):
                                   dependent_fields={'project': 'project'}, max_results=500),
             'analysed_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'approved_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
+            'status': Select2Widget(choices=USERSTORY_STATUS_CHOICES),
         }
 
 
@@ -58,6 +64,7 @@ class SprintForm(ModelForm):
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'}),
             'department': ModelSelect2Widget(model=Department, search_fields=['name__icontains']),
+            'status': Select2Widget(choices=SPRINT_STATUS_CHOICES),
         }
 
 
@@ -79,6 +86,9 @@ class TaskForm(ModelForm):
             'assigned_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'approved_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'parent_task': ModelSelect2Widget(model=Task, search_fields=['name__icontains']),
+            'category': Select2Widget(choices=CATEGORY_CHOICES),
+            'priority': Select2Widget(choices=PRIORITY_CHOICES),
+            'status': Select2Widget(choices=TASK_STATUS_CHOICES),
         }
 
 
@@ -96,6 +106,8 @@ class DeliverableForm(ModelForm):
             'user_story': ModelSelect2Widget(model=UserStory, search_fields=['summary__icontains']),
             'sprint': ModelSelect2Widget(model=Sprint, search_fields=['name__icontains']),
             'assignee': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
+            'priority': Select2Widget(choices=PRIORITY_CHOICES),
+            'status': Select2Widget(choices=DELIVERABLE_STATUS_CHOICES),
         }
 
 
@@ -161,6 +173,9 @@ class EmployeeForm(ModelForm):
         exclude = ('address_line_3', 'address_line_4')
         widgets = {
             'full_name': HiddenInput(),
+            'title': Select2Widget(choices=PARTY_TITLE_CHOICES),
+            'type': Select2Widget(choices=PARTY_TYPE_CHOICES),
+            'gender': Select2Widget(choices=PARTY_GENDER_CHOICES),
             'department': ModelSelect2Widget(model=Department, search_fields=['name__icontains']),
             'designation': ModelSelect2Widget(model=Designation, search_fields=['name__icontains'],
                                               dependent_fields={'department': 'department'}),
@@ -177,7 +192,9 @@ class ClientForm(ModelForm):
                   'sub_type', 'username', 'password', 'address_line_1', 'address_line_2']
         exclude = ('address_line_3', 'address_line_4')
         widgets = {
-            'full_name': HiddenInput()
+            'full_name': HiddenInput(),
+            'type': Select2Widget(choices=PARTY_TYPE_CHOICES),
+            'sub_type': Select2Widget(choices=PARTY_SUBTYPE_CHOICES),
         }
 
     def clean_full_name(self):

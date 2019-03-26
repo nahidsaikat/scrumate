@@ -46,7 +46,7 @@ CATEGORY_CHOICES = (
     (4, _("Implementation")),
 )
 
-TASK_CHOICES = (
+TASK_STATUS_CHOICES = (
     (1, _("Pending")),
     (2, _("In Progress")),
     (3, _("Partially Done")),
