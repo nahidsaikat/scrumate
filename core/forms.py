@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.forms import ModelForm, Textarea, DateInput, HiddenInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
@@ -5,6 +6,7 @@ from .models import Project, Release, UserStory, Sprint, Issue, Department, Desi
 from .choices import PROJECT_TYPE_CHOICES, PROJECT_STATUS_CHOICES, PARTY_TITLE_CHOICES, PARTY_TYPE_CHOICES, \
     PARTY_SUBTYPE_CHOICES, PARTY_GENDER_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, CATEGORY_CHOICES, \
     PRIORITY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES
+from .utils import generate_day_wise_label
 
 
 class ProjectForm(ModelForm):
@@ -58,14 +60,19 @@ class SprintForm(ModelForm):
     class Meta:
         model = Sprint
         fields = '__all__'
-        exclude = ('day_wise_label', )
         widgets = {
+            'day_wise_label': HiddenInput(),
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'}),
             'department': ModelSelect2Widget(model=Department, search_fields=['name__icontains']),
             'status': Select2Widget(choices=SPRINT_STATUS_CHOICES),
         }
+
+    def clean_day_wise_label(self):
+        start_date = datetime.strptime(self.data['start_date'], "%Y-%m-%d").date()
+        end_date = datetime.strptime(self.data['end_date'], "%Y-%m-%d").date()
+        return generate_day_wise_label(start_date, end_date)
 
 
 class TaskForm(ModelForm):

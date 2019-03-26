@@ -188,13 +188,13 @@ class Issue(models.Model):
 
 class Sprint(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
-    description = models.TextField(default='')
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
-    start_date = models.DateField(default=None)
-    end_date = models.DateField(default=None)
-    day_wise_label = models.TextField(default='')
-    status = models.IntegerField(choices=SPRINT_STATUS_CHOICES, default=1)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    description = models.TextField(default='', null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True, blank=True)
+    start_date = models.DateField(default=None, null=True, blank=True)
+    end_date = models.DateField(default=None, null=True, blank=True)
+    day_wise_label = models.TextField(default='', null=True, blank=True)
+    status = models.IntegerField(choices=SPRINT_STATUS_CHOICES, default=1, null=True, blank=True)
 
     def __str__(self):
         return self.name
