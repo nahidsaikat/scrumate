@@ -24,8 +24,7 @@
                         <tr>
                             <th>S/L</th>
                             <th>Name</th>
-                            <th>Project</th>
-                            <th>Release</th>
+                            <th>Task</th>
                             <th>Sprint</th>
                             <th>Estimated</th>
                             <th>Priority</th>
@@ -39,8 +38,7 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ deli.name }}</td>
-                                    <td>{{ deli.project.name }}</td>
-                                    <td>{{ deli.release.name }}</td>
+                                    <td>{{ deli.task.name }}</td>
                                     <td>{{ deli.sprint.name }}</td>
                                     <td>{{ deli.estimated_hour }}</td>
                                     <td>{{ deli.get_priority_display }}</td>

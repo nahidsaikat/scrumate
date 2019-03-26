@@ -48,7 +48,7 @@ class DeliverableFilter(django_filters.FilterSet):
 
     class Meta:
         model = Deliverable
-        fields = ['name', 'task', 'sprint', 'assignee']
+        fields = ['name', 'sprint', 'assignee']
 
 
 class DailyScrumFilter(django_filters.FilterSet):
