@@ -1,4 +1,5 @@
-from django.forms import ModelForm, Textarea, DateInput, HiddenInput
+from django.forms import ModelForm, Textarea, DateInput, HiddenInput, ModelChoiceField
+from django_select2.forms import ModelSelect2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
     Deliverable, DailyScrum
 
@@ -26,6 +27,11 @@ class ReleaseForm(ModelForm):
 
 
 class UserStoryForm(ModelForm):
+    release = ModelChoiceField(queryset=Release.objects.all(),
+        widget=ModelSelect2Widget(model=Release, search_fields=['name__icontains'],
+                                  dependent_fields={'project': 'project'}, max_results=500)
+    )
+
     class Meta:
         model = UserStory
         fields = '__all__'
