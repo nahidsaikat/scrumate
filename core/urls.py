@@ -27,6 +27,7 @@ urlpatterns = [
     path('deliverable/', views.deliverable_list, name='deliverable_list'),
     path('deliverable/add/', views.deliverable_add, name='deliverable_add'),
     path('deliverable/<int:pk>/edit/', views.deliverable_edit, name='deliverable_edit'),
+    path('deliverable/<int:pk>/update_status/', views.update_deliverable_status, name='update_deliverable_status'),
     path('issue/', views.issue_list, name='issue_list'),
     path('issue/add/', views.issue_add, name='issue_add'),
     path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),

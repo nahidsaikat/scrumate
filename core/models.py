@@ -229,9 +229,6 @@ class Deliverable(models.Model):
     task = models.ForeignKey(Task, on_delete=models.SET_NULL, default=None, null=True)
     name = models.CharField(max_length=100)
     description = models.TextField(default='', null=True, blank=True)
-    # project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
-    # release = models.ForeignKey(Release, on_delete=models.SET_NULL, default=None, null=True)
-    # user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
     sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
     estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
     priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True, blank=True)
@@ -242,6 +239,11 @@ class Deliverable(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+            ("update_deliverable_status", "Can Update Status of Deliverable"),
+        )
 
 
 class DailyScrum(models.Model):

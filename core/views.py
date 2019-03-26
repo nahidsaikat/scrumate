@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -278,6 +278,23 @@ def deliverable_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
+@permission_required('core.update_status', raise_exception=True)
+def update_deliverable_status(request, pk, **kwargs):
+    instance = get_object_or_404(Deliverable, id=pk)
+    form = DeliverableForm(request.POST or None, instance=instance)
+    if request.POST:
+        status = request.POST.get('status')
+        instance.status = status
+        instance.save()
+        return redirect('deliverable_list')
+    return render(request, 'includes/single_field.html', {
+        'field': form.visible_fields()[9],
+        'title': 'Update Status',
+        'url': reverse('deliverable_list')
+    })
+
+
+@login_required(login_url='/login/')
 def daily_scrum_list(request, **kwargs):
     daily_scrum_filter = DailyScrumFilter(request.GET, queryset=DailyScrum.objects.all())
     daily_scrum_list = daily_scrum_filter.qs
@@ -336,7 +353,11 @@ def change_actual_hour(pk, request):
         instance.actual_hour = actual_hour
         instance.save()
         return redirect('daily_scrum_list')
-    return render(request, 'daily_scrum/set_actual_hour.html', {'field': form.visible_fields()[8]})
+    return render(request, 'includes/single_field.html', {
+        'field': form.visible_fields()[8],
+        'title': 'Set Actual Hour',
+        'url': reverse('daily_scrum_list')
+    })
 
 
 @login_required(login_url='/login/')

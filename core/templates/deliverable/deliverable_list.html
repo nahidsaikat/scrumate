@@ -43,7 +43,13 @@
                                     <td>{{ deli.estimated_hour }}</td>
                                     <td>{{ deli.get_priority_display }}</td>
                                     <td>{{ deli.assignee.full_name }}</td>
-                                    <td>{{ deli.get_status_display }}</td>
+                                    <td>
+                                        {% if perms.core.update_deliverable_status %}
+                                            <a href="{% url 'update_deliverable_status' deli.id %}">{{ deli.get_status_display }}</a>
+                                        {% else %}
+                                            {{ deli.get_status_display }}
+                                        {% endif %}
+                                    </td>
                                     <td><a class="float-right" href="{% url 'deliverable_edit' deli.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
