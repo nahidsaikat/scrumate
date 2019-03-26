@@ -24,6 +24,7 @@ urlpatterns = [
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
     path('task/<int:pk>/edit/', views.task_edit, name='task_edit'),
+    path('task/<int:pk>/update_status/', views.update_task_status, name='update_task_status'),
     path('deliverable/', views.deliverable_list, name='deliverable_list'),
     path('deliverable/add/', views.deliverable_add, name='deliverable_add'),
     path('deliverable/<int:pk>/edit/', views.deliverable_edit, name='deliverable_edit'),

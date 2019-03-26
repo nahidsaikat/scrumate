@@ -224,6 +224,11 @@ class Task(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = (
+            ("update_task_status", "Can Update Status of Task"),
+        )
+
 
 class Deliverable(models.Model):
     task = models.ForeignKey(Task, on_delete=models.SET_NULL, default=None, null=True)

@@ -45,7 +45,13 @@
                                     <td>{{ tas.get_priority_display }}</td>
                                     <td>{{ tas.start_date }}</td>
                                     <td>{{ tas.assignee.full_name }}</td>
-                                    <td>{{ tas.get_status_display }}</td>
+                                    <td>
+                                        {% if perms.core.update_task_status %}
+                                            <a href="{% url 'update_task_status' tas.id %}">{{ tas.get_status_display }}</a>
+                                        {% else %}
+                                            {{ tas.get_status_display }}
+                                        {% endif %}
+                                    </td>
                                     <td><a class="float-right" href="{% url 'task_edit' tas.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>

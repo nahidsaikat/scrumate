@@ -239,6 +239,23 @@ def task_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
+@permission_required('core.update_task_status', raise_exception=True)
+def update_task_status(request, pk, **kwargs):
+    instance = get_object_or_404(Task, id=pk)
+    form = TaskForm(request.POST or None, instance=instance)
+    if request.POST:
+        status = request.POST.get('status')
+        instance.status = status
+        instance.save()
+        return redirect('task_list')
+    return render(request, 'includes/single_field.html', {
+        'field': form.visible_fields()[17],
+        'title': 'Update Status',
+        'url': reverse('task_list')
+    })
+
+
+@login_required(login_url='/login/')
 def deliverable_list(request, **kwargs):
     deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
     deliverable_list = deliverable_filter.qs
@@ -278,7 +295,7 @@ def deliverable_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-@permission_required('core.update_status', raise_exception=True)
+@permission_required('core.update_deliverable_status', raise_exception=True)
 def update_deliverable_status(request, pk, **kwargs):
     instance = get_object_or_404(Deliverable, id=pk)
     form = DeliverableForm(request.POST or None, instance=instance)
