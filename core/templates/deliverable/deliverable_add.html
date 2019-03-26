@@ -28,3 +28,19 @@
 </form>
 
 {% endblock %}
+
+{% block js %}
+<script>
+    $("#id_task").change(function () {
+        var task_id = $(this).val();
+        var url = "/task/" + task_id + "/task_info/";
+        console.log(url);
+
+        $.getJSON( url, function( task ) {
+            console.log( task )
+            $("#id_name").val( task.name );
+            $("#id_description").val( task.name );
+        });
+    });
+</script>
+{% endblock %}

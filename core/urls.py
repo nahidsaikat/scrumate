@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import api
 
 
 urlpatterns = [
@@ -48,4 +49,7 @@ urlpatterns = [
     path('client/', views.client_list, name='client_list'),
     path('client/add/', views.client_add, name='client_add'),
     path('client/<int:pk>/edit/', views.client_edit, name='client_edit'),
+
+    # API
+    path('task/<int:pk>/task_info/', api.task_info, name='task_info'),
 ]
