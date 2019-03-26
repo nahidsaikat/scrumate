@@ -181,9 +181,15 @@ class Issue(models.Model):
     raised_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='raised_issues')
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='approved_issues')
     comment = models.TextField(default='', blank=True, null=True)
+    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+            ("update_issue_status", "Can Update Status of Issue"),
+        )
 
 
 class Sprint(models.Model):

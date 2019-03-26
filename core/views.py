@@ -416,6 +416,23 @@ def issue_edit(request, pk, **kwargs):
     return render(request, 'issue/issue_add.html', {'form': form})
 
 
+@login_required(login_url='/login/')
+@permission_required('core.update_issue_status', raise_exception=True)
+def update_issue_status(request, pk, **kwargs):
+    instance = get_object_or_404(Issue, id=pk)
+    form = IssueForm(request.POST or None, instance=instance)
+    if request.POST:
+        status = request.POST.get('status')
+        instance.status = status
+        instance.save()
+        return redirect('issue_list')
+    return render(request, 'includes/single_field.html', {
+        'field': form.visible_fields()[8],
+        'title': 'Update Status',
+        'url': reverse('issue_list')
+    })
+
+
 
 
 

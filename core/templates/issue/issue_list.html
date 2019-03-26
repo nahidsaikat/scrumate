@@ -30,6 +30,7 @@
                             <th>Raise Date</th>
                             <th>Raised By</th>
                             <th>Description</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -44,6 +45,13 @@
                                     <td>{{ iss.raise_date }}</td>
                                     <td>{{ iss.raised_by.full_name }}</td>
                                     <td>{{ iss.description }}</td>
+                                    <td>
+                                        {% if perms.core.update_issue_status %}
+                                            <a href="{% url 'update_issue_status' iss.id %}">{{ iss.get_status_display }}</a>
+                                        {% else %}
+                                            {{ iss.get_status_display }}
+                                        {% endif %}
+                                    </td>
                                     <td><a class="float-right" href="{% url 'issue_edit' iss.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>

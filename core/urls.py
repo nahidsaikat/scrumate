@@ -32,6 +32,7 @@ urlpatterns = [
     path('issue/', views.issue_list, name='issue_list'),
     path('issue/add/', views.issue_add, name='issue_add'),
     path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),
+    path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
     path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
     path('daily_scrum/add/', views.daily_scrum_add, name='daily_scrum_add'),
     path('daily_scrum/<int:pk>/edit/', views.daily_scrum_edit, name='daily_scrum_edit'),

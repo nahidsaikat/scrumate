@@ -154,6 +154,7 @@ class IssueForm(ModelForm):
                                              dependent_fields={'project': 'project'}, max_results=500),
             'raised_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'approved_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
+            'status': Select2Widget(choices=DELIVERABLE_STATUS_CHOICES),
         }
 
 
