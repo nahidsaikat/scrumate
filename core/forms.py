@@ -27,11 +27,6 @@ class ReleaseForm(ModelForm):
 
 
 class UserStoryForm(ModelForm):
-    release = ModelChoiceField(queryset=Release.objects.all(),
-        widget=ModelSelect2Widget(model=Release, search_fields=['name__icontains'],
-                                  dependent_fields={'project': 'project'}, max_results=500)
-    )
-
     class Meta:
         model = UserStory
         fields = '__all__'
@@ -40,7 +35,10 @@ class UserStoryForm(ModelForm):
             'summary': Textarea(attrs={'cols': 25, 'rows': 1}),
             'details': Textarea(attrs={'cols': 25, 'rows': 3}),
             'start_date': DateInput(attrs={'type': 'date'}),
-            'end_date': DateInput(attrs={'type': 'date'})
+            'end_date': DateInput(attrs={'type': 'date'}),
+            'project': ModelSelect2Widget(model=Project, search_fields=['name__icontains']),
+            'release': ModelSelect2Widget(model=Release, search_fields=['name__icontains'],
+                                  dependent_fields={'project': 'project'}, max_results=500)
         }
 
 
