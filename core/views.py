@@ -17,9 +17,14 @@ from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueFor
 User = get_user_model()
 
 
+def get_dashboard_context(request, **kwargs):
+
+    return {'running_projects': 10}
+
 @login_required(login_url='/login/')
 def index(request, **kwargs):
-    return render(request, 'index.html')
+    context = get_dashboard_context(request, **kwargs)
+    return render(request, 'index.html', {'context': context})
 
 
 @login_required(login_url='/login/')
