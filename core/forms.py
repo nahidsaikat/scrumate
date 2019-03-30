@@ -3,7 +3,7 @@ from django.forms import ModelForm, Textarea, DateInput, HiddenInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
     Deliverable, DailyScrum
-from .choices import PROJECT_TYPE_CHOICES, PROJECT_STATUS_CHOICES, PARTY_TITLE_CHOICES, PARTY_TYPE_CHOICES, \
+from .choices import PROJECT_TYPE_CHOICES, ProjectStatus, PARTY_TITLE_CHOICES, PARTY_TYPE_CHOICES, \
     PARTY_SUBTYPE_CHOICES, PARTY_GENDER_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, CATEGORY_CHOICES, \
     PRIORITY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES
 from .utils import generate_day_wise_label
@@ -17,7 +17,7 @@ class ProjectForm(ModelForm):
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
             'type': Select2Widget(choices=PROJECT_TYPE_CHOICES),
-            'status': Select2Widget(choices=PROJECT_STATUS_CHOICES),
+            'status': Select2Widget(choices=ProjectStatus.choices),
             'client': ModelSelect2Widget(model=Client, search_fields=['full_name__icontains']),
         }
 

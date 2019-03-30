@@ -1,10 +1,11 @@
 from django.utils.translation import gettext as _
+from djchoices import DjangoChoices, ChoiceItem
 
-PROJECT_STATUS_CHOICES = (
-    (1, _("Pending")),
-    (2, _("In Progress")),
-    (3, _("Completed")),
-)
+
+class ProjectStatus(DjangoChoices):
+    Pending = ChoiceItem(1, 'Pending')
+    InProgress = ChoiceItem(2, 'In Progress')
+    Completed = ChoiceItem(3, 'Completed')
 
 PROJECT_TYPE_CHOICES = (
     (1, _("Public")),

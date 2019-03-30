@@ -13,13 +13,16 @@ from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter
     DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter, DeliverableFilter, DailyScrumFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm, TaskForm, DeliverableForm, DailyScrumForm
+from .choices import ProjectStatus
 
 User = get_user_model()
 
 
 def get_dashboard_context(request, **kwargs):
-
-    return {'running_projects': 10}
+    data = {
+        'running_projects': Project.objects.filter(status__exact=ProjectStatus.InProgress).count()
+    }
+    return data
 
 @login_required(login_url='/login/')
 def index(request, **kwargs):

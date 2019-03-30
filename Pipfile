@@ -10,6 +10,7 @@ django = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
 django-select2 = "*"
+django-choices = "*"
 
 [requires]
 python_version = "3.6"

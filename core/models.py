@@ -1,7 +1,7 @@
 import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
-from .choices import PROJECT_STATUS_CHOICES, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
+from .choices import ProjectStatus, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
     COLUMN_CHOICES, CATEGORY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
     PRIORITY_CHOICES, PARTY_TITLE_CHOICES, PARTY_SUBTYPE_CHOICES
 
@@ -128,7 +128,7 @@ class Project(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(default='')
     type = models.IntegerField(choices=PROJECT_TYPE_CHOICES, default=1)
-    status = models.IntegerField(choices=PROJECT_STATUS_CHOICES, default=1)
+    status = models.IntegerField(choices=ProjectStatus.choices, default=1)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True)
     entry_date = models.DateField("Entry Date", default=datetime.date.today)
 
