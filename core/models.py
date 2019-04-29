@@ -104,6 +104,11 @@ class Dashboard(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = (
+            ("dev_dashboard", "Can See Dev Dashboard"),
+        )
+
 
 class Portlet(models.Model):
     name = models.CharField(max_length=100)

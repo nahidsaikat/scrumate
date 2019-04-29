@@ -151,7 +151,13 @@
         <div class="container-fluid">
             {% block content %}
                 <!--<div id="ui-view"></div>-->
-                {% include 'dashboard.html' %}
+
+                {% if perms.core.dev_dashboard %}
+                    {% include 'dashboard-dev.html' %}
+                {% else %}
+                    {% include 'dashboard.html' %}
+                {% endif %}
+
             {% endblock %}
         </div>
     </main>
