@@ -67,6 +67,15 @@ DELIVERABLE_STATUS_CHOICES = (
     (7, _("Rejected")),
 )
 
+class DeliverableStatus(DjangoChoices):
+    Pending = ChoiceItem(1, 'Pending')
+    InProgress = ChoiceItem(2, 'In Progress')
+    PartiallyDone = ChoiceItem(3, 'Partially Done')
+    Done = ChoiceItem(4, 'Done')
+    Delivered = ChoiceItem(5, 'Delivered')
+    NotDone = ChoiceItem(6, 'Not Done')
+    Rejected = ChoiceItem(7, 'Rejected')
+
 OVER_TIME_STTUS_CHOICES = (
     (1, _("Pending")),
     (2, _("Acknowledged")),

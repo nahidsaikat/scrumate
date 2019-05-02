@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
@@ -13,14 +15,23 @@ from .filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter
     DesignationFilter, EmployeeFilter, ClientFilter, TaskFilter, DeliverableFilter, DailyScrumFilter
 from .forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, DepartmentForm, DesignationForm, \
     EmployeeForm, ClientForm, TaskForm, DeliverableForm, DailyScrumForm
-from .choices import ProjectStatus
+from .choices import ProjectStatus, DeliverableStatus
 
 User = get_user_model()
 
 
 def get_dashboard_context(request, **kwargs):
+    today = datetime.today()
+    deliverable_qs = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today)
+    pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
+    in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
+    done = deliverable_qs.filter(status=DeliverableStatus.Done)
+
     data = {
-        'running_projects': Project.objects.filter(status__exact=ProjectStatus.InProgress).count()
+        'running_projects': Project.objects.filter(status__exact=ProjectStatus.InProgress).count(),
+        'pending': pending,
+        'in_progress': in_progress,
+        'done': done,
     }
     return data
 

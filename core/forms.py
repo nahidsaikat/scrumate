@@ -5,7 +5,7 @@ from .models import Project, Release, UserStory, Sprint, Issue, Department, Desi
     Deliverable, DailyScrum
 from .choices import PROJECT_TYPE_CHOICES, ProjectStatus, PARTY_TITLE_CHOICES, PARTY_TYPE_CHOICES, \
     PARTY_SUBTYPE_CHOICES, PARTY_GENDER_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, CATEGORY_CHOICES, \
-    PRIORITY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES
+    PRIORITY_CHOICES, TASK_STATUS_CHOICES, DeliverableStatus
 from .utils import generate_day_wise_label
 
 
@@ -115,7 +115,7 @@ class DeliverableForm(ModelForm):
             'sprint': ModelSelect2Widget(model=Sprint, search_fields=['name__icontains']),
             'assignee': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'priority': Select2Widget(choices=PRIORITY_CHOICES),
-            'status': Select2Widget(choices=DELIVERABLE_STATUS_CHOICES),
+            'status': Select2Widget(choices=DeliverableStatus.choices),
         }
 
 
@@ -154,7 +154,7 @@ class IssueForm(ModelForm):
                                              dependent_fields={'project': 'project'}, max_results=500),
             'raised_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'approved_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
-            'status': Select2Widget(choices=DELIVERABLE_STATUS_CHOICES),
+            'status': Select2Widget(choices=DeliverableStatus.choices),
         }
 
 

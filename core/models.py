@@ -2,7 +2,7 @@ import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 from .choices import ProjectStatus, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_STATUS_CHOICES, DELIVERABLE_STATUS_CHOICES, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
+    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_STATUS_CHOICES, DeliverableStatus, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
     PRIORITY_CHOICES, PARTY_TITLE_CHOICES, PARTY_SUBTYPE_CHOICES
 
 User = get_user_model()
@@ -186,7 +186,7 @@ class Issue(models.Model):
     raised_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='raised_issues')
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='approved_issues')
     comment = models.TextField(default='', blank=True, null=True)
-    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
+    status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending)
 
     def __str__(self):
         return self.name
@@ -251,7 +251,7 @@ class Deliverable(models.Model):
     assignee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True)
     assign_date = models.DateField(default=None, null=True, blank=True)
     release_date = models.DateField(default=None, null=True, blank=True)
-    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1, null=True, blank=True)
+    status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -292,5 +292,5 @@ class OverTime(models.Model):
     assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assignee_over_times')
     assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_over_times')
     comment = models.TextField(default='')
-    status = models.IntegerField(choices=DELIVERABLE_STATUS_CHOICES, default=1)
+    status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending)
 
