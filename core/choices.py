@@ -7,65 +7,56 @@ class ProjectStatus(DjangoChoices):
     InProgress = ChoiceItem(2, 'In Progress')
     Completed = ChoiceItem(3, 'Completed')
 
-PROJECT_TYPE_CHOICES = (
-    (1, _("Public")),
-    (2, _("Private")),
-    (3, _("In House")),
-)
 
-PRIORITY_CHOICES = (
-    (1, _("Low")),
-    (2, _("Medium")),
-    (3, _("High")),
-)
+class ProjectType(DjangoChoices):
+    Public = ChoiceItem(1, 'Public')
+    Private = ChoiceItem(2, 'Private')
+    InHouse = ChoiceItem(3, 'In House')
 
-USERSTORY_STATUS_CHOICES = (
-    (1, _("Pending")),
-    (2, _("Analysing")),
-    (3, _("Analysis Complete")),
-    (4, _("Developing")),
-    (5, _("Development Complete")),
-    (6, _("Delivered")),
-)
 
-SPRINT_STATUS_CHOICES = (
-    (1, _("Pending")),
-    (2, _("On Going")),
-    (3, _("Completed")),
-)
+class Priority(DjangoChoices):
+    Low = ChoiceItem(1, 'Low')
+    Medium = ChoiceItem(2, 'Medium')
+    High = ChoiceItem(3, 'High')
 
-COLUMN_CHOICES = (
-    (1, _("One")),
-    (2, _("Two")),
-    (3, _("Three")),
-)
 
-CATEGORY_CHOICES = (
-    (1, _("Analysis")),
-    (2, _("Development")),
-    (3, _("Testing")),
-    (4, _("Implementation")),
-)
+class UserStoryStatus(DjangoChoices):
+    Pending = ChoiceItem(1, 'Pending')
+    Analysing = ChoiceItem(2, 'Analysing')
+    AnalysisComplete = ChoiceItem(3, 'Analysis Complete')
+    Developing = ChoiceItem(4, 'Developing')
+    DevelopmentComplete = ChoiceItem(5, 'Development Complete')
+    Delivered = ChoiceItem(6, 'Delivered')
 
-TASK_STATUS_CHOICES = (
-    (1, _("Pending")),
-    (2, _("In Progress")),
-    (3, _("Partially Done")),
-    (4, _("Done")),
-    (5, _("Delivered")),
-    (6, _("Not Done")),
-    (7, _("Rejected")),
-)
 
-DELIVERABLE_STATUS_CHOICES = (
-    (1, _("Pending")),
-    (2, _("In Progress")),
-    (3, _("Partially Done")),
-    (4, _("Done")),
-    (5, _("Delivered")),
-    (6, _("Not Done")),
-    (7, _("Rejected")),
-)
+class SprintStatus(DjangoChoices):
+    Pending = ChoiceItem(1, 'Pending')
+    OnGoing = ChoiceItem(2, 'On Going')
+    Completed = ChoiceItem(3, 'Completed')
+
+
+class Column(DjangoChoices):
+    One = ChoiceItem(1, 'One')
+    Two = ChoiceItem(2, 'Two')
+    Three = ChoiceItem(3, 'Three')
+
+
+class Category(DjangoChoices):
+    Analysis = ChoiceItem(1, 'Analysis')
+    Development = ChoiceItem(2, 'Development')
+    Testing = ChoiceItem(3, 'Testing')
+    Implementation = ChoiceItem(4, 'Implementation')
+
+
+class TaskStatus(DjangoChoices):
+    Pending = ChoiceItem(1, 'Pending')
+    InProgress = ChoiceItem(2, 'In Progress')
+    PartiallyDone = ChoiceItem(3, 'Partially Done')
+    Done = ChoiceItem(4, 'Done')
+    Delivered = ChoiceItem(5, 'Delivered')
+    NotDone = ChoiceItem(6, 'Not Done')
+    Rejected = ChoiceItem(7, 'Rejected')
+
 
 class DeliverableStatus(DjangoChoices):
     Pending = ChoiceItem(1, 'Pending')
@@ -76,31 +67,31 @@ class DeliverableStatus(DjangoChoices):
     NotDone = ChoiceItem(6, 'Not Done')
     Rejected = ChoiceItem(7, 'Rejected')
 
-OVER_TIME_STTUS_CHOICES = (
-    (1, _("Pending")),
-    (2, _("Acknowledged")),
-    (3, _("Done")),
-    (4, _("Rejected")),
-)
 
-PARTY_TYPE_CHOICES = (
-    (1, _("Employee")),
-    (2, _("Customer")),
-    (3, _("Vendor")),
-)
+class OverTimeStatus(DjangoChoices):
+    Pending = ChoiceItem(1, 'Pending')
+    Acknowledged = ChoiceItem(2, 'Acknowledged')
+    Done = ChoiceItem(3, 'Done')
+    Rejected = ChoiceItem(4, 'Rejected')
 
-PARTY_SUBTYPE_CHOICES = (
-    (1, _("Individual")),
-    (2, _("Organization")),
-)
 
-PARTY_GENDER_CHOICES = (
-    (1, _("Male")),
-    (2, _("Female")),
-)
+class PartyType(DjangoChoices):
+    Employee = ChoiceItem(1, 'Employee')
+    Customer = ChoiceItem(2, 'Customer')
+    Vendor = ChoiceItem(3, 'Vendor')
 
-PARTY_TITLE_CHOICES = (
-    (1, _("Mr.")),
-    (2, _("Mrs.")),
-    (3, _("Miss")),
-)
+
+class PartySubType(DjangoChoices):
+    Individual = ChoiceItem(1, 'Individual')
+    Organization = ChoiceItem(2, 'Organization')
+
+
+class PartyGender(DjangoChoices):
+    Male = ChoiceItem(1, 'Male')
+    Female = ChoiceItem(2, 'Female')
+
+
+class PartyTitle(DjangoChoices):
+    Mr = ChoiceItem(1, 'Mr.')
+    Mrs = ChoiceItem(2, 'Mrs.')
+    Miss = ChoiceItem(3, 'Miss')

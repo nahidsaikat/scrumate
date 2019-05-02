@@ -3,9 +3,8 @@ from django.forms import ModelForm, Textarea, DateInput, HiddenInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
     Deliverable, DailyScrum
-from .choices import PROJECT_TYPE_CHOICES, ProjectStatus, PARTY_TITLE_CHOICES, PARTY_TYPE_CHOICES, \
-    PARTY_SUBTYPE_CHOICES, PARTY_GENDER_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, CATEGORY_CHOICES, \
-    PRIORITY_CHOICES, TASK_STATUS_CHOICES, DeliverableStatus
+from .choices import ProjectType, ProjectStatus, PartyTitle, PartyType, PartySubType, PartyGender, UserStoryStatus, \
+    SprintStatus, Category, Priority, TaskStatus, DeliverableStatus
 from .utils import generate_day_wise_label
 
 
@@ -16,7 +15,7 @@ class ProjectForm(ModelForm):
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
-            'type': Select2Widget(choices=PROJECT_TYPE_CHOICES),
+            'type': Select2Widget(choices=ProjectType.choices),
             'status': Select2Widget(choices=ProjectStatus.choices),
             'client': ModelSelect2Widget(model=Client, search_fields=['full_name__icontains']),
         }
@@ -52,7 +51,7 @@ class UserStoryForm(ModelForm):
                                   dependent_fields={'project': 'project'}, max_results=500),
             'analysed_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'approved_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
-            'status': Select2Widget(choices=USERSTORY_STATUS_CHOICES),
+            'status': Select2Widget(choices=UserStoryStatus.choices),
         }
 
 
@@ -66,7 +65,7 @@ class SprintForm(ModelForm):
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'}),
             'department': ModelSelect2Widget(model=Department, search_fields=['name__icontains']),
-            'status': Select2Widget(choices=SPRINT_STATUS_CHOICES),
+            'status': Select2Widget(choices=SprintStatus.choices),
         }
 
     def clean_day_wise_label(self):
@@ -96,9 +95,9 @@ class TaskForm(ModelForm):
             'assigned_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'approved_by': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
             'parent_task': ModelSelect2Widget(model=Task, search_fields=['name__icontains']),
-            'category': Select2Widget(choices=CATEGORY_CHOICES),
-            'priority': Select2Widget(choices=PRIORITY_CHOICES),
-            'status': Select2Widget(choices=TASK_STATUS_CHOICES),
+            'category': Select2Widget(choices=Category.choices),
+            'priority': Select2Widget(choices=Priority.choices),
+            'status': Select2Widget(choices=TaskStatus.choices),
         }
 
 
@@ -114,7 +113,7 @@ class DeliverableForm(ModelForm):
             'task': ModelSelect2Widget(model=Task, search_fields=['name__icontains']),
             'sprint': ModelSelect2Widget(model=Sprint, search_fields=['name__icontains']),
             'assignee': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
-            'priority': Select2Widget(choices=PRIORITY_CHOICES),
+            'priority': Select2Widget(choices=Priority.choices),
             'status': Select2Widget(choices=DeliverableStatus.choices),
         }
 
@@ -187,9 +186,9 @@ class EmployeeForm(ModelForm):
         exclude = ('address_line_3', 'address_line_4')
         widgets = {
             'full_name': HiddenInput(),
-            'title': Select2Widget(choices=PARTY_TITLE_CHOICES),
-            'type': Select2Widget(choices=PARTY_TYPE_CHOICES),
-            'gender': Select2Widget(choices=PARTY_GENDER_CHOICES),
+            'title': Select2Widget(choices=PartyTitle.choices),
+            'type': Select2Widget(choices=PartyType.choices),
+            'gender': Select2Widget(choices=PartyGender.choices),
             'department': ModelSelect2Widget(model=Department, search_fields=['name__icontains']),
             'designation': ModelSelect2Widget(model=Designation, search_fields=['name__icontains'],
                                               dependent_fields={'department': 'department'}),
@@ -207,8 +206,8 @@ class ClientForm(ModelForm):
         exclude = ('address_line_3', 'address_line_4')
         widgets = {
             'full_name': HiddenInput(),
-            'type': Select2Widget(choices=PARTY_TYPE_CHOICES),
-            'sub_type': Select2Widget(choices=PARTY_SUBTYPE_CHOICES),
+            'type': Select2Widget(choices=PartyType.choices),
+            'sub_type': Select2Widget(choices=PartySubType.choices),
         }
 
     def clean_full_name(self):

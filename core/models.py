@@ -1,9 +1,8 @@
 import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
-from .choices import ProjectStatus, PROJECT_TYPE_CHOICES, USERSTORY_STATUS_CHOICES, SPRINT_STATUS_CHOICES, \
-    COLUMN_CHOICES, CATEGORY_CHOICES, TASK_STATUS_CHOICES, DeliverableStatus, PARTY_TYPE_CHOICES, PARTY_GENDER_CHOICES, \
-    PRIORITY_CHOICES, PARTY_TITLE_CHOICES, PARTY_SUBTYPE_CHOICES
+from .choices import ProjectStatus, ProjectType, UserStoryStatus, SprintStatus, Column, Category, TaskStatus, \
+    DeliverableStatus, PartyType, PartyGender, Priority, PartyTitle, PartySubType
 
 User = get_user_model()
 
@@ -40,7 +39,7 @@ class Designation(models.Model):
 
 
 class Party(models.Model):
-    title = models.IntegerField(choices=PARTY_TITLE_CHOICES, default=1)
+    title = models.IntegerField(choices=PartyTitle.choices, default=PartyTitle.Mr)
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
     full_name = models.CharField(max_length=200, blank=True)
@@ -61,25 +60,16 @@ class Party(models.Model):
 
 class Employee(Party):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='employee')
-    type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=1)
-    gender = models.IntegerField(choices=PARTY_GENDER_CHOICES)
+    type = models.IntegerField(choices=PartyType.choices, default=PartyType.Employee)
+    gender = models.IntegerField(choices=PartyGender.choices)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
     designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)
 
 
 class Client(Party):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='client')
-    type = models.IntegerField(choices=PARTY_TYPE_CHOICES, default=2)
-    sub_type = models.IntegerField(choices=PARTY_SUBTYPE_CHOICES, default=2)
-
-
-class Priority(models.Model):
-    name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
-    description = models.TextField(default='')
-    
-    def __str__(self):
-        return self.name
+    type = models.IntegerField(choices=PartyType.choices, default=PartyType.Customer)
+    sub_type = models.IntegerField(choices=PartySubType, default=PartySubType.Organization)
 
 
 class Label(models.Model):
@@ -124,7 +114,7 @@ class Portlet(models.Model):
 class DashboardPortlet(models.Model):
     dashboard = models.ForeignKey(Dashboard, on_delete=models.CASCADE)
     portlet = models.ForeignKey(Portlet, on_delete=models.CASCADE)
-    column = models.IntegerField(choices=COLUMN_CHOICES, default=1)
+    column = models.IntegerField(choices=Column, default=Column.One)
     height = models.DecimalField(default=50, decimal_places=2, max_digits=15)
     width = models.DecimalField(default=100, decimal_places=2, max_digits=15)
 
@@ -132,7 +122,7 @@ class DashboardPortlet(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(default='')
-    type = models.IntegerField(choices=PROJECT_TYPE_CHOICES, default=1)
+    type = models.IntegerField(choices=ProjectType.choices, default=ProjectType.Public)
     status = models.IntegerField(choices=ProjectStatus.choices, default=1)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True)
     entry_date = models.DateField("Entry Date", default=datetime.date.today)
@@ -168,7 +158,7 @@ class UserStory(models.Model):
     description = models.TextField(default='', null=True, blank=True)
     analysed_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='analysed_user_stories')
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='approved_user_stories')
-    status = models.IntegerField(choices=USERSTORY_STATUS_CHOICES, default=1, null=True, blank=True)
+    status = models.IntegerField(choices=UserStoryStatus.choices, default=UserStoryStatus.Pending, null=True, blank=True)
     comment = models.TextField(default='', null=True, blank=True)
 
     def __str__(self):
@@ -205,7 +195,7 @@ class Sprint(models.Model):
     start_date = models.DateField(default=None, null=True, blank=True)
     end_date = models.DateField(default=None, null=True, blank=True)
     day_wise_label = models.TextField(default='', null=True, blank=True)
-    status = models.IntegerField(choices=SPRINT_STATUS_CHOICES, default=1, null=True, blank=True)
+    status = models.IntegerField(choices=SprintStatus.choices, default=1, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -218,18 +208,18 @@ class Task(models.Model):
     release = models.ForeignKey(Release, on_delete=models.SET_NULL, default=None, null=True)
     user_story = models.ForeignKey(UserStory, on_delete=models.CASCADE)
     issue = models.ForeignKey(Issue, on_delete=models.SET_NULL, default=None, null=True, blank=True)
-    category = models.IntegerField(choices=CATEGORY_CHOICES, default=1)
+    category = models.IntegerField(choices=Category.choices, default=Category.Analysis)
     responsible = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, related_name='responsible_tasks')
     estimation = models.DecimalField(default=0.0, decimal_places=2, max_digits=15)
     start_date = models.DateField(default=None)
     end_date = models.DateField(default=None, null=True, blank=True)
-    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True)
+    priority = models.IntegerField(choices=Priority.choices, default=Priority.High, null=True)
     assignee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_tasks')
     assigned_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_tasks')
     assign_date = models.DateField(default=None, null=True, blank=True)
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_by_tasks')
     approved_date = models.DateField(default=None, null=True, blank=True)
-    status = models.IntegerField(choices=TASK_STATUS_CHOICES, default=1)
+    status = models.IntegerField(choices=TaskStatus.choices, default=TaskStatus.Pending)
     parent_task = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
 
     def __str__(self):
@@ -247,7 +237,7 @@ class Deliverable(models.Model):
     description = models.TextField(default='', null=True, blank=True)
     sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
     estimated_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
-    priority = models.IntegerField(choices=PRIORITY_CHOICES, default=3, null=True, blank=True)
+    priority = models.IntegerField(choices=Priority.choices, default=Priority.High, null=True, blank=True)
     assignee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True)
     assign_date = models.DateField(default=None, null=True, blank=True)
     release_date = models.DateField(default=None, null=True, blank=True)
