@@ -41,7 +41,13 @@
                                     <td>{{ story.project.name }}</td>
                                     <td>{{ story.release.name }}</td>
                                     <td>{{ story.code }}</td>
-                                    <td>{{ story.get_status_display }}</td>
+                                    <td>
+                                        {% if perms.core.update_user_story_status %}
+                                            <a href="{% url 'update_user_story_status' story.id %}">{{ story.get_status_display }}</a>
+                                        {% else %}
+                                            {{ story.get_status_display }}
+                                        {% endif %}
+                                    </td>
                                     <td><a class="float-right" href="{% url 'user_story_edit' story.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>

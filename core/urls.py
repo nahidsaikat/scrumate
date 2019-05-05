@@ -21,6 +21,7 @@ urlpatterns = [
     path('user_story/', views.user_story_list, name='user_story_list'),
     path('user_story/add/', views.user_story_add, name='user_story_add'),
     path('user_story/<int:pk>/edit/', views.user_story_edit, name='user_story_edit'),
+    path('user_story/<int:pk>/update_status/', views.update_user_story_status, name='update_user_story_status'),
 
     path('sprint/', views.sprint_list, name='sprint_list'),
     path('sprint/add/', views.sprint_add, name='sprint_add'),

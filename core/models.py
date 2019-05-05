@@ -169,6 +169,11 @@ class UserStory(models.Model):
     def __str__(self):
         return self.summary
 
+    class Meta:
+        permissions = (
+            ("update_user_story_status", "Can Update Status of User Story"),
+        )
+
 
 class Issue(models.Model):
     name = models.CharField(max_length=100)
