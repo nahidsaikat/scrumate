@@ -130,6 +130,11 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = (
+            ("update_project_status", "Can Update Status of Project"),
+        )
+
 
 class Release(models.Model):
     name = models.CharField(max_length=500)

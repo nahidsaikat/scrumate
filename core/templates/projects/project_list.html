@@ -39,7 +39,13 @@
                                     <td>{{ pro.name }}</td>
                                     <td>{{ pro.get_type_display }}</td>
                                     <td>{{ pro.entry_date }}</td>
-                                    <td>{{ pro.get_status_display }}</td>
+                                    <td>
+                                        {% if perms.core.update_issue_status %}
+                                            <a href="{% url 'update_project_status' pro.id %}">{{ pro.get_status_display }}</a>
+                                        {% else %}
+                                            {{ pro.get_status_display }}
+                                        {% endif %}
+                                    </td>
                                     <td>{{ pro.client }}</td>
                                     <td>{{ pro.description }}</td>
                                     <td><a class="float-right" href="{% url 'project_edit' pro.id %}">

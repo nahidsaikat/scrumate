@@ -102,6 +102,23 @@ def project_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
+@permission_required('core.update_project_status', raise_exception=True)
+def update_project_status(request, pk, **kwargs):
+    instance = get_object_or_404(Project, id=pk)
+    form = ProjectForm(request.POST or None, instance=instance)
+    if request.POST:
+        status = request.POST.get('status')
+        instance.status = status
+        instance.save()
+        return redirect('project_list')
+    return render(request, 'includes/single_field.html', {
+        'field': form.visible_fields()[3],
+        'title': 'Update Status',
+        'url': reverse('project_list')
+    })
+
+
+@login_required(login_url='/login/')
 def release_list(request, **kwargs):
     release_filter = ReleaseFilter(request.GET, queryset=Release.objects.all())
     release_list = release_filter.qs
