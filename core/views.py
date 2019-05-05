@@ -197,7 +197,7 @@ def user_story_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-@permission_required('core.update_project_status', raise_exception=True)
+@permission_required('core.update_user_story_status', raise_exception=True)
 def update_user_story_status(request, pk, **kwargs):
     instance = get_object_or_404(UserStory, id=pk)
     form = UserStoryForm(request.POST or None, instance=instance)
@@ -212,6 +212,22 @@ def update_user_story_status(request, pk, **kwargs):
         'url': reverse('user_story_list')
     })
 
+
+@login_required(login_url='/login/')
+@permission_required('core.update_sprint_status', raise_exception=True)
+def update_sprint_status(request, pk, **kwargs):
+    instance = get_object_or_404(Sprint, id=pk)
+    form = SprintForm(request.POST or None, instance=instance)
+    if request.POST:
+        status = request.POST.get('status')
+        instance.status = status
+        instance.save()
+        return redirect('sprint_list')
+    return render(request, 'includes/single_field.html', {
+        'field': form.visible_fields()[6],
+        'title': 'Update Status',
+        'url': reverse('sprint_list')
+    })
 
 
 @login_required(login_url='/login/')

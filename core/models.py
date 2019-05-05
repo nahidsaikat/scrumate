@@ -210,6 +210,11 @@ class Sprint(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = (
+            ("update_sprint_status", "Can Update Status of Sprint"),
+        )
+
 
 class Task(models.Model):
     name = models.CharField(max_length=100)

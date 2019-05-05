@@ -24,10 +24,10 @@
                         <tr>
                             <th>S/L</th>
                             <th>Name</th>
-                            <th>Code</th>
                             <th>Department</th>
                             <th>Start Date</th>
                             <th>End Date</th>
+                            <th>Code</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
@@ -37,10 +37,16 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ spr.name }}</td>
-                                    <td>{{ spr.code }}</td>
                                     <td>{{ spr.department.name }}</td>
                                     <td>{{ spr.start_date }}</td>
                                     <td>{{ spr.end_date }}</td>
+                                    <td>
+                                        {% if perms.core.update_sprint_status %}
+                                            <a href="{% url 'update_sprint_status' spr.id %}">{{ spr.get_status_display }}</a>
+                                        {% else %}
+                                            {{ spr.get_status_display }}
+                                        {% endif %}
+                                    </td>
                                     <td>{{ spr.description }}</td>
                                     <td><a class="float-right" href="{% url 'sprint_edit' spr.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
