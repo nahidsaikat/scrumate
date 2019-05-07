@@ -124,7 +124,7 @@ class Project(models.Model):
     description = models.TextField(default='')
     type = models.IntegerField(choices=ProjectType.choices, default=ProjectType.Public)
     status = models.IntegerField(choices=ProjectStatus.choices, default=1)
-    client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     entry_date = models.DateField("Entry Date", default=datetime.date.today)
 
     def __str__(self):

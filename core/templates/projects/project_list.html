@@ -46,8 +46,8 @@
                                             {{ pro.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td>{{ pro.client }}</td>
-                                    <td>{{ pro.description }}</td>
+                                    <td>{{ pro.client|default_if_none:"" }}</td>
+                                    <td>{{ pro.description|default_if_none:"" }}</td>
                                     <td><a class="float-right" href="{% url 'project_edit' pro.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
