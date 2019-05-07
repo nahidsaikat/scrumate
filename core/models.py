@@ -144,8 +144,8 @@ class Release(models.Model):
     release_date = models.DateField(default=None)
     delivery_date = models.DateField(default=None, null=True, blank=True)
     release_log = models.TextField(default=None, null=True, blank=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='created_releases')
-    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='approved_releases')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='created_releases')
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='approved_releases')
     comment = models.TextField(default='', null=True, blank=True)
 
     def __str__(self):

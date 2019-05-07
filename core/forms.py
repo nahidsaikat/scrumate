@@ -25,7 +25,7 @@ class ReleaseForm(ModelForm):
     class Meta:
         model = Release
         fields = '__all__'
-        exclude = ('release_log', 'comment')
+        exclude = ('release_log', 'comment', 'delivery_date', 'created_by', 'approved_by')
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'release_date': DateInput(attrs={'type': 'date'}),

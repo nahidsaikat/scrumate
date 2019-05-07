@@ -140,7 +140,9 @@ def release_add(request, **kwargs):
     if request.method == 'POST':
         form = ReleaseForm(request.POST)
         if form.is_valid():
-            form.save()
+            release = form.save(commit=False)
+            release.created_by = request.user
+            release.save()
             return redirect('release_list', permanent=True)
     else:
         form = ReleaseForm()
