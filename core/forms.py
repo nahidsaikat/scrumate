@@ -79,7 +79,8 @@ class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = '__all__'
-        exclude = ()
+        exclude = ('project', 'release', 'code', 'category', 'responsible', 'assigned_by', 'assign_date', 'approved_by',
+                   'approved_date', 'parent_task')
         widgets = {
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'}),

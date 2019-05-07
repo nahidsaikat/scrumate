@@ -295,7 +295,12 @@ def task_add(request, **kwargs):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            task.project = task.user_story.project
+            task.release = task.user_story.release
+            task.assigned_by = getattr(request.user, 'employee', None)
+            task.assign_date = datetime.today()
+            task.save()
             return redirect('task_list', permanent=True)
     else:
         form = TaskForm()
@@ -323,7 +328,7 @@ def update_task_status(request, pk, **kwargs):
         instance.save()
         return redirect('task_list')
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[17],
+        'field': form.visible_fields()[8],
         'title': 'Update Status',
         'url': reverse('task_list')
     })

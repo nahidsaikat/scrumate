@@ -25,8 +25,6 @@
                             <th>S/L</th>
                             <th>Name</th>
                             <th>Project</th>
-                            <th>Category</th>
-                            <th>Responsible</th>
                             <th>Priority</th>
                             <th>Start Date</th>
                             <th>Assignee</th>
@@ -40,8 +38,6 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ tas.name }}</td>
                                     <td>{{ tas.project.name }}</td>
-                                    <td>{{ tas.get_category_display }}</td>
-                                    <td>{{ tas.responsible.full_name }}</td>
                                     <td>{{ tas.get_priority_display }}</td>
                                     <td>{{ tas.start_date }}</td>
                                     <td>{{ tas.assignee.full_name }}</td>
