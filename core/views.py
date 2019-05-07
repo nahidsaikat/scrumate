@@ -181,7 +181,9 @@ def user_story_add(request, **kwargs):
     if request.method == 'POST':
         form = UserStoryForm(request.POST)
         if form.is_valid():
-            form.save()
+            story = form.save(commit=False)
+            story.analysed_by = getattr(request.user, 'employee', None)
+            story.save()
             return redirect('user_story_list', permanent=True)
     else:
         form = UserStoryForm()
@@ -209,7 +211,7 @@ def update_user_story_status(request, pk, **kwargs):
         instance.save()
         return redirect('user_story_list')
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[9],
+        'field': form.visible_fields()[6],
         'title': 'Update Status',
         'url': reverse('user_story_list')
     })

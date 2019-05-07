@@ -40,7 +40,7 @@ class UserStoryForm(ModelForm):
     class Meta:
         model = UserStory
         fields = '__all__'
-        exclude = ('description', 'comment')
+        exclude = ('description', 'comment', 'code', 'analysed_by', 'approved_by')
         widgets = {
             'summary': Textarea(attrs={'cols': 25, 'rows': 1}),
             'details': Textarea(attrs={'cols': 25, 'rows': 3}),

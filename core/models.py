@@ -157,7 +157,7 @@ class UserStory(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE, default=None)
     summary = models.TextField(default='', verbose_name='Title')
     details = models.TextField(default='', null=True, blank=True)
-    code = models.CharField(max_length=100, default='')
+    code = models.CharField(max_length=100, default='', null=True, blank=True)
     start_date = models.DateField(default=None, null=True, blank=True)
     end_date = models.DateField(default=None, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
