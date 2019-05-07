@@ -228,7 +228,7 @@ def update_sprint_status(request, pk, **kwargs):
         instance.save()
         return redirect('sprint_list')
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[6],
+        'field': form.visible_fields()[5],
         'title': 'Update Status',
         'url': reverse('sprint_list')
     })
