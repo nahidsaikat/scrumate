@@ -414,7 +414,13 @@ def daily_scrum_add(request, **kwargs):
     if request.method == 'POST':
         form = DailyScrumForm(request.POST)
         if form.is_valid():
-            form.save()
+            daily_scrum = form.save(commit=False)
+            daily_scrum.issue = daily_scrum.deliverable.task.issue
+            daily_scrum.task = daily_scrum.deliverable.task
+            daily_scrum.user_story = daily_scrum.deliverable.task.user_story
+            daily_scrum.release = daily_scrum.deliverable.task.release
+            daily_scrum.project = daily_scrum.deliverable.task.project
+            daily_scrum.save()
             return redirect('daily_scrum_list', permanent=True)
     else:
         form = DailyScrumForm()

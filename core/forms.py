@@ -124,7 +124,7 @@ class DailyScrumForm(ModelForm):
     class Meta:
         model = DailyScrum
         fields = '__all__'
-        exclude = ()
+        exclude = ('project', 'release', 'user_story', 'task', 'issue')
         widgets = {
             'comment': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
@@ -135,10 +135,11 @@ class DailyScrumForm(ModelForm):
                                              dependent_fields={'release': 'release'}, max_results=500),
             'task': ModelSelect2Widget(model=Task, search_fields=['name__icontains'],
                                        dependent_fields={'user_story': 'user_story'}, max_results=500),
+            'issue': ModelSelect2Widget(model=Issue, search_fields=['name__icontains'], max_results=500),
             'deliverable': ModelSelect2Widget(model=Deliverable, search_fields=['name__icontains'],
                                               dependent_fields={'task': 'task'}, max_results=500),
-            'sprint': ModelSelect2Widget(model=Sprint, search_fields=['name__icontains']),
-            'employee': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
+            'sprint': ModelSelect2Widget(model=Sprint, search_fields=['name__icontains'], max_results=500),
+            'employee': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains'], max_results=500),
         }
 
 
