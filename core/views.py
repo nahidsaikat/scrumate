@@ -26,12 +26,14 @@ def get_dashboard_context(request, **kwargs):
     pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
     in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
     done = deliverable_qs.filter(status=DeliverableStatus.Done)
+    dev = request.user.has_perm('core.dev_dashboard')
 
     data = {
         'running_projects': Project.objects.filter(status__exact=ProjectStatus.InProgress).count(),
         'pending': pending,
         'in_progress': in_progress,
         'done': done,
+        'dev': dev
     }
     return data
 

@@ -152,7 +152,7 @@
             {% block content %}
                 <!--<div id="ui-view"></div>-->
 
-                {% if perms.core.dev_dashboard %}
+                {% if context.dev %}
                     {% include 'dashboard-dev.html' %}
                 {% else %}
                     {% include 'dashboard.html' %}
