@@ -23,11 +23,10 @@
                         <thead>
                         <tr>
                             <th>S/L</th>
-                            <th> </th>
                             <th>Name</th>
-                            <th>Code</th>
                             <th>Email</th>
                             <th>Phone</th>
+                            <th>Type</th>
                             <th>Sub Type</th>
                             <th>Action</th>
                         </tr>
@@ -36,11 +35,10 @@
                             {% for cli in clients %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ cli.get_title_display }}</td>
                                     <td>{{ cli.full_name }}</td>
-                                    <td>{{ cli.code }}</td>
                                     <td>{{ cli.email }}</td>
                                     <td>{{ cli.phone }}</td>
+                                    <td>{{ cli.get_type_display }}</td>
                                     <td>{{ cli.get_sub_type_display }}</td>
                                     <td><a class="float-right" href="{% url 'client_edit' cli.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
