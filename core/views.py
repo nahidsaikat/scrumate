@@ -356,7 +356,9 @@ def deliverable_add(request, **kwargs):
     if request.method == 'POST':
         form = DeliverableForm(request.POST)
         if form.is_valid():
-            form.save()
+            deliverable = form.save(commit=False)
+            deliverable.assign_date = datetime.today()
+            deliverable.save()
             return redirect('deliverable_list', permanent=True)
     else:
         form = DeliverableForm()
@@ -384,7 +386,7 @@ def update_deliverable_status(request, pk, **kwargs):
         instance.save()
         return redirect('deliverable_list')
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[9],
+        'field': form.visible_fields()[8],
         'title': 'Update Status',
         'url': reverse('deliverable_list')
     })

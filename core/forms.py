@@ -107,7 +107,7 @@ class DeliverableForm(ModelForm):
     class Meta:
         model = Deliverable
         fields = '__all__'
-        exclude = ()
+        exclude = ('assign_date', )
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'assign_date': DateInput(attrs={'type': 'date'}),
