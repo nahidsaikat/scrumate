@@ -508,7 +508,7 @@ def update_issue_status(request, pk, **kwargs):
         instance.save()
         return redirect('issue_list')
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[8],
+        'field': form.visible_fields()[6],
         'title': 'Update Status',
         'url': reverse('issue_list')
     })

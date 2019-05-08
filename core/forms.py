@@ -146,7 +146,7 @@ class IssueForm(ModelForm):
     class Meta:
         model = Issue
         fields = '__all__'
-        exclude = ('comment', 'resolve_date')
+        exclude = ('comment', 'resolve_date', 'approved_by', 'code')
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'raise_date': DateInput(attrs={'type': 'date'}),

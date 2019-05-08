@@ -177,7 +177,7 @@ class UserStory(models.Model):
 
 class Issue(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
+    code = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(default='', blank=True, null=True)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
     user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
