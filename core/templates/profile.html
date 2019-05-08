@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-user"></i> Profile
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and employee %}
                     <a class="float-right" href="{% url 'employee_edit' employee.id %}">
                         <i class="fa fa-edit fa-lg font-2xl"></i>
                     </a>

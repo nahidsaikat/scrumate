@@ -47,8 +47,6 @@ class Party(models.Model):
     email = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=100, null=True)
     code = models.CharField(max_length=100, null=True, blank=True)
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
     address_line_1 = models.CharField(max_length=100, null=True)
     address_line_2 = models.CharField(max_length=100, null=True, blank=True)
     address_line_3 = models.CharField(max_length=100, null=True, blank=True)
@@ -64,6 +62,8 @@ class Employee(Party):
     gender = models.IntegerField(choices=PartyGender.choices, default=PartyGender.Male)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
     designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
 
 
 class Client(Party):

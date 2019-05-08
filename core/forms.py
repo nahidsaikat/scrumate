@@ -207,11 +207,10 @@ class ClientForm(ModelForm):
     class Meta:
         model = Client
         fields = ['title', 'full_name', 'first_name', 'last_name', 'nick_name', 'email', 'phone', 'code', 'type',
-                  'sub_type', 'username', 'password', 'address_line_1', 'address_line_2']
+                  'sub_type', 'address_line_1', 'address_line_2']
         exclude = ('address_line_3', 'address_line_4', 'nick_name', 'code', 'title')
         widgets = {
             'full_name': HiddenInput(),
-            'password': PasswordInput(),
             'type': Select2Widget(choices=PartyType.choices),
             'sub_type': Select2Widget(choices=PartySubType.choices),
         }
