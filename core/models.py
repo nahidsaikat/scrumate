@@ -67,7 +67,6 @@ class Employee(Party):
 
 
 class Client(Party):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='client')
     type = models.IntegerField(choices=PartyType.choices, default=PartyType.Customer)
     sub_type = models.IntegerField(choices=PartySubType.choices, default=PartySubType.Organization)
 

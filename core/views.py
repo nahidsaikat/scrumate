@@ -673,15 +673,6 @@ def client_add(request, **kwargs):
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'],
-                email=form.cleaned_data['email']
-            )
-            if user:
-                form.cleaned_data['user_id'] = user.id
             form.save()
             return redirect('client_list', permanent=True)
     else:
