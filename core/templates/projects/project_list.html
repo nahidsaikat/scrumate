@@ -26,9 +26,10 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>Entry Date</th>
-                            <th>Status</th>
                             <th>Client</th>
                             <th>Description</th>
+                            <th>Status</th>
+                            <th>Repo</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -39,6 +40,8 @@
                                     <td>{{ pro.name }}</td>
                                     <td>{{ pro.get_type_display }}</td>
                                     <td>{{ pro.entry_date }}</td>
+                                    <td>{{ pro.client|default_if_none:"" }}</td>
+                                    <td>{{ pro.description|default_if_none:"" }}</td>
                                     <td>
                                         {% if perms.core.update_issue_status %}
                                             <a href="{% url 'update_project_status' pro.id %}">{{ pro.get_status_display }}</a>
@@ -46,8 +49,12 @@
                                             {{ pro.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td>{{ pro.client|default_if_none:"" }}</td>
-                                    <td>{{ pro.description|default_if_none:"" }}</td>
+                                    <td>
+                                        {% if pro.repo_url %}
+                                            <a href="{{ pro.repo_url }}">Go to Repo</a>
+                                        {% else %}
+                                        {% endif %}
+                                    </td>
                                     <td><a class="float-right" href="{% url 'project_edit' pro.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>

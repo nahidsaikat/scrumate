@@ -122,9 +122,10 @@ class Project(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(default='')
     type = models.IntegerField(choices=ProjectType.choices, default=ProjectType.Public)
-    status = models.IntegerField(choices=ProjectStatus.choices, default=1)
+    status = models.IntegerField(choices=ProjectStatus.choices, default=ProjectStatus.Pending)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     entry_date = models.DateField("Entry Date", default=datetime.date.today)
+    repo_url = models.URLField(verbose_name='Repository URL', null=True, blank=True)
 
     def __str__(self):
         return self.name

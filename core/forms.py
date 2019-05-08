@@ -12,6 +12,7 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
+        exclude = ('status', )
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
