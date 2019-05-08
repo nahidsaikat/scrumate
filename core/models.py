@@ -39,16 +39,16 @@ class Designation(models.Model):
 
 
 class Party(models.Model):
-    title = models.IntegerField(choices=PartyTitle.choices, default=PartyTitle.Mr)
-    first_name = models.CharField(max_length=100, null=True, blank=True)
+    title = models.IntegerField(choices=PartyTitle.choices, default=PartyTitle.Mr, null=True, blank=True)
+    first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, null=True, blank=True)
     full_name = models.CharField(max_length=200, blank=True)
     nick_name = models.CharField(max_length=100, null=True, blank=True)
     email = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=100, null=True)
     code = models.CharField(max_length=100, null=True, blank=True)
-    username = models.CharField(max_length=100, null=True, blank=True)
-    password = models.CharField(max_length=100, null=True, blank=True)
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
     address_line_1 = models.CharField(max_length=100, null=True)
     address_line_2 = models.CharField(max_length=100, null=True, blank=True)
     address_line_3 = models.CharField(max_length=100, null=True, blank=True)
@@ -61,7 +61,7 @@ class Party(models.Model):
 class Employee(Party):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='employee')
     type = models.IntegerField(choices=PartyType.choices, default=PartyType.Employee)
-    gender = models.IntegerField(choices=PartyGender.choices)
+    gender = models.IntegerField(choices=PartyGender.choices, default=PartyGender.Male)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True)
     designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, default=None, null=True)
 

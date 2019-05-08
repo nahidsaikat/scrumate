@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.forms import ModelForm, Textarea, DateInput, HiddenInput
+from django.forms import ModelForm, Textarea, DateInput, HiddenInput, PasswordInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
     Deliverable, DailyScrum
@@ -187,9 +187,10 @@ class EmployeeForm(ModelForm):
         model = Employee
         fields = ['title', 'full_name', 'first_name', 'last_name', 'nick_name', 'email', 'phone', 'gender', 'code', 'type',
                   'department', 'designation', 'username', 'password', 'address_line_1', 'address_line_2']
-        exclude = ('address_line_3', 'address_line_4')
+        exclude = ('address_line_3', 'address_line_4', 'nick_name', 'code', 'title')
         widgets = {
             'full_name': HiddenInput(),
+            'password': PasswordInput(),
             'title': Select2Widget(choices=PartyTitle.choices),
             'type': Select2Widget(choices=PartyType.choices),
             'gender': Select2Widget(choices=PartyGender.choices),

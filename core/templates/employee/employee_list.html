@@ -23,12 +23,11 @@
                         <thead>
                         <tr>
                             <th>S/L</th>
-                            <th> </th>
                             <th>Name</th>
-                            <th>Code</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Department</th>
+                            <th>Designation</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -36,12 +35,11 @@
                             {% for emp in employees %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ emp.get_title_display }}</td>
                                     <td>{{ emp.full_name }}</td>
-                                    <td>{{ emp.code }}</td>
                                     <td>{{ emp.email }}</td>
                                     <td>{{ emp.phone }}</td>
                                     <td>{{ emp.department.name }}</td>
+                                    <td>{{ emp.designation.name }}</td>
                                     <td><a class="float-right" href="{% url 'employee_edit' emp.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
