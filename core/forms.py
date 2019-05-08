@@ -173,6 +173,7 @@ class DesignationForm(ModelForm):
     class Meta:
         model = Designation
         fields = '__all__'
+        exclude = ('rank', )
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'department': ModelSelect2Widget(model=Department, search_fields=['name__icontains']),

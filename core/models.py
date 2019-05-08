@@ -18,8 +18,8 @@ class Division(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=50)
-    description = models.TextField(default='')
+    code = models.CharField(max_length=50, null=True, blank=True)
+    description = models.TextField(default='', null=True, blank=True)
     # division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
 
     def __str__(self):
@@ -31,8 +31,8 @@ class Designation(models.Model):
     code = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
-    rank = models.IntegerField(default=None, null=True)
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, default=None, null=True, blank=True)
+    rank = models.IntegerField(default=None, null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=models.DO_NOTHING, default=None)
 
     def __str__(self):
         return self.name
