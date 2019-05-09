@@ -28,3 +28,19 @@
 </form>
 
 {% endblock %}
+
+{% block js %}
+<script>
+    {% if not form.instance.id %}
+    $("#id_deliverable").change(function () {
+        var deliverable_id = $(this).val();
+        var url = "/deliverable/" + deliverable_id + "/deliverable_info/";
+
+        $.getJSON( url, function( deliverable ) {
+            console.log( deliverable )
+            $("#id_estimated_hour").val( deliverable.estimated_hour );
+        });
+    });
+    {% endif %}
+</script>
+{% endblock %}

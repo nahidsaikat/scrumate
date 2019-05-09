@@ -51,6 +51,14 @@ class DeliverableFilter(django_filters.FilterSet):
         fields = ['name', 'sprint', 'assignee']
 
 
+class SprintStatusFilter(django_filters.FilterSet):
+    sprint = django_filters.ModelChoiceFilter(queryset=Sprint.objects.all())
+
+    class Meta:
+        model = Deliverable
+        fields = ['sprint']
+
+
 class DailyScrumFilter(django_filters.FilterSet):
 
     class Meta:

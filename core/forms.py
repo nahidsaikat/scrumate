@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.forms import ModelForm, Textarea, DateInput, HiddenInput, PasswordInput
+from django.forms import ModelForm, Textarea, DateInput, HiddenInput, PasswordInput, TextInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 from .models import Project, Release, UserStory, Sprint, Issue, Department, Designation, Employee, Client, Task, \
     Deliverable, DailyScrum
@@ -82,7 +82,7 @@ class TaskForm(ModelForm):
         model = Task
         fields = '__all__'
         exclude = ('project', 'release', 'code', 'category', 'responsible', 'assigned_by', 'assign_date', 'approved_by',
-                   'approved_date', 'parent_task')
+                   'approved_date', 'parent_task', 'estimation')
         widgets = {
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'}),
@@ -126,8 +126,9 @@ class DailyScrumForm(ModelForm):
     class Meta:
         model = DailyScrum
         fields = '__all__'
-        exclude = ('project', 'release', 'user_story', 'task', 'issue')
+        exclude = ('project', 'release', 'user_story', 'task', 'issue', 'actual_hour')
         widgets = {
+            'estimated_hour': TextInput(attrs={'readonly': True}),
             'comment': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
             'project': ModelSelect2Widget(model=Project, search_fields=['name__icontains']),

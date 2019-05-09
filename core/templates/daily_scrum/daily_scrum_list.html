@@ -28,8 +28,7 @@
                             <th>Sprint</th>
                             <th>Task</th>
                             <th>Deliverable</th>
-                            <th>Estimated</th>
-                            <th>Actual</th>
+                            <th>Point</th>
                             <th>Employee</th>
                             <th>Action</th>
                         </tr>
@@ -44,6 +43,7 @@
                                     <td>{{ daily.task.name }}</td>
                                     <td>{{ daily.deliverable.name }}</td>
                                     <td>{{ daily.estimated_hour }}</td>
+                                    {% comment %}
                                     <td>
                                         {% if daily.actual_hour %}
                                             {% if perms.core.update_actual_hour %}
@@ -57,6 +57,7 @@
                                             {% endif %}
                                         {% endif %}
                                     </td>
+                                    {% endcomment %}
                                     <td>{{ daily.employee.full_name }}</td>
                                     <td><a class="float-right" href="{% url 'daily_scrum_edit' daily.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>

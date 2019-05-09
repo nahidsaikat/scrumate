@@ -3,7 +3,7 @@
 {% block content %}
 <form method="get">
     {{ filter.form.as_table }}
-    <button class="btn btn-outline-dark active" type="submit">Search</button>
+    <button class="btn btn-outline-dark active" type="submit">View Report</button>
 </form>
 
 <div class="animated fadeIn pt-2">
@@ -11,10 +11,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-list fa-lg"></i> Deliverables
+                    <i class="fa fa-list fa-lg"></i> Sprint Status Report
                     {% if user.is_authenticated %}
                     <a class="float-right" href="{% url 'deliverable_add' %}">
-                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>
+                        <i class="fa fa-download fa-lg font-2xl"></i>
                     </a>
                     {% endif %}
                 </div>
@@ -22,36 +22,26 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead>
                         <tr>
-                            <th>S/L</th>
-                            <th>Name</th>
-                            <th>Task</th>
                             <th>Sprint</th>
+                            <th>Deliverable</th>
                             <th>Point</th>
-                            <th>Priority</th>
                             <th>Assignee</th>
                             <th>Status</th>
-                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                            {% for deli in deliverables %}
+                            {% for deli in sprint_status %}
                                 <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ deli.name }}</td>
-                                    <td>{{ deli.task.name }}</td>
                                     <td>{{ deli.sprint.name }}</td>
+                                    <td>{{ deli.name }}</td>
                                     <td>{{ deli.estimated_hour }}</td>
-                                    <td>{{ deli.get_priority_display }}</td>
                                     <td>{{ deli.assignee.full_name }}</td>
                                     <td>
-                                        {% if perms.core.update_deliverable_status %}
-                                            <a href="{% url 'update_deliverable_status' deli.id %}">{{ deli.get_status_display }}</a>
+                                        {% if deli.status == 3 or deli.status == 4 %}
+                                            Completed
                                         {% else %}
-                                            {{ deli.get_status_display }}
+                                            Not Completed
                                         {% endif %}
-                                    </td>
-                                    <td><a class="float-right" href="{% url 'deliverable_edit' deli.id %}">
-                                        <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

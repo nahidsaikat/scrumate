@@ -61,11 +61,9 @@ class TaskStatus(DjangoChoices):
 class DeliverableStatus(DjangoChoices):
     Pending = ChoiceItem(1, 'Pending')
     InProgress = ChoiceItem(2, 'In Progress')
-    PartiallyDone = ChoiceItem(3, 'Partially Done')
-    Done = ChoiceItem(4, 'Done')
-    Delivered = ChoiceItem(5, 'Delivered')
-    NotDone = ChoiceItem(6, 'Not Done')
-    Rejected = ChoiceItem(7, 'Rejected')
+    Done = ChoiceItem(3, 'Done')
+    Delivered = ChoiceItem(4, 'Delivered')
+    Rejected = ChoiceItem(5, 'Rejected')
 
 
 class OverTimeStatus(DjangoChoices):

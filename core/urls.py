@@ -3,6 +3,7 @@ from . import views
 from . import api
 
 
+
 urlpatterns = [
     # Accounts
     path('profile/', views.profile, name='profile'),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('sprint/add/', views.sprint_add, name='sprint_add'),
     path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
     path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
+    path('sprint/status_report/', views.status_report, name='status_report'),
 
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
@@ -69,4 +71,5 @@ urlpatterns = [
 
     # API
     path('task/<int:pk>/task_info/', api.task_info, name='task_info'),
+    path('deliverable/<int:pk>/deliverable_info/', api.deliverable_info, name='deliverable_info'),
 ]

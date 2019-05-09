@@ -142,6 +142,18 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                       <i class="nav-icon fa fa-files-o mr-3"></i> Reports</a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'status_report' %}">
+                                <i class="nav-icon fa fa-file-pdf-o mr-3"></i> Sprint Status</a>
+                        </li>
+                    </ul>
+                </li>
+
                 {% endif %}
             </ul>
         </nav>
