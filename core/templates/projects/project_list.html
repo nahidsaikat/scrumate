@@ -29,7 +29,7 @@
                             <th>Client</th>
                             <th>Description</th>
                             <th>Status</th>
-                            <th>Repo</th>
+                            <th>Git Commits</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -50,9 +50,10 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {% if pro.repo_url %}
-                                            <a href="{{ pro.repo_url }}">Go to Repo</a>
+                                        {% if pro.can_view_commit %}
+                                            <a href="{% url 'view_commit_logs' pro.id %}">{{ pro.git_repo }}</a>
                                         {% else %}
+                                            Github Credentials Not Found
                                         {% endif %}
                                     </td>
                                     <td><a class="float-right" href="{% url 'project_edit' pro.id %}">

@@ -11,6 +11,7 @@ django-filter = "*"
 django-widget-tweaks = "*"
 django-select2 = "*"
 django-choices = "*"
+pygithub = "*"
 
 [requires]
 python_version = "3.6"

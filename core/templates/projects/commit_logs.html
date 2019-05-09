@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<form method="get">
+    {{ filter.form.as_table }}
+    <button class="btn btn-outline-dark active" type="submit">Search</button>
+</form>
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> {{ project.name }}
+<!--                    {% if user.is_authenticated %}-->
+<!--                    <a class="float-right" href="{% url 'project_add' %}">-->
+<!--                        <i class="fa fa-plus-square-o fa-lg font-2xl"></i>-->
+<!--                    </a>-->
+<!--                    {% endif %}-->
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>S/L</th>
+                            <th>Commit Messages</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for message in commit_messages %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ message }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

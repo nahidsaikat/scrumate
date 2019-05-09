@@ -121,6 +121,16 @@ def update_project_status(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
+@permission_required('core.view_commit_logs', raise_exception=True)
+def view_commit_logs(request, pk, **kwargs):
+    instance = get_object_or_404(Project, id=pk)
+    return render(request, 'projects/commit_logs.html', {
+        'project': instance,
+        'commit_messages': instance.get_commit_messages()
+    })
+
+
+@login_required(login_url='/login/')
 def release_list(request, **kwargs):
     release_filter = ReleaseFilter(request.GET, queryset=Release.objects.all())
     release_list = release_filter.qs

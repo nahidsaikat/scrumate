@@ -14,6 +14,7 @@ class ProjectForm(ModelForm):
         fields = '__all__'
         exclude = ('status', )
         widgets = {
+            'git_password': PasswordInput(),
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'entry_date': DateInput(attrs={'type': 'date'}),
             'type': Select2Widget(choices=ProjectType.choices),

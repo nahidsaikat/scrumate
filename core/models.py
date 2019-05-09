@@ -1,6 +1,8 @@
 import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
+
+from .source_control import get_commit_messages
 from .choices import ProjectStatus, ProjectType, UserStoryStatus, SprintStatus, Column, Category, TaskStatus, \
     DeliverableStatus, PartyType, PartyGender, Priority, PartyTitle, PartySubType
 
@@ -125,7 +127,9 @@ class Project(models.Model):
     status = models.IntegerField(choices=ProjectStatus.choices, default=ProjectStatus.Pending)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     entry_date = models.DateField("Entry Date", default=datetime.date.today)
-    repo_url = models.URLField(verbose_name='Repository URL', null=True, blank=True)
+    git_username = models.CharField(verbose_name='Github Username', max_length=50, null=True, blank=True)
+    git_password = models.CharField(verbose_name='Github Password', max_length=50, null=True, blank=True)
+    git_repo = models.CharField(verbose_name='Github Repo', max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -134,6 +138,13 @@ class Project(models.Model):
         permissions = (
             ("update_project_status", "Can Update Status of Project"),
         )
+
+    def get_commit_messages(self):
+        return get_commit_messages(self)
+
+    @property
+    def can_view_commit(self):
+        return self.git_username and self.git_password and self.git_repo
 
 
 class Release(models.Model):
