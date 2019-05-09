@@ -137,6 +137,7 @@ class Project(models.Model):
     class Meta:
         permissions = (
             ("update_project_status", "Can Update Status of Project"),
+            ("view_commit_logs", "Can View Commit Logs of Project"),
         )
 
     def get_commit_messages(self):
