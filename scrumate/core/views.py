@@ -242,8 +242,8 @@ def update_sprint_status(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-@permission_required('core.status_report', raise_exception=True)
-def status_report(request, **kwargs):
+@permission_required('core.sprint_status_report', raise_exception=True)
+def sprint_status_report(request, **kwargs):
     sprint_status_filter = SprintStatusFilter(request.GET, queryset=Deliverable.objects.all())
     sprint_status_list = sprint_status_filter.qs
     sprint = Sprint.objects.get(pk=request.GET.get('sprint')) if request.GET.get('sprint') else None
@@ -259,8 +259,8 @@ def status_report(request, **kwargs):
 
 
 @login_required(login_url='/login/')
-@permission_required('core.status_report_download', raise_exception=True)
-def status_report_download(request, pk, **kwargs):
+@permission_required('core.sprint_status_report_download', raise_exception=True)
+def sprint_status_report_download(request, pk, **kwargs):
     sprint_status_list = Deliverable.objects.filter(sprint_id=pk)
     sprint = Sprint.objects.get(pk=pk)
 

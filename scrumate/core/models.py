@@ -171,8 +171,8 @@ class Sprint(models.Model):
     class Meta:
         permissions = (
             ("update_sprint_status", "Can Update Status of Sprint"),
-            ("status_report", "Can See Sprint Status Report"),
-            ("status_report_download", "Can Download Sprint Status Report"),
+            ("sprint_status_report", "Can See Sprint Status Report"),
+            ("sprint_status_report_download", "Can Download Sprint Status Report"),
         )
 
 
