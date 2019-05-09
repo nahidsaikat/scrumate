@@ -11,10 +11,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-list fa-lg"></i> Sprint Status Report {% if sprint %} of {{ sprint.name }} {% endif %}
+                    <i class="fa fa-list fa-lg"></i> Project Status Report {% if project %} of {{ project.name }} {% endif %}
                     {% if user.is_authenticated %}
-                        {% if sprint %}
-                            <a class="float-right" href="{% url 'sprint_status_report_download' sprint.id %}">
+                        {% if project %}
+                            <a class="float-right" href="{% url 'project_status_report_download' project.id %}">
                                 <i class="fa fa-download fa-lg font-2xl"></i>
                             </a>
                         {% else %}
@@ -36,7 +36,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for deli in sprint_status %}
+                            {% for deli in project_status %}
                                 <tr>
                                     <td>{{ deli.task.project.name }}</td>
                                     <td>{{ deli.name }}</td>

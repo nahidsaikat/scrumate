@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
 from scrumate.core.filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, TaskFilter, \
-    DeliverableFilter, DailyScrumFilter, SprintStatusFilter
+    DeliverableFilter, DailyScrumFilter, SprintStatusFilter, ProjectStatusFilter
 from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, TaskForm, DeliverableForm, \
     DailyScrumForm
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum
@@ -122,6 +122,35 @@ def view_commit_logs(request, pk, **kwargs):
     return render(request, 'core/projects/commit_logs.html', {
         'project': instance,
         'commit_messages': commit_messages
+    })
+
+
+@login_required(login_url='/login/')
+@permission_required('core.project_status_report', raise_exception=True)
+def project_status_report(request, **kwargs):
+    project_status_filter = ProjectStatusFilter(request.GET, queryset=Deliverable.objects.all())
+    project_status_list = project_status_filter.qs
+    project = Project.objects.get(pk=request.GET.get('project')) if request.GET.get('project') else None
+
+    if not request.GET.get('sprint', False):
+        project_status_list = []
+
+    return render(request, 'core/projects/project_status.html', {
+        'project_status': project_status_list,
+        'filter': project_status_filter,
+        'project': project
+    })
+
+
+@login_required(login_url='/login/')
+@permission_required('core.project_status_report_download', raise_exception=True)
+def project_status_report_download(request, pk, **kwargs):
+    project_status_list = Deliverable.objects.filter(sprint_id=pk)
+    project = Project.objects.get(pk=pk)
+
+    return PDFRender.render('core/projects/project_status_pdf.html', {
+        'project_status_list': project_status_list,
+        'project_name': project.name
     })
 
 

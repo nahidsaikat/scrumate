@@ -78,6 +78,8 @@ class Project(models.Model):
         permissions = (
             ("update_project_status", "Can Update Status of Project"),
             ("view_commit_logs", "Can View Commit Logs of Project"),
+            ("project_status_report", "Can See Project Status Report"),
+            ("project_status_report_download", "Can Download Project Status Report"),
         )
 
     def get_commit_messages(self):
