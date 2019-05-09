@@ -235,6 +235,7 @@ class Sprint(models.Model):
         permissions = (
             ("update_sprint_status", "Can Update Status of Sprint"),
             ("status_report", "Can See Sprint Status Report"),
+            ("status_report_download", "Can Download Sprint Status Report"),
         )
 
 

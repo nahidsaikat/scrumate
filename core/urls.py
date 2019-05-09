@@ -30,6 +30,7 @@ urlpatterns = [
     path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
     path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
     path('sprint/status_report/', views.status_report, name='status_report'),
+    path('sprint/<int:pk>/download/', views.status_report_download, name='status_report_download'),
 
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
