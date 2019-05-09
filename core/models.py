@@ -1,6 +1,9 @@
 import datetime
+from decimal import Decimal
+
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models import Sum, Q
 
 from .source_control import get_commit_messages
 from .choices import ProjectStatus, ProjectType, UserStoryStatus, SprintStatus, Column, Category, TaskStatus, \
@@ -146,6 +149,10 @@ class Project(models.Model):
     @property
     def can_view_commit(self):
         return self.git_username and self.git_password and self.git_repo
+
+    @property
+    def percent_completed(self):
+        return Deliverable.objects.filter(Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
 
 
 class Release(models.Model):
