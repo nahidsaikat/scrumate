@@ -63,7 +63,7 @@ def project_list(request, **kwargs):
     except EmptyPage:
         projects = paginator.page(paginator.num_pages)
 
-    return render(request, 'projects/project_list.html', {'projects': projects, 'filter': project_filter})
+    return render(request, 'core/projects/project_list.html', {'projects': projects, 'filter': project_filter})
 
 
 @login_required(login_url='/login/')
@@ -75,7 +75,7 @@ def project_add(request, **kwargs):
             return redirect('project_list', permanent=True)
     else:
         form = ProjectForm()
-    return render(request, 'projects/project_add.html', {'form': form})
+    return render(request, 'core/projects/project_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -85,7 +85,7 @@ def project_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('project_list')
-    return render(request, 'projects/project_add.html', {'form': form})
+    return render(request, 'core/projects/project_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -119,7 +119,7 @@ def view_commit_logs(request, pk, **kwargs):
     except EmptyPage:
         commit_messages = paginator.page(paginator.num_pages)
 
-    return render(request, 'projects/commit_logs.html', {
+    return render(request, 'core/projects/commit_logs.html', {
         'project': instance,
         'commit_messages': commit_messages
     })
@@ -139,7 +139,7 @@ def release_list(request, **kwargs):
     except EmptyPage:
         releases = paginator.page(paginator.num_pages)
 
-    return render(request, 'releases/release_list.html', {'releases': releases, 'filter': release_filter})
+    return render(request, 'core/releases/release_list.html', {'releases': releases, 'filter': release_filter})
 
 
 @login_required(login_url='/login/')
@@ -153,7 +153,7 @@ def release_add(request, **kwargs):
             return redirect('release_list', permanent=True)
     else:
         form = ReleaseForm()
-    return render(request, 'releases/release_add.html', {'form': form})
+    return render(request, 'core/releases/release_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -163,7 +163,7 @@ def release_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('release_list')
-    return render(request, 'releases/release_add.html', {'form': form})
+    return render(request, 'core/releases/release_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -180,7 +180,7 @@ def user_story_list(request, **kwargs):
     except EmptyPage:
         user_stories = paginator.page(paginator.num_pages)
 
-    return render(request, 'user_stories/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter})
+    return render(request, 'core/user_stories/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter})
 
 
 @login_required(login_url='/login/')
@@ -194,7 +194,7 @@ def user_story_add(request, **kwargs):
             return redirect('user_story_list', permanent=True)
     else:
         form = UserStoryForm()
-    return render(request, 'user_stories/user_story_add.html', {'form': form})
+    return render(request, 'core/user_stories/user_story_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -204,7 +204,7 @@ def user_story_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('user_story_list')
-    return render(request, 'user_stories/user_story_add.html', {'form': form})
+    return render(request, 'core/user_stories/user_story_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -251,7 +251,7 @@ def status_report(request, **kwargs):
     if not request.GET.get('sprint', False):
         sprint_status_list = []
 
-    return render(request, 'sprint/sprint_status.html', {
+    return render(request, 'core/sprint/sprint_status.html', {
         'sprint_status': sprint_status_list,
         'filter': sprint_status_filter,
         'sprint': sprint
@@ -284,7 +284,7 @@ def sprint_list(request, **kwargs):
     except EmptyPage:
         sprints = paginator.page(paginator.num_pages)
 
-    return render(request, 'sprint/sprint_list.html', {'sprints': sprints, 'filter': sprint_filter})
+    return render(request, 'core/sprint/sprint_list.html', {'sprints': sprints, 'filter': sprint_filter})
 
 
 @login_required(login_url='/login/')
@@ -296,7 +296,7 @@ def sprint_add(request, **kwargs):
             return redirect('sprint_list', permanent=True)
     else:
         form = SprintForm()
-    return render(request, 'sprint/sprint_add.html', {'form': form})
+    return render(request, 'core/sprint/sprint_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -306,7 +306,7 @@ def sprint_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('sprint_list')
-    return render(request, 'sprint/sprint_add.html', {'form': form})
+    return render(request, 'core/sprint/sprint_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -323,7 +323,7 @@ def task_list(request, **kwargs):
     except EmptyPage:
         tasks = paginator.page(paginator.num_pages)
 
-    return render(request, 'task/task_list.html', {'tasks': tasks, 'filter': task_filter})
+    return render(request, 'core/task/task_list.html', {'tasks': tasks, 'filter': task_filter})
 
 
 @login_required(login_url='/login/')
@@ -340,7 +340,7 @@ def task_add(request, **kwargs):
             return redirect('task_list', permanent=True)
     else:
         form = TaskForm()
-    return render(request, 'task/task_add.html', {'form': form})
+    return render(request, 'core/task/task_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -350,7 +350,7 @@ def task_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('task_list')
-    return render(request, 'task/task_add.html', {'form': form})
+    return render(request, 'core/task/task_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -384,7 +384,7 @@ def deliverable_list(request, **kwargs):
     except EmptyPage:
         deliverables = paginator.page(paginator.num_pages)
 
-    return render(request, 'deliverable/deliverable_list.html', {'deliverables': deliverables, 'filter': deliverable_filter})
+    return render(request, 'core/deliverable/deliverable_list.html', {'deliverables': deliverables, 'filter': deliverable_filter})
 
 
 @login_required(login_url='/login/')
@@ -398,7 +398,7 @@ def deliverable_add(request, **kwargs):
             return redirect('deliverable_list', permanent=True)
     else:
         form = DeliverableForm()
-    return render(request, 'deliverable/deliverable_add.html', {'form': form})
+    return render(request, 'core/deliverable/deliverable_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -408,7 +408,7 @@ def deliverable_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('deliverable_list')
-    return render(request, 'deliverable/deliverable_add.html', {'form': form})
+    return render(request, 'core/deliverable/deliverable_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -442,7 +442,7 @@ def daily_scrum_list(request, **kwargs):
     except EmptyPage:
         daily_scrums = paginator.page(paginator.num_pages)
 
-    return render(request, 'daily_scrum/daily_scrum_list.html', {'daily_scrums': daily_scrums, 'filter': daily_scrum_filter})
+    return render(request, 'core/daily_scrum/daily_scrum_list.html', {'daily_scrums': daily_scrums, 'filter': daily_scrum_filter})
 
 
 @login_required(login_url='/login/')
@@ -460,7 +460,7 @@ def daily_scrum_add(request, **kwargs):
             return redirect('daily_scrum_list', permanent=True)
     else:
         form = DailyScrumForm()
-    return render(request, 'daily_scrum/daily_scrum_add.html', {'form': form})
+    return render(request, 'core/daily_scrum/daily_scrum_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -470,7 +470,7 @@ def daily_scrum_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('daily_scrum_list')
-    return render(request, 'daily_scrum/daily_scrum_add.html', {'form': form})
+    return render(request, 'core/daily_scrum/daily_scrum_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -514,7 +514,7 @@ def issue_list(request, **kwargs):
     except EmptyPage:
         issues = paginator.page(paginator.num_pages)
 
-    return render(request, 'issue/issue_list.html', {'issues': issues, 'filter': issue_filter})
+    return render(request, 'core/issue/issue_list.html', {'issues': issues, 'filter': issue_filter})
 
 
 @login_required(login_url='/login/')
@@ -526,7 +526,7 @@ def issue_add(request, **kwargs):
             return redirect('issue_list', permanent=True)
     else:
         form = IssueForm()
-    return render(request, 'issue/issue_add.html', {'form': form})
+    return render(request, 'core/issue/issue_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
@@ -536,7 +536,7 @@ def issue_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('issue_list')
-    return render(request, 'issue/issue_add.html', {'form': form})
+    return render(request, 'core/issue/issue_add.html', {'form': form})
 
 
 @login_required(login_url='/login/')
