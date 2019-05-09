@@ -18,13 +18,13 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles import views
-from core.views import index
+from scrumate.core.views import index
 
 
 urlpatterns = [
     path('', index, name='index'),
     path('', include('django.contrib.auth.urls')),
-    path('', include('core.urls')),
+    path('', include('scrumate.core.urls')),
     path('select2/', include('django_select2.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
