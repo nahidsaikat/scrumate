@@ -50,10 +50,10 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {% if pro.can_view_commit %}
+                                        {% if pro.can_view_commit and perms.core.view_commit_logs %}
                                             <a href="{% url 'view_commit_logs' pro.id %}">{{ pro.git_repo }}</a>
                                         {% else %}
-                                            Github Credentials Not Found
+                                            Not Found
                                         {% endif %}
                                     </td>
                                     <td><a class="float-right" href="{% url 'project_edit' pro.id %}">

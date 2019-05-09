@@ -1,3 +1,4 @@
+from math import ceil
 from datetime import datetime
 
 from django.shortcuts import render, redirect, get_object_or_404, reverse
@@ -124,9 +125,19 @@ def update_project_status(request, pk, **kwargs):
 @permission_required('core.view_commit_logs', raise_exception=True)
 def view_commit_logs(request, pk, **kwargs):
     instance = get_object_or_404(Project, id=pk)
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(instance.get_commit_messages(), settings.PAGE_SIZE)
+    try:
+        commit_messages = paginator.page(page)
+    except PageNotAnInteger:
+        commit_messages = paginator.page(1)
+    except EmptyPage:
+        commit_messages = paginator.page(paginator.num_pages)
+
     return render(request, 'projects/commit_logs.html', {
         'project': instance,
-        'commit_messages': instance.get_commit_messages()
+        'commit_messages': commit_messages
     })
 
 
