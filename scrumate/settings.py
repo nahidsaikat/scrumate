@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_select2',
     'scrumate.core',
+    'scrumate.people',
 ]
 
 MIDDLEWARE = [
