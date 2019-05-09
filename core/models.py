@@ -152,7 +152,9 @@ class Project(models.Model):
 
     @property
     def percent_completed(self):
-        return Deliverable.objects.filter(Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+        total = Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(1)
+        total_done = Deliverable.objects.filter(Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+        return round((total_done * Decimal(100)) / total, 2)
 
 
 class Release(models.Model):
