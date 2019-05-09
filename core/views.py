@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
@@ -22,11 +23,17 @@ User = get_user_model()
 
 
 def get_dashboard_context(request, **kwargs):
+    # for dev dashboard
     today = datetime.today()
     deliverable_qs = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today)
     pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
     in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
     done = deliverable_qs.filter(status=DeliverableStatus.Done)
+
+    # for other dashboard
+    projects = Project.objects.filter(~Q(status=ProjectStatus.Completed))
+    pending_deliverables = Deliverable.objects.filter(status__lt=DeliverableStatus.Done)
+
     dev = request.user.has_perm('core.dev_dashboard')
 
     data = {
@@ -34,7 +41,9 @@ def get_dashboard_context(request, **kwargs):
         'pending': pending,
         'in_progress': in_progress,
         'done': done,
-        'dev': dev
+        'dev': dev,
+        'projects': projects,
+        'pending_deliverables': pending_deliverables
     }
     return data
 
