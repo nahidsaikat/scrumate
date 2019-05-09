@@ -24,9 +24,11 @@ from scrumate.core.views import index
 urlpatterns = [
     path('', index, name='index'),
     path('', include('django.contrib.auth.urls')),
-    path('', include('scrumate.core.urls')),
+    path('core/', include('scrumate.core.urls')),
+    path('people/', include('scrumate.people.urls')),
     path('select2/', include('django_select2.urls')),
     path('admin/', admin.site.urls),
+    path('watchman/', include('watchman.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'django_select2',
+    'watchman',
+
     'scrumate.core',
     'scrumate.people',
 ]

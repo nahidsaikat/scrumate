@@ -13,6 +13,8 @@ django-select2 = "*"
 django-choices = "*"
 pygithub = "*"
 xhtml2pdf = "*"
+django-watchman = "*"
+pywatchman = "*"
 
 [requires]
 python_version = "3.6"

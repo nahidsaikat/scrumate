@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1925a871c855aee4c1183b8aaf7e5550117c5f3fe42c66a53b7db195e1662841"
+            "sha256": "c2791df6fe8f3cbb27dab3ce8696529b6cb0f6b5a3d15b7ac8f63e2db3ac56b0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -68,6 +68,13 @@
             "index": "pypi",
             "version": "==2.1.0"
         },
+        "django-jsonview": {
+            "hashes": [
+                "sha256:424680886d1b694316c5d43b6c8ba291c995e5136126103daab09a84c34ddd9d",
+                "sha256:ed6bf86dbd08d8108517d9fae36ad2579dc57d1df307c386c7a102dd17193547"
+            ],
+            "version": "==1.2.0"
+        },
         "django-select2": {
             "hashes": [
                 "sha256:80ecbd5a8caa8195664e03d23f33f1f55210f7cd6eeb52eae4ee0adc417cde0d",
@@ -75,6 +82,14 @@
             ],
             "index": "pypi",
             "version": "==7.0.3"
+        },
+        "django-watchman": {
+            "hashes": [
+                "sha256:c1cc4f87b7821421086db3a2d5f71cd200e7a769630419bcf78770bcbbd26c8e",
+                "sha256:e5ef8276f4a4e622304ad841ce51491f93d299d9a4fecf76d6a40bfa3378ca22"
+            ],
+            "index": "pypi",
+            "version": "==0.16.0"
         },
         "django-widget-tweaks": {
             "hashes": [
@@ -156,6 +171,13 @@
             ],
             "version": "==2019.1"
         },
+        "pywatchman": {
+            "hashes": [
+                "sha256:d0047eb275deafb0011eda0a1a815fbd9742478c3d2b5ad6956d300e447dc2f9"
+            ],
+            "index": "pypi",
+            "version": "==1.4.1"
+        },
         "reportlab": {
             "hashes": [
                 "sha256:04b9bf35127974f734bddddf48860732361e31c1220c0ebe4f683f19d5cfc3b8",
@@ -226,8 +248,7 @@
         },
         "wrapt": {
             "hashes": [
-                "sha256:4aea003270831cceb8a90ff27c4031da6ead7ec1886023b80ce0dfe0adf61533",
-                "sha256:e954b3d0f2a474540f7176b2cb9b9ba08b719b89a2b8bc81da411e34910beed3"
+                "sha256:4aea003270831cceb8a90ff27c4031da6ead7ec1886023b80ce0dfe0adf61533"
             ],
             "version": "==1.11.1"
         },
