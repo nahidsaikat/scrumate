@@ -64,7 +64,9 @@ def department_add(request, **kwargs):
             return redirect('department_list', permanent=True)
     else:
         form = DepartmentForm()
-    return render(request, 'people/department/department_add.html', {'form': form})
+    title = 'New Department'
+    return render(request, 'people/department/department_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
 
 @login_required(login_url='/login/')
@@ -74,7 +76,9 @@ def department_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('department_list')
-    return render(request, 'people/department/department_add.html', {'form': form})
+    title = 'Edit Department'
+    return render(request, 'people/department/department_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
 
 @login_required(login_url='/login/')
