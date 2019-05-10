@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('core/', include('scrumate.core.urls')),
     path('people/', include('scrumate.people.urls')),
+    path('general/', include('scrumate.general.urls')),
     path('select2/', include('django_select2.urls')),
     path('admin/', admin.site.urls),
     path('watchman/', include('watchman.urls')),
