@@ -190,7 +190,9 @@ def client_add(request, **kwargs):
             return redirect('client_list', permanent=True)
     else:
         form = ClientForm()
-    return render(request, 'people/client/client_add.html', {'form': form})
+    title = 'New Client'
+    return render(request, 'people/client/client_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'client_list'})
 
 
 @login_required(login_url='/login/')
@@ -200,4 +202,6 @@ def client_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('client_list')
-    return render(request, 'people/client/client_add.html', {'form': form})
+    title = 'Edit Client'
+    return render(request, 'people/client/client_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'client_list'})
