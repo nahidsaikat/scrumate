@@ -25,8 +25,8 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <table class="table table-responsive-sm table-bordered">
-                        <thead>
+                    <table class="table">
+                        <thead class="thead-dark">
                         <tr>
                             <th>Project</th>
                             <th>Deliverable</th>
@@ -53,27 +53,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if deliverables.has_other_pages %}
-                        <ul class="pagination">
-                            {% if deliverables.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ deliverables.previous_page_number }}">&laquo;</a></li>
-                            {% else %}
-                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-                            {% endif %}
-                            {% for i in deliverables.paginator.page_range %}
-                                {% if deliverables.number == i %}
-                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
-                                {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if deliverables.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ deliverables.next_page_number }}">&raquo;</a></li>
-                            {% else %}
-                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-                            {% endif %}
-                      </ul>
-                    {% endif %}
                 </div>
             </div>
         </div>

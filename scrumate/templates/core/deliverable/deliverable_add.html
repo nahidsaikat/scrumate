@@ -34,7 +34,7 @@
     {% if not form.instance.id %}
     $("#id_task").change(function () {
         var task_id = $(this).val();
-        var url = "/task/" + task_id + "/task_info/";
+        var url = "/core/task/" + task_id + "/task_info/";
 
         $.getJSON( url, function( task ) {
             console.log( task )

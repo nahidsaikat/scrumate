@@ -128,15 +128,15 @@ def view_commit_logs(request, pk, **kwargs):
 @login_required(login_url='/login/')
 @permission_required('core.project_status_report', raise_exception=True)
 def project_status_report(request, **kwargs):
-    project_status_filter = ProjectStatusFilter(request.GET, queryset=Deliverable.objects.all())
-    project_status_list = project_status_filter.qs
+    project_status_filter = ProjectStatusFilter(request.GET, queryset=Release.objects.all())
+    release_list = project_status_filter.qs
     project = Project.objects.get(pk=request.GET.get('project')) if request.GET.get('project') else None
 
-    if not request.GET.get('sprint', False):
-        project_status_list = []
+    if not request.GET.get('project', False):
+        release_list = []
 
     return render(request, 'core/projects/project_status.html', {
-        'project_status': project_status_list,
+        'release_list': release_list,
         'filter': project_status_filter,
         'project': project
     })
@@ -145,11 +145,11 @@ def project_status_report(request, **kwargs):
 @login_required(login_url='/login/')
 @permission_required('core.project_status_report_download', raise_exception=True)
 def project_status_report_download(request, pk, **kwargs):
-    project_status_list = Deliverable.objects.filter(sprint_id=pk)
+    release_list = Release.objects.filter(project_id=pk)
     project = Project.objects.get(pk=pk)
 
     return PDFRender.render('core/projects/project_status_pdf.html', {
-        'project_status_list': project_status_list,
+        'release_list': release_list,
         'project_name': project.name
     })
 
@@ -293,7 +293,7 @@ def sprint_status_report_download(request, pk, **kwargs):
     sprint_status_list = Deliverable.objects.filter(sprint_id=pk)
     sprint = Sprint.objects.get(pk=pk)
 
-    return PDFRender.render('sprint/sprint_status_pdf.html', {
+    return PDFRender.render('core/sprint/sprint_status_pdf.html', {
         'sprint_status_list': sprint_status_list,
         'sprint_name': sprint.name
     })

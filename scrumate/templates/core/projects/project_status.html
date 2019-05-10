@@ -25,55 +25,24 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <table class="table table-responsive-sm table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Project</th>
-                            <th>Deliverable</th>
-                            <th>Point</th>
-                            <th>Assignee</th>
-                            <th>Status</th>
-                        </tr>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Release</th>
+                                <th>Version</th>
+                                <th>Release Date</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            {% for deli in project_status %}
+                            {% for release in release_list %}
                                 <tr>
-                                    <td>{{ deli.task.project.name }}</td>
-                                    <td>{{ deli.name }}</td>
-                                    <td>{{ deli.estimated_hour }}</td>
-                                    <td>{{ deli.assignee.full_name }}</td>
-                                    <td>
-                                        {% if deli.status == 3 or deli.status == 4 %}
-                                            Completed
-                                        {% else %}
-                                            Not Completed
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ release.name }}</td>
+                                    <td>{{ release.version }}</td>
+                                    <td>{{ release.release_date }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if deliverables.has_other_pages %}
-                        <ul class="pagination">
-                            {% if deliverables.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ deliverables.previous_page_number }}">&laquo;</a></li>
-                            {% else %}
-                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-                            {% endif %}
-                            {% for i in deliverables.paginator.page_range %}
-                                {% if deliverables.number == i %}
-                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
-                                {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if deliverables.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ deliverables.next_page_number }}">&raquo;</a></li>
-                            {% else %}
-                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-                            {% endif %}
-                      </ul>
-                    {% endif %}
                 </div>
             </div>
         </div>

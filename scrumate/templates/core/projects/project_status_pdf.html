@@ -61,31 +61,21 @@
     <div class="animated fadeIn pt-2">
         <div class="row">
             <div class="col-lg-12">
-                <span class="center"> Project Status Report of {{ sprint_name }}</span>
-                <table class="table table-responsive-sm table-bordered">
+                <span class="center"> Project Status Report of {{ project_name }}</span>
+                <table class="table">
                     <thead>
                     <tr>
-                        <th>Project</th>
-                        <th>Deliverable</th>
-                        <th>Point</th>
-                        <th>Assignee</th>
-                        <th>Status</th>
+                        <th>Release</th>
+                        <th>Version</th>
+                        <th>Release Date</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {% for ssl in sprint_status_list %}
+                        {% for release in release_list %}
                             <tr>
-                                <td>{{ ssl.task.project.name }}</td>
-                                <td>{{ ssl.name }}</td>
-                                <td>{{ ssl.estimated_hour }}</td>
-                                <td>{{ ssl.assignee.full_name }}</td>
-                                <td>
-                                    {% if ssl.status == 3 or ssl.status == 4 %}
-                                        Completed
-                                    {% else %}
-                                        Not Completed
-                                    {% endif %}
-                                </td>
+                                <td>{{ release.name }}</td>
+                                <td>{{ release.version }}</td>
+                                <td>{{ release.release_date }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
