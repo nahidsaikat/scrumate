@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-lg-12">
       <div class="card text-white bg-xing">
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          <h1 style="text-align: center;">Welcome to Scrumate</h1>
+          <h1 style="text-align: center;">Currently Running Sprint</h1>
         </div>
       </div>
     </div>
@@ -22,8 +22,9 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for pend in context.pending %}
+                            {% for pend in data.pending %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ pend.name }} - {{ pend.estimated_hour }}</td>
                                 </tr>
                             {% endfor %}
@@ -43,8 +44,9 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for inp in context.in_progress %}
+                            {% for inp in data.in_progress %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ inp.name }} - {{ inp.estimated_hour }}</td>
                                 </tr>
                             {% endfor %}
@@ -64,8 +66,9 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for done_task in context.done %}
+                            {% for done_task in data.done %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ done_task.name }} - {{ done_task.estimated_hour }}</td>
                                 </tr>
                             {% endfor %}

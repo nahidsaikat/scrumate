@@ -622,8 +622,8 @@ pre code {
 .col-xl-auto {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  /*padding-right: 15px;
+  padding-left: 15px;*/
 }
 
 .col {
@@ -11826,9 +11826,11 @@ a.text-dark:hover, a.text-dark:focus {
   float: left;
 }
 
+/*
 .card {
   margin-bottom: 1.5rem;
 }
+*/
 
 .card.bg-primary {
   border-color: #187da0;
