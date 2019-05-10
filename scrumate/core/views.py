@@ -334,8 +334,7 @@ def sprint_add(request, **kwargs):
     else:
         form = SprintForm()
     title = 'New Sprint'
-    return render(request, 'core/sprint/sprint_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'sprint_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'sprint_list'})
 
 
 @login_required(login_url='/login/')
@@ -346,8 +345,7 @@ def sprint_edit(request, pk, **kwargs):
         form.save()
         return redirect('sprint_list')
     title = 'Edit Sprint'
-    return render(request, 'core/sprint/sprint_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'sprint_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'sprint_list'})
 
 
 @login_required(login_url='/login/')
