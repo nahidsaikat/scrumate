@@ -46,12 +46,19 @@
           font-size: large;
         }
 
+        .left {
+          text-align: left;
+        }
+
+        .right {
+          text-align: right;
+        }
+
         .table th,
         .table td {
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #000;
-            text-align: center;
         }
     </style>
 
@@ -62,24 +69,26 @@
         <div class="row">
             <div class="col-lg-12">
                 <span class="center"> Project Status Report of {{ project_name }}</span>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Release</th>
-                        <th>Version</th>
-                        <th>Release Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {% for release in release_list %}
+                {% for release in release_list %}
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>{{ release.name }}</td>
-                                <td>{{ release.version }}</td>
-                                <td>{{ release.release_date }}</td>
+                                <th></th>
+                                <th>{{ release.name }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; {{ release.release_date }}</th>
+                                <th>Version: {{ release.version }}</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for story in release.userstory_set.all %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td class="left" width="85%">{{ story.summary }}</td>
+                                    <td class="right" width="15%">{{ story.get_status_display }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
                 <hr>
             </div>
         </div>

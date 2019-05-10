@@ -25,24 +25,26 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Release</th>
-                                <th>Version</th>
-                                <th>Release Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for release in release_list %}
+                    {% for release in release_list %}
+                        <table class="table">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <td>{{ release.name }}</td>
-                                    <td>{{ release.version }}</td>
-                                    <td>{{ release.release_date }}</td>
+                                    <th></th>
+                                    <th>{{ release.name }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; {{ release.release_date }}</th>
+                                    <th>Version: {{ release.version }}</th>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {% for story in release.userstory_set.all %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ story.summary }}</td>
+                                        <td>{{ story.get_status_display }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
                 </div>
             </div>
         </div>
