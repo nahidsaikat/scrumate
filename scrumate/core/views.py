@@ -381,7 +381,9 @@ def task_add(request, **kwargs):
             return redirect('task_list', permanent=True)
     else:
         form = TaskForm()
-    return render(request, 'core/task/task_add.html', {'form': form})
+    title = 'New Task'
+    return render(request, 'core/task/task_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'task_list'})
 
 
 @login_required(login_url='/login/')
@@ -391,7 +393,9 @@ def task_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('task_list')
-    return render(request, 'core/task/task_add.html', {'form': form})
+    title = 'Edit Task'
+    return render(request, 'core/task/task_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'task_list'})
 
 
 @login_required(login_url='/login/')
