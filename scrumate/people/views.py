@@ -159,7 +159,9 @@ def employee_add(request, **kwargs):
             return redirect('employee_list', permanent=True)
     else:
         form = EmployeeForm()
-    return render(request, 'people/employee/employee_add.html', {'form': form})
+    title = 'New Employee'
+    return render(request, 'people/employee/employee_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
 
 @login_required(login_url='/login/')
@@ -169,7 +171,9 @@ def employee_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('employee_list')
-    return render(request, 'people/employee/employee_add.html', {'form': form})
+    title = 'Edit Employee'
+    return render(request, 'people/employee/employee_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
 
 @login_required(login_url='/login/')
