@@ -170,7 +170,7 @@ def release_list(request, **kwargs):
     except EmptyPage:
         releases = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/releases/release_list.html', {'releases': releases, 'filter': release_filter})
+    return render(request, 'core/release_list.html', {'releases': releases, 'filter': release_filter})
 
 
 @login_required(login_url='/login/')
@@ -185,8 +185,7 @@ def release_add(request, **kwargs):
     else:
         form = ReleaseForm()
     title = 'New Release'
-    return render(request, 'core/releases/release_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'release_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
 
 
 @login_required(login_url='/login/')
@@ -197,8 +196,7 @@ def release_edit(request, pk, **kwargs):
         form.save()
         return redirect('release_list')
     title = 'Edit Release'
-    return render(request, 'core/releases/release_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'release_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
 
 
 @login_required(login_url='/login/')
