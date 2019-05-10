@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block side-menu %}
+    <li class="nav-item">
+        <a class="nav-link" href="/">
+            <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'sprint_add' %}">
+            <i class="nav-icon fa fa-plus-square mr-3"></i> Add Sprint</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'sprint_list' %}">
+            <i class="nav-icon icon-clock icons mr-3"></i> Sprint List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'daily_scrum_list' %}">
+            <i class="nav-icon icons icon-equalizer mr-3"></i> Daily Scrum</a>
+    </li>
+
+{% endblock %}
