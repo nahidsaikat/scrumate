@@ -52,7 +52,7 @@ def department_list(request, **kwargs):
     except EmptyPage:
         departments = paginator.page(paginator.num_pages)
 
-    return render(request, 'people/department/department_list.html', {'departments': departments, 'filter': department_filter})
+    return render(request, 'people/department_list.html', {'departments': departments, 'filter': department_filter})
 
 
 @login_required(login_url='/login/')
@@ -65,8 +65,7 @@ def department_add(request, **kwargs):
     else:
         form = DepartmentForm()
     title = 'New Department'
-    return render(request, 'people/department/department_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'department_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
 
 @login_required(login_url='/login/')
@@ -77,8 +76,7 @@ def department_edit(request, pk, **kwargs):
         form.save()
         return redirect('department_list')
     title = 'Edit Department'
-    return render(request, 'people/department/department_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'department_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
 
 @login_required(login_url='/login/')
@@ -95,7 +93,7 @@ def designation_list(request, **kwargs):
     except EmptyPage:
         designations = paginator.page(paginator.num_pages)
 
-    return render(request, 'people/designation/designation_list.html', {'designations': designations, 'filter': designation_filter})
+    return render(request, 'people/designation_list.html', {'designations': designations, 'filter': designation_filter})
 
 
 @login_required(login_url='/login/')
@@ -108,8 +106,7 @@ def designation_add(request, **kwargs):
     else:
         form = DesignationForm()
     title = 'New Designation'
-    return render(request, 'people/designation/designation_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'designation_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
 
 @login_required(login_url='/login/')
@@ -120,8 +117,7 @@ def designation_edit(request, pk, **kwargs):
         form.save()
         return redirect('designation_list')
     title = 'Edit Designation'
-    return render(request, 'people/designation/designation_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'designation_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
 
 @login_required(login_url='/login/')
@@ -138,7 +134,7 @@ def employee_list(request, **kwargs):
     except EmptyPage:
         employees = paginator.page(paginator.num_pages)
 
-    return render(request, 'people/employee/employee_list.html', {'employees': employees, 'filter': employee_filter})
+    return render(request, 'people/employee_list.html', {'employees': employees, 'filter': employee_filter})
 
 
 @login_required(login_url='/login/')
@@ -160,8 +156,7 @@ def employee_add(request, **kwargs):
     else:
         form = EmployeeForm()
     title = 'New Employee'
-    return render(request, 'people/employee/employee_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'employee_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
 
 @login_required(login_url='/login/')
@@ -172,8 +167,7 @@ def employee_edit(request, pk, **kwargs):
         form.save()
         return redirect('employee_list')
     title = 'Edit Employee'
-    return render(request, 'people/employee/employee_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'employee_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
 
 @login_required(login_url='/login/')
@@ -190,7 +184,7 @@ def client_list(request, **kwargs):
     except EmptyPage:
         clients = paginator.page(paginator.num_pages)
 
-    return render(request, 'people/client/client_list.html', {'clients': clients, 'filter': client_filter})
+    return render(request, 'people/client_list.html', {'clients': clients, 'filter': client_filter})
 
 
 @login_required(login_url='/login/')
@@ -203,8 +197,7 @@ def client_add(request, **kwargs):
     else:
         form = ClientForm()
     title = 'New Client'
-    return render(request, 'people/client/client_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'client_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
 
 
 @login_required(login_url='/login/')
@@ -215,5 +208,4 @@ def client_edit(request, pk, **kwargs):
         form.save()
         return redirect('client_list')
     title = 'Edit Client'
-    return render(request, 'people/client/client_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'client_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
