@@ -75,7 +75,9 @@ def project_add(request, **kwargs):
             return redirect('project_list', permanent=True)
     else:
         form = ProjectForm()
-    return render(request, 'core/projects/project_add.html', {'form': form})
+    title = 'New Project'
+    return render(request, 'core/projects/project_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'project_list'})
 
 
 @login_required(login_url='/login/')
@@ -85,7 +87,9 @@ def project_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('project_list')
-    return render(request, 'core/projects/project_add.html', {'form': form})
+    title = 'Edit Project'
+    return render(request, 'core/projects/project_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'project_list'})
 
 
 @login_required(login_url='/login/')
