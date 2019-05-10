@@ -186,7 +186,9 @@ def release_add(request, **kwargs):
             return redirect('release_list', permanent=True)
     else:
         form = ReleaseForm()
-    return render(request, 'core/releases/release_add.html', {'form': form})
+    title = 'New Release'
+    return render(request, 'core/releases/release_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'release_list'})
 
 
 @login_required(login_url='/login/')
@@ -196,7 +198,9 @@ def release_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('release_list')
-    return render(request, 'core/releases/release_add.html', {'form': form})
+    title = 'Edit Release'
+    return render(request, 'core/releases/release_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'release_list'})
 
 
 @login_required(login_url='/login/')
