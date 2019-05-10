@@ -107,7 +107,9 @@ def designation_add(request, **kwargs):
             return redirect('designation_list', permanent=True)
     else:
         form = DesignationForm()
-    return render(request, 'people/designation/designation_add.html', {'form': form})
+    title = 'New Designation'
+    return render(request, 'people/designation/designation_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
 
 @login_required(login_url='/login/')
@@ -117,7 +119,9 @@ def designation_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('designation_list')
-    return render(request, 'people/designation/designation_add.html', {'form': form})
+    title = 'Edit Designation'
+    return render(request, 'people/designation/designation_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
 
 @login_required(login_url='/login/')
