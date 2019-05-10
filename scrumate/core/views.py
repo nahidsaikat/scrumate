@@ -427,7 +427,9 @@ def deliverable_add(request, **kwargs):
             return redirect('deliverable_list', permanent=True)
     else:
         form = DeliverableForm()
-    return render(request, 'core/deliverable/deliverable_add.html', {'form': form})
+    title = 'New Deliverable'
+    return render(request, 'core/deliverable/deliverable_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'deliverable_list'})
 
 
 @login_required(login_url='/login/')
@@ -437,7 +439,9 @@ def deliverable_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('deliverable_list')
-    return render(request, 'core/deliverable/deliverable_add.html', {'form': form})
+    title = 'Edit Deliverable'
+    return render(request, 'core/deliverable/deliverable_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'deliverable_list'})
 
 
 @login_required(login_url='/login/')
@@ -555,7 +559,9 @@ def issue_add(request, **kwargs):
             return redirect('issue_list', permanent=True)
     else:
         form = IssueForm()
-    return render(request, 'core/issue/issue_add.html', {'form': form})
+    title = 'New Issue'
+    return render(request, 'core/issue/issue_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'issue_list'})
 
 
 @login_required(login_url='/login/')
@@ -565,7 +571,9 @@ def issue_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('issue_list')
-    return render(request, 'core/issue/issue_add.html', {'form': form})
+    title = 'Edit Issue'
+    return render(request, 'core/issue/issue_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'issue_list'})
 
 
 @login_required(login_url='/login/')
