@@ -213,7 +213,7 @@ def user_story_list(request, **kwargs):
     except EmptyPage:
         user_stories = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/user_stories/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter})
+    return render(request, 'core/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter})
 
 
 @login_required(login_url='/login/')
@@ -228,8 +228,7 @@ def user_story_add(request, **kwargs):
     else:
         form = UserStoryForm()
     title = 'New User Story'
-    return render(request, 'core/user_stories/user_story_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
 
 
 @login_required(login_url='/login/')
@@ -240,8 +239,7 @@ def user_story_edit(request, pk, **kwargs):
         form.save()
         return redirect('user_story_list')
     title = 'Edit User Story'
-    return render(request, 'core/user_stories/user_story_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
 
 
 @login_required(login_url='/login/')
