@@ -493,7 +493,9 @@ def daily_scrum_add(request, **kwargs):
             return redirect('daily_scrum_list', permanent=True)
     else:
         form = DailyScrumForm()
-    return render(request, 'core/daily_scrum/daily_scrum_add.html', {'form': form})
+    title = 'Daily Scrum Entry'
+    return render(request, 'core/daily_scrum/daily_scrum_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'daily_scrum_list'})
 
 
 @login_required(login_url='/login/')
@@ -503,7 +505,9 @@ def daily_scrum_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('daily_scrum_list')
-    return render(request, 'core/daily_scrum/daily_scrum_add.html', {'form': form})
+    title = 'Edit Daily Scrum Entry'
+    return render(request, 'core/daily_scrum/daily_scrum_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'daily_scrum_list'})
 
 
 @login_required(login_url='/login/')
