@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block side-menu %}
+    <li class="nav-item">
+        <a class="nav-link" href="/">
+            <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'sprint_status_report' %}">
+            <i class="nav-icon fa fa-file-pdf-o mr-3"></i> Sprint Status</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'project_status_report' %}">
+            <i class="nav-icon fa fa-file-pdf-o mr-3"></i> Project Status</a>
+    </li>
+{% endblock %}
