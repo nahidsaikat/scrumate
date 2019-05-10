@@ -571,7 +571,7 @@ def issue_list(request, **kwargs):
     except EmptyPage:
         issues = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/issue/issue_list.html', {'issues': issues, 'filter': issue_filter})
+    return render(request, 'core/issue_list.html', {'issues': issues, 'filter': issue_filter})
 
 
 @login_required(login_url='/login/')
@@ -584,8 +584,7 @@ def issue_add(request, **kwargs):
     else:
         form = IssueForm()
     title = 'New Issue'
-    return render(request, 'core/issue/issue_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'issue_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
 
 
 @login_required(login_url='/login/')
@@ -596,8 +595,7 @@ def issue_edit(request, pk, **kwargs):
         form.save()
         return redirect('issue_list')
     title = 'Edit Issue'
-    return render(request, 'core/issue/issue_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'issue_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
 
 
 @login_required(login_url='/login/')
