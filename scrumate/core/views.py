@@ -362,7 +362,7 @@ def task_list(request, **kwargs):
     except EmptyPage:
         tasks = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/task/task_list.html', {'tasks': tasks, 'filter': task_filter})
+    return render(request, 'core/task_list.html', {'tasks': tasks, 'filter': task_filter})
 
 
 @login_required(login_url='/login/')
@@ -380,8 +380,7 @@ def task_add(request, **kwargs):
     else:
         form = TaskForm()
     title = 'New Task'
-    return render(request, 'core/task/task_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'task_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
 
 
 @login_required(login_url='/login/')
@@ -392,8 +391,7 @@ def task_edit(request, pk, **kwargs):
         form.save()
         return redirect('task_list')
     title = 'Edit Task'
-    return render(request, 'core/task/task_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'task_list'})
+    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
 
 
 @login_required(login_url='/login/')
