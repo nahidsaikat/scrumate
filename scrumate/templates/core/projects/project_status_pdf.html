@@ -41,17 +41,26 @@
     <style>
         .center {
           text-align: center;
-          border: 3px solid green;
+          border: 3px solid black;
           font-weight: bold;
           font-size: large;
         }
 
-        .left {
+        .text-bold {
+          font-weight: bold;
+          font-size: large;
+        }
+
+        .text-left {
           text-align: left;
         }
 
-        .right {
+        .text-right {
           text-align: right;
+        }
+
+        .text-center {
+          text-align: center;
         }
 
         .table th,
@@ -72,18 +81,18 @@
                 {% for release in release_list %}
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th>{{ release.name }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; {{ release.release_date }}</th>
-                                <th>Version: {{ release.version }}</th>
-                            </tr>
                         </thead>
                         <tbody>
+                            <tr class="text-bold">
+                                <td></td>
+                                <td>{{ release.name }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; {{ release.release_date }}</td>
+                                <td class="text-center">Version: {{ release.version }}</td>
+                            </tr>
                             {% for story in release.userstory_set.all %}
                                 <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td class="left" width="85%">{{ story.summary }}</td>
-                                    <td class="right" width="15%">{{ story.get_status_display }}</td>
+                                    <td class="text-center" width="5%">{{ forloop.counter }}</td>
+                                    <td class="text-left" width="80%">{{ story.summary }}</td>
+                                    <td class="text-center" width="15%">{{ story.get_status_display }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
