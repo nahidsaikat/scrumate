@@ -231,7 +231,9 @@ def user_story_add(request, **kwargs):
             return redirect('user_story_list', permanent=True)
     else:
         form = UserStoryForm()
-    return render(request, 'core/user_stories/user_story_add.html', {'form': form})
+    title = 'New User Story'
+    return render(request, 'core/user_stories/user_story_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
 
 
 @login_required(login_url='/login/')
@@ -241,7 +243,9 @@ def user_story_edit(request, pk, **kwargs):
     if form.is_valid():
         form.save()
         return redirect('user_story_list')
-    return render(request, 'core/user_stories/user_story_add.html', {'form': form})
+    title = 'Edit User Story'
+    return render(request, 'core/user_stories/user_story_add.html',
+                  {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
 
 
 @login_required(login_url='/login/')
