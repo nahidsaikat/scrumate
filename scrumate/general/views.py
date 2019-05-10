@@ -19,3 +19,9 @@ def sprint(request, **kwargs):
     employee = request.user.employee if request.user and hasattr(request.user, 'employee') else None
     return render(request, 'index_sprint.html', {'employee': employee})
 
+
+@login_required(login_url='/login/')
+def project(request, **kwargs):
+    employee = request.user.employee if request.user and hasattr(request.user, 'employee') else None
+    return render(request, 'index_project.html', {'employee': employee})
+

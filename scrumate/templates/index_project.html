@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block side-menu %}
+    <li class="nav-item">
+        <a class="nav-link" href="/">
+            <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'project_add' %}">
+            <i class="nav-icon fa fa-plus-square mr-3"></i> Add Project</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'project_list' %}">
+            <i class="nav-icon fa fa-cube mr-3"></i> Project List</a>
+    </li>
+{% endblock %}
