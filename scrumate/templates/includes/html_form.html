@@ -6,9 +6,15 @@
                 <strong>{{ title }}</strong>
                 {% if user.is_authenticated %}
                 <span class="float-right">
+                    {% if project%}
+                    <a class="ml-3" href="{% url list_url_name project_id=project.id %}">
+                        <i class="fa fa-list fa-lg text-white"></i>
+                    </a>
+                    {% else %}
                     <a class="ml-3" href="{% url list_url_name %}">
                         <i class="fa fa-list fa-lg text-white"></i>
                     </a>
+                    {% endif %}
                 </span>
                 {% endif %}
             </div>

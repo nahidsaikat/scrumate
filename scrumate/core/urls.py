@@ -1,18 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from scrumate.core import views
 from scrumate.core import api
 
-
-urlpatterns = [
-    # Main functionalities
-    path('project/', views.project_list, name='project_list'),
-    path('project/add/', views.project_add, name='project_add'),
-    path('project/<int:pk>/edit/', views.project_edit, name='project_edit'),
-    path('project/<int:pk>/update_status/', views.update_project_status, name='update_project_status'),
-    path('project/<int:pk>/view_commit_logs/', views.view_commit_logs, name='view_commit_logs'),
-    path('project/project_status_report/', views.project_status_report, name='project_status_report'),
-    path('project/<int:pk>/project_status/download/', views.project_status_report_download, name='project_status_report_download'),
-
+project_view_urlpatterns = [
     path('release/', views.release_list, name='release_list'),
     path('release/add/', views.release_add, name='release_add'),
     path('release/<int:pk>/edit/', views.release_edit, name='release_edit'),
@@ -21,13 +11,6 @@ urlpatterns = [
     path('user_story/add/', views.user_story_add, name='user_story_add'),
     path('user_story/<int:pk>/edit/', views.user_story_edit, name='user_story_edit'),
     path('user_story/<int:pk>/update_status/', views.update_user_story_status, name='update_user_story_status'),
-
-    path('sprint/', views.sprint_list, name='sprint_list'),
-    path('sprint/add/', views.sprint_add, name='sprint_add'),
-    path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
-    path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
-    path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
-    path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),
 
     path('task/', views.task_list, name='task_list'),
     path('task/add/', views.task_add, name='task_add'),
@@ -43,6 +26,26 @@ urlpatterns = [
     path('issue/add/', views.issue_add, name='issue_add'),
     path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),
     path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
+]
+
+urlpatterns = [
+    # Main functionalities
+    path('<int:project_id>/', include(project_view_urlpatterns), name='project_view'),
+
+    path('project/', views.project_list, name='project_list'),
+    path('project/add/', views.project_add, name='project_add'),
+    path('project/<int:pk>/edit/', views.project_edit, name='project_edit'),
+    path('project/<int:pk>/update_status/', views.update_project_status, name='update_project_status'),
+    path('project/<int:pk>/view_commit_logs/', views.view_commit_logs, name='view_commit_logs'),
+    path('project/project_status_report/', views.project_status_report, name='project_status_report'),
+    path('project/<int:pk>/project_status/download/', views.project_status_report_download, name='project_status_report_download'),
+
+    path('sprint/', views.sprint_list, name='sprint_list'),
+    path('sprint/add/', views.sprint_add, name='sprint_add'),
+    path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
+    path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
+    path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
+    path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),
 
     path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
     path('daily_scrum/add/', views.daily_scrum_add, name='daily_scrum_add'),

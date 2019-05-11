@@ -14,10 +14,10 @@ def json_data(model, pk):
 
 
 @login_required(login_url='/login/')
-def task_info(request, pk, **kwargs):
+def task_info(request, project_id, pk, **kwargs):
     return json_data(Task, pk)
 
 
 @login_required(login_url='/login/')
-def deliverable_info(request, pk, **kwargs):
+def deliverable_info(request, project_id, pk, **kwargs):
     return json_data(Deliverable, pk)

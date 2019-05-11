@@ -1,0 +1,145 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="card text-white bg-xing">
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <h1 style="text-align: center;">Project # {{ project.name }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="animated fadeIn pt-2 pb-2">
+  <div class="row">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-primary mr-2">
+        <div class="card-body pb-0">
+          <button class="btn btn-transparent p-0 float-right" type="button">
+            <i class="icon-location-pin"></i>
+          </button>
+          <div class="text-value">{{ all_project.count }}</div>
+          <div>Total Project</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas class="chart" id="card-chart1" height="70"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-info mr-2">
+        <div class="card-body pb-0">
+          <button class="btn btn-transparent p-0 float-right" type="button">
+            <i class="icon-location-pin"></i>
+          </button>
+          <div class="text-value">{{ pending_project.count }}</div>
+          <div>Pending Project</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas class="chart" id="card-chart2" height="70"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-warning mr-2">
+        <div class="card-body pb-0">
+          <button class="btn btn-transparent p-0 float-right" type="button">
+            <i class="icon-location-pin"></i>
+          </button>
+          <div class="text-value">{{ inprogress_project.count }}</div>
+          <div>In-Progress Project</div>
+        </div>
+        <div class="chart-wrapper mt-3" style="height:70px;">
+          <canvas class="chart" id="card-chart3" height="70"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-danger">
+        <div class="card-body pb-0">
+          <button class="btn btn-transparent p-0 float-right" type="button">
+            <i class="icon-location-pin"></i>
+          </button>
+          <div class="text-value">{{ complete_project.count }}</div>
+          <div>Complete Project</div>
+        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <canvas class="chart" id="card-chart4" height="70"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-->
+  </div>
+
+  <div class="row mt-2">
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #332211;">
+                    <i class="fa fa-list fa-lg"></i> Pending
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for project in pending_project.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #112233;">
+                    <i class="fa fa-list fa-lg"></i> In-Progress
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for project in inprogress_project.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ project.name }} | {{ project.total_point }} | {{ project.percent_completed }}%</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: green;">
+                    <i class="fa fa-list fa-lg"></i> Completed
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for project in complete_project.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+  </div>
+
+</div>

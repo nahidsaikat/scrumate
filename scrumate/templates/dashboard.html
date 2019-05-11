@@ -25,7 +25,7 @@
                             {% for pro in context.running_projects %}
                                 <tr>
                                     <td>{{ forloop.counter}}</td>
-                                    <td>{{ pro.name }}</td>
+                                    <td><a href="{% url 'project_dashboard' project_id=pro.id %}"> {{ pro.name }} </a></td>
                                     <td>{{ pro.total_point }} Points</td>
                                     <td>{{ pro.percent_completed }}%</td>
                                 </tr>

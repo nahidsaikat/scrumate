@@ -13,7 +13,7 @@
                 <div class="card-header text-white bg-xing">
                     <i class="fa fa-list fa-lg"></i> User Stories
                     {% if user.is_authenticated %}
-                    <a class="float-right" href="{% url 'user_story_add' %}">
+                    <a class="float-right" href="{% url 'user_story_add' project_id=project.id %}">
                         <i class="fa fa-plus-square-o fa-lg font-2xl text-white"></i>
                     </a>
                     {% endif %}
@@ -41,12 +41,12 @@
                                     <td>{{ story.release.name }}</td>
                                     <td>
                                         {% if perms.core.update_user_story_status %}
-                                            <a href="{% url 'update_user_story_status' story.id %}">{{ story.get_status_display }}</a>
+                                            <a href="{% url 'update_user_story_status' project_id=project.id pk=story.id %}">{{ story.get_status_display }}</a>
                                         {% else %}
                                             {{ story.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td><a class="float-right" href="{% url 'user_story_edit' story.id %}">
+                                    <td><a class="float-right" href="{% url 'user_story_edit' project_id=project.id pk=story.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
                                 </tr>

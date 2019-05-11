@@ -13,7 +13,7 @@
                 <div class="card-header text-white bg-xing">
                     <i class="fa fa-list fa-lg"></i> Deliverables
                     {% if user.is_authenticated %}
-                    <a class="float-right" href="{% url 'deliverable_add' %}">
+                    <a class="float-right" href="{% url 'deliverable_add' project_id=project.id %}">
                         <i class="fa fa-plus-square-o fa-lg font-2xl text-white"></i>
                     </a>
                     {% endif %}
@@ -45,12 +45,12 @@
                                     <td>{{ deli.assignee.full_name }}</td>
                                     <td>
                                         {% if perms.core.update_deliverable_status %}
-                                            <a href="{% url 'update_deliverable_status' deli.id %}">{{ deli.get_status_display }}</a>
+                                            <a href="{% url 'update_deliverable_status' project_id=project.id pk=deli.id %}">{{ deli.get_status_display }}</a>
                                         {% else %}
                                             {{ deli.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td><a class="float-right" href="{% url 'deliverable_edit' deli.id %}">
+                                    <td><a class="float-right" href="{% url 'deliverable_edit' project_id=project.id pk=deli.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
                                 </tr>

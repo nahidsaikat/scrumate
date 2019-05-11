@@ -13,7 +13,7 @@
                 <div class="card-header text-white bg-xing">
                     <i class="fa fa-list fa-lg"></i> Issue List
                     {% if user.is_authenticated %}
-                    <a class="float-right" href="{% url 'issue_add' %}">
+                    <a class="float-right" href="{% url 'issue_add' project_id=project.id %}">
                         <i class="fa fa-plus-square-o fa-lg font-2xl text-white"></i>
                     </a>
                     {% endif %}
@@ -45,12 +45,12 @@
                                     <td>{{ iss.description }}</td>
                                     <td>
                                         {% if perms.core.update_issue_status %}
-                                            <a href="{% url 'update_issue_status' iss.id %}">{{ iss.get_status_display }}</a>
+                                            <a href="{% url 'update_issue_status' project_id=project.id pk=iss.id %}">{{ iss.get_status_display }}</a>
                                         {% else %}
                                             {{ iss.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td><a class="float-right" href="{% url 'issue_edit' iss.id %}">
+                                    <td><a class="float-right" href="{% url 'issue_edit' project_id=project.id pk=iss.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
                                 </tr>

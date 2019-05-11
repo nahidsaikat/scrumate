@@ -148,8 +148,8 @@ def project_status_report_download(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-def release_list(request, **kwargs):
-    release_filter = ReleaseFilter(request.GET, queryset=Release.objects.all())
+def release_list(request, project_id, **kwargs):
+    release_filter = ReleaseFilter(request.GET, queryset=Release.objects.filter(project_id=project_id))
     release_list = release_filter.qs
     page = request.GET.get('page', 1)
 
@@ -161,37 +161,40 @@ def release_list(request, **kwargs):
     except EmptyPage:
         releases = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/release_list.html', {'releases': releases, 'filter': release_filter})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/release_list.html', {'releases': releases, 'filter': release_filter, 'project': project})
 
 
 @login_required(login_url='/login/')
-def release_add(request, **kwargs):
+def release_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = ReleaseForm(request.POST)
         if form.is_valid():
             release = form.save(commit=False)
             release.created_by = request.user
             release.save()
-            return redirect('release_list', permanent=True)
+            return redirect('release_list', permanent=True, project_id=project_id)
     else:
         form = ReleaseForm()
     title = 'New Release'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list', 'project': project})
 
 
 @login_required(login_url='/login/')
-def release_edit(request, pk, **kwargs):
+def release_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Release, id=pk)
     form = ReleaseForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('release_list')
+        return redirect('release_list', permanent=True, project_id=project_id)
     title = 'Edit Release'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list', 'project': project})
 
 
 @login_required(login_url='/login/')
-def user_story_list(request, **kwargs):
+def user_story_list(request, project_id, **kwargs):
     user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.all())
     user_story_list = user_story_filter.qs
     page = request.GET.get('page', 1)
@@ -204,49 +207,57 @@ def user_story_list(request, **kwargs):
     except EmptyPage:
         user_stories = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter, 'project': project})
 
 
 @login_required(login_url='/login/')
-def user_story_add(request, **kwargs):
+def user_story_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = UserStoryForm(request.POST)
         if form.is_valid():
             story = form.save(commit=False)
             story.analysed_by = getattr(request.user, 'employee', None)
             story.save()
-            return redirect('user_story_list', permanent=True)
+            return redirect('user_story_list', permanent=True, project_id=project_id)
     else:
         form = UserStoryForm()
+
     title = 'New User Story'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list', 'project': project})
 
 
 @login_required(login_url='/login/')
-def user_story_edit(request, pk, **kwargs):
+def user_story_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(UserStory, id=pk)
     form = UserStoryForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('user_story_list')
+        return redirect('user_story_list', project_id=project_id)
+
     title = 'Edit User Story'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list', 'project': project})
 
 
 @login_required(login_url='/login/')
 @permission_required('core.update_user_story_status', raise_exception=True)
-def update_user_story_status(request, pk, **kwargs):
+def update_user_story_status(request, project_id, pk, **kwargs):
     instance = get_object_or_404(UserStory, id=pk)
     form = UserStoryForm(request.POST or None, instance=instance)
     if request.POST:
         status = request.POST.get('status')
         instance.status = status
         instance.save()
-        return redirect('user_story_list')
+        return redirect('user_story_list', project_id=project_id)
+
+    project = Project.objects.get(pk=project_id)
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[6],
         'title': 'Update Status',
-        'url': reverse('user_story_list')
+        'url': reverse('user_story_list', kwargs={'project_id': project_id}),
+        'project': project
     })
 
 
@@ -338,7 +349,7 @@ def sprint_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-def task_list(request, **kwargs):
+def task_list(request, project_id, **kwargs):
     task_filter = TaskFilter(request.GET, queryset=Task.objects.all())
     task_list = task_filter.qs
     page = request.GET.get('page', 1)
@@ -351,11 +362,12 @@ def task_list(request, **kwargs):
     except EmptyPage:
         tasks = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/task_list.html', {'tasks': tasks, 'filter': task_filter})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/task_list.html', {'tasks': tasks, 'filter': task_filter, 'project': project})
 
 
 @login_required(login_url='/login/')
-def task_add(request, **kwargs):
+def task_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -365,43 +377,50 @@ def task_add(request, **kwargs):
             task.assigned_by = getattr(request.user, 'employee', None)
             task.assign_date = datetime.today()
             task.save()
-            return redirect('task_list', permanent=True)
+            return redirect('task_list', permanent=True, project_id=project_id)
     else:
         form = TaskForm()
+
     title = 'New Task'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list', 'project': project})
 
 
 @login_required(login_url='/login/')
-def task_edit(request, pk, **kwargs):
+def task_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Task, id=pk)
     form = TaskForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('task_list')
+        return redirect('task_list', project_id=project_id)
+
     title = 'Edit Task'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list', 'project': project})
 
 
 @login_required(login_url='/login/')
 @permission_required('core.update_task_status', raise_exception=True)
-def update_task_status(request, pk, **kwargs):
+def update_task_status(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Task, id=pk)
     form = TaskForm(request.POST or None, instance=instance)
     if request.POST:
         status = request.POST.get('status')
         instance.status = status
         instance.save()
-        return redirect('task_list')
+        return redirect('task_list', project_id=project_id)
+
+    project = Project.objects.get(pk=project_id)
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[7],
         'title': 'Update Status',
-        'url': reverse('task_list')
+        'url': reverse('task_list', kwargs={'project_id': project_id}),
+        'project': project
     })
 
 
 @login_required(login_url='/login/')
-def deliverable_list(request, **kwargs):
+def deliverable_list(request, project_id, **kwargs):
     deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
     deliverable_list = deliverable_filter.qs
     page = request.GET.get('page', 1)
@@ -414,51 +433,59 @@ def deliverable_list(request, **kwargs):
     except EmptyPage:
         deliverables = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/deliverable/deliverable_list.html', {'deliverables': deliverables, 'filter': deliverable_filter})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/deliverable/deliverable_list.html', {'deliverables': deliverables, 'filter': deliverable_filter, 'project': project})
 
 
 @login_required(login_url='/login/')
-def deliverable_add(request, **kwargs):
+def deliverable_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = DeliverableForm(request.POST)
         if form.is_valid():
             deliverable = form.save(commit=False)
             deliverable.assign_date = datetime.today()
             deliverable.save()
-            return redirect('deliverable_list', permanent=True)
+            return redirect('deliverable_list', permanent=True, project_id=project_id)
     else:
         form = DeliverableForm()
+
     title = 'New Deliverable'
+    project = Project.objects.get(pk=project_id)
     return render(request, 'core/deliverable/deliverable_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'deliverable_list'})
+                  {'form': form, 'title': title, 'list_url_name': 'deliverable_list', 'project': project})
 
 
 @login_required(login_url='/login/')
-def deliverable_edit(request, pk, **kwargs):
+def deliverable_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Deliverable, id=pk)
     form = DeliverableForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('deliverable_list')
+        return redirect('deliverable_list', project_id=project_id)
+
     title = 'Edit Deliverable'
+    project = Project.objects.get(pk=project_id)
     return render(request, 'core/deliverable/deliverable_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'deliverable_list'})
+                  {'form': form, 'title': title, 'list_url_name': 'deliverable_list', 'project': project})
 
 
 @login_required(login_url='/login/')
 @permission_required('core.update_deliverable_status', raise_exception=True)
-def update_deliverable_status(request, pk, **kwargs):
+def update_deliverable_status(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Deliverable, id=pk)
     form = DeliverableForm(request.POST or None, instance=instance)
     if request.POST:
         status = request.POST.get('status')
         instance.status = status
         instance.save()
-        return redirect('deliverable_list')
+        return redirect('deliverable_list', project_id=project_id)
+
+    project = Project.objects.get(pk=project_id)
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[8],
         'title': 'Update Status',
-        'url': reverse('deliverable_list')
+        'url': reverse('deliverable_list', kwargs={'project_id': project_id}),
+        'project': project
     })
 
 
@@ -539,7 +566,7 @@ def change_actual_hour(pk, request):
 
 
 @login_required(login_url='/login/')
-def issue_list(request, **kwargs):
+def issue_list(request, project_id, **kwargs):
     issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
     issue_list = issue_filter.qs
     page = request.GET.get('page', 1)
@@ -552,45 +579,52 @@ def issue_list(request, **kwargs):
     except EmptyPage:
         issues = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/issue_list.html', {'issues': issues, 'filter': issue_filter})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/issue_list.html', {'issues': issues, 'filter': issue_filter, 'project': project})
 
 
 @login_required(login_url='/login/')
-def issue_add(request, **kwargs):
+def issue_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = IssueForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('issue_list', permanent=True)
+            return redirect('issue_list', permanent=True, project_id=project_id)
     else:
         form = IssueForm()
+
     title = 'New Issue'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list', 'project': project})
 
 
 @login_required(login_url='/login/')
-def issue_edit(request, pk, **kwargs):
+def issue_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Issue, id=pk)
     form = IssueForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('issue_list')
+        return redirect('issue_list', project_id=project_id)
+
     title = 'Edit Issue'
-    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list', 'project': project})
 
 
 @login_required(login_url='/login/')
 @permission_required('core.update_issue_status', raise_exception=True)
-def update_issue_status(request, pk, **kwargs):
+def update_issue_status(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Issue, id=pk)
     form = IssueForm(request.POST or None, instance=instance)
     if request.POST:
         status = request.POST.get('status')
         instance.status = status
         instance.save()
-        return redirect('issue_list')
+        return redirect('issue_list', project_id=project_id)
+
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[6],
         'title': 'Update Status',
-        'url': reverse('issue_list')
+        'url': reverse('issue_list', kwargs={'project_id': project_id}),
+        'project': Project.objects.get(pk=project_id)
     })

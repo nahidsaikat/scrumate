@@ -37,7 +37,7 @@
                             {% for pro in projects %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ pro.name }}</td>
+                                    <td><a href="{% url 'project_dashboard' project_id=pro.id %}"> {{ pro.name }} </a></td>
                                     <td>{{ pro.get_type_display }}</td>
                                     <td>{{ pro.entry_date }}</td>
                                     <td>{{ pro.client|default_if_none:"" }}</td>

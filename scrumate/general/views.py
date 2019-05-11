@@ -122,3 +122,38 @@ def project(request, **kwargs):
 
     return render(request, 'general/index_project.html', data)
 
+@login_required(login_url='/login/')
+def project_dashboard(request, project_id, **kwargs):
+    all_project = Project.objects.all()
+    pending_project = Project.objects.filter(status=ProjectStatus.Pending)
+    inprogress_project = Project.objects.filter(status=ProjectStatus.InProgress)
+    complete_project = Project.objects.filter(status=ProjectStatus.Completed)
+
+    data = {
+        'project': Project.objects.get(pk=project_id),
+        'all_project': {
+            'count': all_project.count(),
+            'names': json.dumps([project.name for project in all_project]),
+            'total_points': json.dumps([int(project.total_point) for project in all_project])
+        },
+        'pending_project': {
+            'count': pending_project.count(),
+            'names': json.dumps([project.name for project in pending_project]),
+            'total_points': json.dumps([int(project.total_point) for project in pending_project]),
+            'instances': pending_project.order_by('-id')[:10]
+        },
+        'inprogress_project': {
+            'count': inprogress_project.count(),
+            'names': json.dumps([project.name for project in inprogress_project]),
+            'total_points': json.dumps([int(project.total_point) for project in inprogress_project]),
+            'instances': inprogress_project.order_by('-id')[:10]
+        },
+        'complete_project': {
+            'count': complete_project.count(),
+            'names': json.dumps([project.name for project in complete_project]),
+            'total_points': json.dumps([int(project.total_point) for project in complete_project]),
+            'instances': complete_project.order_by('-id')[:10]
+        },
+    }
+
+    return render(request, 'general/index_project_view.html', data)
