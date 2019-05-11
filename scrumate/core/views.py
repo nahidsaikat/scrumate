@@ -23,10 +23,14 @@ def get_dashboard_context(request, **kwargs):
     pending_deliverables = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today,
                             status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress]).order_by('-id')[:6]
     running_projects = Project.objects.filter(status__exact=ProjectStatus.InProgress).order_by('-id')[:6]
+    recent_releases = Release.objects.all().order_by('-release_date')[:6]
+    recent_issues = Issue.objects.all().order_by('-raise_date')[:6]
     data = {
         'home': True,
         'running_projects': running_projects,
-        'pending_deliverables': pending_deliverables
+        'pending_deliverables': pending_deliverables,
+        'recent_releases': recent_releases,
+        'recent_issues': recent_issues,
     }
     return data
 
