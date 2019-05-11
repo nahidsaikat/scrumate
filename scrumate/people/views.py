@@ -62,7 +62,7 @@ def department_add(request, **kwargs):
     else:
         form = DepartmentForm()
     title = 'New Department'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
 
 @login_required(login_url='/login/')
@@ -73,7 +73,7 @@ def department_edit(request, pk, **kwargs):
         form.save()
         return redirect('department_list')
     title = 'Edit Department'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
 
 @login_required(login_url='/login/')
@@ -103,7 +103,7 @@ def designation_add(request, **kwargs):
     else:
         form = DesignationForm()
     title = 'New Designation'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
 
 @login_required(login_url='/login/')
@@ -114,7 +114,7 @@ def designation_edit(request, pk, **kwargs):
         form.save()
         return redirect('designation_list')
     title = 'Edit Designation'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
 
 @login_required(login_url='/login/')
@@ -153,7 +153,7 @@ def employee_add(request, **kwargs):
     else:
         form = EmployeeForm()
     title = 'New Employee'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
 
 @login_required(login_url='/login/')
@@ -164,7 +164,7 @@ def employee_edit(request, pk, **kwargs):
         form.save()
         return redirect('employee_list')
     title = 'Edit Employee'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
 
 @login_required(login_url='/login/')
@@ -194,7 +194,7 @@ def client_add(request, **kwargs):
     else:
         form = ClientForm()
     title = 'New Client'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
 
 
 @login_required(login_url='/login/')
@@ -205,4 +205,4 @@ def client_edit(request, pk, **kwargs):
         form.save()
         return redirect('client_list')
     title = 'Edit Client'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
+    return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
