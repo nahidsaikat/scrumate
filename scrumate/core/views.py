@@ -76,7 +76,7 @@ def project_add(request, **kwargs):
     else:
         form = ProjectForm()
     title = 'New Project'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'project_list'})
+    return render(request, 'core/projects/project_add.html', {'form': form, 'title': title, 'list_url_name': 'project_list'})
 
 
 @login_required(login_url='/login/')
@@ -87,7 +87,7 @@ def project_edit(request, pk, **kwargs):
         form.save()
         return redirect('project_list')
     title = 'Edit Project'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'project_list'})
+    return render(request, 'core/projects/project_add.html', {'form': form, 'title': title, 'list_url_name': 'project_list'})
 
 
 @login_required(login_url='/login/')
