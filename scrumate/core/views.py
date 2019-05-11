@@ -176,7 +176,7 @@ def release_add(request, **kwargs):
     else:
         form = ReleaseForm()
     title = 'New Release'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
 
 
 @login_required(login_url='/login/')
@@ -187,7 +187,7 @@ def release_edit(request, pk, **kwargs):
         form.save()
         return redirect('release_list')
     title = 'Edit Release'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list'})
 
 
 @login_required(login_url='/login/')
@@ -219,7 +219,7 @@ def user_story_add(request, **kwargs):
     else:
         form = UserStoryForm()
     title = 'New User Story'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
 
 
 @login_required(login_url='/login/')
@@ -230,7 +230,7 @@ def user_story_edit(request, pk, **kwargs):
         form.save()
         return redirect('user_story_list')
     title = 'Edit User Story'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list'})
 
 
 @login_required(login_url='/login/')
@@ -334,7 +334,7 @@ def sprint_edit(request, pk, **kwargs):
         form.save()
         return redirect('sprint_list')
     title = 'Edit Sprint'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'sprint_list'})
+    return render(request, 'core/sprint/sprint_add.html', {'form': form, 'title': title, 'list_url_name': 'sprint_list'})
 
 
 @login_required(login_url='/login/')
@@ -369,7 +369,7 @@ def task_add(request, **kwargs):
     else:
         form = TaskForm()
     title = 'New Task'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
 
 
 @login_required(login_url='/login/')
@@ -380,7 +380,7 @@ def task_edit(request, pk, **kwargs):
         form.save()
         return redirect('task_list')
     title = 'Edit Task'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list'})
 
 
 @login_required(login_url='/login/')
@@ -565,7 +565,7 @@ def issue_add(request, **kwargs):
     else:
         form = IssueForm()
     title = 'New Issue'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
 
 
 @login_required(login_url='/login/')
@@ -576,7 +576,7 @@ def issue_edit(request, pk, **kwargs):
         form.save()
         return redirect('issue_list')
     title = 'Edit Issue'
-    return render(request, 'common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
+    return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'issue_list'})
 
 
 @login_required(login_url='/login/')
