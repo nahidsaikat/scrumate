@@ -90,8 +90,13 @@ class Project(models.Model):
         return self.git_username and self.git_password and self.git_repo
 
     @property
+    def total_point(self):
+        return Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), task__project=self)\
+                   .aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+
+    @property
     def percent_completed(self):
-        total = Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(1)
+        total = self.total_point or Decimal(1)
         total_done = Deliverable.objects.filter(Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
         return round((total_done * Decimal(100)) / total, 2)
 
@@ -178,9 +183,13 @@ class Sprint(models.Model):
         )
 
     @property
+    def total_point(self):
+        return Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
+            total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+
+    @property
     def percent_completed(self):
-        total = Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
-            total_point=Sum('estimated_hour')).get('total_point') or Decimal(1)
+        total = self.total_point  or Decimal(1)
         total_done = Deliverable.objects.filter(
             Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), sprint=self).aggregate(
             total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)

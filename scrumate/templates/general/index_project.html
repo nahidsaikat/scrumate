@@ -14,3 +14,137 @@
             <i class="nav-icon fa fa-cube mr-3"></i> Project List</a>
     </li>
 {% endblock %}
+
+{% block content %}
+    {% include 'general/dashboard_project.html' %}
+{% endblock %}
+
+{% block js %}
+<script type="">
+
+var all_project_name = JSON.parse('{{ all_project.names|escapejs }}');
+var all_project_point = JSON.parse('{{ all_project.total_points }}');
+
+var cardChart1 = new Chart($('#card-chart1'), {
+  type: 'bar',
+  data: {
+    labels: all_project_name,
+    datasets: [{
+      label: 'Point',
+      backgroundColor: 'rgba(255,255,255,.2)',
+      borderColor: 'rgba(255,255,255,.55)',
+      data: all_project_point
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        display: false,
+        barPercentage: 0.6
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  }
+}); // eslint-disable-next-line no-unused-vars
+
+var pending_project_name = JSON.parse('{{ pending_project.names|escapejs }}');
+var pending_project_point = JSON.parse('{{ pending_project.total_points }}');
+
+var cardChart2 = new Chart($('#card-chart2'), {
+  type: 'bar',
+  data: {
+    labels: pending_project_name,
+    datasets: [{
+      label: 'Point',
+      backgroundColor: 'rgba(255,255,255,.2)',
+      borderColor: 'rgba(255,255,255,.55)',
+      data: pending_project_point
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        display: false,
+        barPercentage: 0.6
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  }
+}); // eslint-disable-next-line no-unused-vars
+
+var inprogress_project_name = JSON.parse('{{ inprogress_project.names|escapejs }}');
+var inprogress_project_point = JSON.parse('{{ inprogress_project.total_points }}');
+
+var cardChart3 = new Chart($('#card-chart3'), {
+  type: 'bar',
+  data: {
+    labels: inprogress_project_name,
+    datasets: [{
+      label: 'Point',
+      backgroundColor: 'rgba(255,255,255,.2)',
+      borderColor: 'rgba(255,255,255,.55)',
+      data: inprogress_project_point
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        display: false,
+        barPercentage: 0.6
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  }
+}); // eslint-disable-next-line no-unused-vars
+
+var complete_project_name = JSON.parse('{{ complete_project.names|escapejs }}');
+var complete_project_point = JSON.parse('{{ complete_project.total_points }}');
+
+var cardChart4 = new Chart($('#card-chart4'), {
+  type: 'bar',
+  data: {
+    labels: complete_project_name,
+    datasets: [{
+      label: 'Point',
+      backgroundColor: 'rgba(255,255,255,.2)',
+      borderColor: 'rgba(255,255,255,.55)',
+      data: complete_project_point
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        display: false,
+        barPercentage: 0.6
+      }],
+      yAxes: [{
+        display: false
+      }]
+    }
+  }
+}); // eslint-disable-next-line no-unused-vars
+
+</script>
+{% endblock %}

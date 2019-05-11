@@ -1,3 +1,4 @@
+import json
 from _datetime import datetime
 
 from django.conf import settings as django_settings
@@ -88,6 +89,33 @@ def sprint(request, **kwargs):
 
 @login_required(login_url='/login/')
 def project(request, **kwargs):
-    employee = request.user.employee if request.user and hasattr(request.user, 'employee') else None
-    return render(request, 'general/index_project.html', {'employee': employee})
+    all_project = Project.objects.all()
+    pending_project = Project.objects.filter(status=ProjectStatus.Pending)
+    inprogress_project = Project.objects.filter(status=ProjectStatus.InProgress)
+    complete_project = Project.objects.filter(status=ProjectStatus.Completed)
+
+    data = {
+        'all_project': {
+            'count': all_project.count(),
+            'names': json.dumps([project.name for project in all_project]),
+            'total_points': json.dumps([int(project.total_point) for project in all_project])
+        },
+        'pending_project': {
+            'count': pending_project.count(),
+            'names': json.dumps([project.name for project in pending_project]),
+            'total_points': json.dumps([int(project.total_point) for project in pending_project])
+        },
+        'inprogress_project': {
+            'count': inprogress_project.count(),
+            'names': json.dumps([project.name for project in inprogress_project]),
+            'total_points': json.dumps([int(project.total_point) for project in inprogress_project])
+        },
+        'complete_project': {
+            'count': complete_project.count(),
+            'names': json.dumps([project.name for project in complete_project]),
+            'total_points': json.dumps([int(project.total_point) for project in complete_project])
+        },
+    }
+
+    return render(request, 'general/index_project.html', data)
 
