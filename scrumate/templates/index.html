@@ -42,8 +42,9 @@
     {% block head %}
     {% endblock %}
 </head>
-<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-{% if context.home %}hide{% else %}show{% endif %}">
 <header class="app-header navbar">
+
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,9 +52,12 @@
         <img class="navbar-brand-full" src="/img/brand/logo.png" width="89" height="25" alt="CoreUI Logo">
         <img class="navbar-brand-minimized" src="/img/brand/sygnet.png" width="30" height="30" alt="CoreUI Logo">
     </a>
+    {% if not context.home %}
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
     </button>
+    {% endif %}
+
     <ul class="nav navbar-nav d-md-down-none">
         <li class="nav-item px-3">
             <a class="nav-link" href="{% url 'project' %}">Projects</a>
@@ -87,58 +91,20 @@
     </ul>
 </header>
 <div class="app-body">
-    <div class="sidebar">
-        <nav class="sidebar-nav">
-            <ul class="nav">
-                {% if user.is_authenticated %}
 
-                    {% block side-menu %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">
-                                <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'release_list' %}">
-                                <i class="nav-icon icon-briefcase icons mr-3"></i> Releases</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user_story_list' %}">
-                                <i class="nav-icon fa fa-book mr-3"></i> User Story</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'task_list' %}">
-                                <i class="nav-icon fa fa-tasks mr-3"></i> Tasks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'deliverable_list' %}">
-                                <i class="nav-icon fa fa-truck mr-3"></i> Deliverable</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'issue_list' %}">
-                                <i class="nav-icon fa fa-bug mr-3"></i> Issues</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'daily_scrum_list' %}">
-                                <i class="nav-icon icons icon-equalizer mr-3"></i> Daily Scrum</a>
-                        </li>
-                    {% endblock %}
+    {% if user.is_authenticated %}
+        {% block side-menu %}
+        {% endblock %}
+    {% endif %}
 
-                {% endif %}
-            </ul>
-        </nav>
-        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-    </div>
     <main class="main pt-3">
         <div class="container-fluid">
             {% block content %}
-                <!--<div id="ui-view"></div>-->
-
                 {% if context.dev %}
                     {% include 'dashboard-dev.html' %}
                 {% else %}
                     {% include 'dashboard.html' %}
                 {% endif %}
-
             {% endblock %}
         </div>
     </main>

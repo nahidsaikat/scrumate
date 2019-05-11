@@ -1,26 +1,33 @@
 {% extends 'index.html' %}
 
 {% block side-menu %}
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'settings' %}">
-            <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'department_list' %}">
-            <i class="nav-icon fa fa-empire mr-3"></i> Department</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'designation_list' %}">
-            <i class="nav-icon fa fa-connectdevelop mr-3"></i> Designation</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'employee_list' %}">
-            <i class="nav-icon icons icon-people mr-3"></i> Employee</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'client_list' %}">
-            <i class="nav-icon icons cui-people mr-3"></i> Client</a>
-    </li>
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'settings' %}">
+                    <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'department_list' %}">
+                    <i class="nav-icon fa fa-empire mr-3"></i> Department</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'designation_list' %}">
+                    <i class="nav-icon fa fa-connectdevelop mr-3"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'employee_list' %}">
+                    <i class="nav-icon icons icon-people mr-3"></i> Employee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'client_list' %}">
+                    <i class="nav-icon icons cui-people mr-3"></i> Client</a>
+            </li>
+        </ul>
+    </nav>
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+</div>
 {% endblock %}
 
 {% block content %}

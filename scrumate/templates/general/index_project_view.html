@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block side-menu %}
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'release_list' %}">
+                    <i class="nav-icon icon-briefcase icons mr-3"></i> Releases</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_story_list' %}">
+                    <i class="nav-icon fa fa-book mr-3"></i> User Story</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'task_list' %}">
+                    <i class="nav-icon fa fa-tasks mr-3"></i> Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'deliverable_list' %}">
+                    <i class="nav-icon fa fa-truck mr-3"></i> Deliverable</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'issue_list' %}">
+                    <i class="nav-icon fa fa-bug mr-3"></i> Issues</a>
+            </li>
+        </ul>
+    </nav>
+    <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+</div>
+{% endblock %}
+
+{% block content %}
+    {% include 'general/dashboard_reports.html' %}
+{% endblock %}
