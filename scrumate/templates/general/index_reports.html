@@ -2,7 +2,7 @@
 
 {% block side-menu %}
     <li class="nav-item">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="{% url 'reports' %}">
             <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
     </li>
     <li class="nav-item">
@@ -13,4 +13,10 @@
         <a class="nav-link" href="{% url 'project_status_report' %}">
             <i class="nav-icon fa fa-file-pdf-o mr-3"></i> Project Status</a>
     </li>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'general/dashboard_reports.html' %}
+
 {% endblock %}

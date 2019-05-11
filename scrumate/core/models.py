@@ -177,6 +177,15 @@ class Sprint(models.Model):
             ("sprint_status_report_download", "Can Download Sprint Status Report"),
         )
 
+    @property
+    def percent_completed(self):
+        total = Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
+            total_point=Sum('estimated_hour')).get('total_point') or Decimal(1)
+        total_done = Deliverable.objects.filter(
+            Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), sprint=self).aggregate(
+            total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+        return round((total_done * Decimal(100)) / total, 2)
+
 
 class Task(models.Model):
     name = models.CharField(max_length=100)

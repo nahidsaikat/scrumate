@@ -3,8 +3,8 @@ from _datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from scrumate.core.choices import DeliverableStatus
-from scrumate.core.models import Deliverable
+from scrumate.core.choices import DeliverableStatus, ProjectStatus
+from scrumate.core.models import Deliverable, Project, Sprint
 
 
 @login_required(login_url='/login/')
@@ -15,8 +15,22 @@ def settings(request, **kwargs):
 
 @login_required(login_url='/login/')
 def reports(request, **kwargs):
-    employee = request.user.employee if request.user and hasattr(request.user, 'employee') else None
-    return render(request, 'general/index_reports.html', {'employee': employee})
+    all_project_count = Project.objects.count()
+    pending_project_count = Project.objects.filter(status=ProjectStatus.Pending).count()
+    inprogress_project_count = Project.objects.filter(status=ProjectStatus.InProgress).count()
+    complete_project_count = Project.objects.filter(status=ProjectStatus.Completed).count()
+
+    last_5_ip_projects = Project.objects.filter(status=ProjectStatus.InProgress).order_by('-id')[:5]
+    last_5_sprint = Sprint.objects.order_by('-id')[:5]
+
+    return render(request, 'general/index_reports.html', {
+        'all_project': all_project_count,
+        'pending_project': pending_project_count,
+        'inprogress_project': inprogress_project_count,
+        'complete_project': complete_project_count,
+        'last_5_ip_projects': last_5_ip_projects,
+        'last_5_sprint': last_5_sprint
+    })
 
 
 @login_required(login_url='/login/')
