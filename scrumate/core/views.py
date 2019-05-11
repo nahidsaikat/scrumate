@@ -19,27 +19,13 @@ User = get_user_model()
 
 
 def get_dashboard_context(request, **kwargs):
-    # for dev dashboard
     today = datetime.today()
-    deliverable_qs = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today)
-    pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
-    in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
-    done = deliverable_qs.filter(status=DeliverableStatus.Done)
-
-    # for other dashboard
-    projects = Project.objects.filter(~Q(status=ProjectStatus.Completed))
-    pending_deliverables = Deliverable.objects.filter(status__lt=DeliverableStatus.Done)
-
-    # dev = request.user.has_perm('core.dev_dashboard')
-
+    pending_deliverables = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today,
+                            status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress]).order_by('-id')[:6]
+    running_projects = Project.objects.filter(status__exact=ProjectStatus.InProgress).order_by('-id')[:6]
     data = {
         'home': True,
-        'running_projects': Project.objects.filter(status__exact=ProjectStatus.InProgress).count(),
-        'pending': pending,
-        'in_progress': in_progress,
-        'done': done,
-        # 'dev': dev,
-        'projects': projects,
+        'running_projects': running_projects,
         'pending_deliverables': pending_deliverables
     }
     return data

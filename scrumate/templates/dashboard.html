@@ -15,21 +15,26 @@
 
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-list fa-lg"></i> Projects
+                <div class="card-header text-white" style="background-color: #332211;">
+                    <i class="icons cui-globe fa-lg"></i> Running Projects
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for pro in context.projects %}
+                            {% for pro in context.running_projects %}
                                 <tr>
+                                    <td>{{ forloop.counter}}</td>
                                     <td>{{ pro.name }}</td>
+                                    <td>{{ pro.total_point }} Points</td>
                                     <td>{{ pro.percent_completed }}%</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'project_list' %}">Load More</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,8 +42,8 @@
 
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-list fa-lg"></i> Pending Deliverable
+                <div class="card-header text-white" style="background-color: #112233;">
+                    <i class="icons cui-layers fa-lg"></i> Current Sprint
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm table-bordered">
@@ -46,12 +51,17 @@
                         <tbody>
                             {% for pd in context.pending_deliverables %}
                                 <tr>
+                                    <td>{{ forloop.counter}}</td>
                                     <td>{{ pd.name }}</td>
                                     <td>{{ pd.task.project.name }}</td>
+                                    <td>{{ pd.get_status_display }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'sprint' %}">Load More</a>
+                    </div>
                 </div>
             </div>
         </div>
