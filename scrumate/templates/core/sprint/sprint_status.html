@@ -10,16 +10,16 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-white bg-xing">
                     <i class="fa fa-list fa-lg"></i> Sprint Status Report {% if sprint %} of {{ sprint.name }} {% endif %}
                     {% if user.is_authenticated %}
                         {% if sprint %}
                             <a class="float-right" href="{% url 'sprint_status_report_download' sprint.id %}">
-                                <i class="fa fa-download fa-lg font-2xl"></i>
+                                <i class="fa fa-download fa-lg font-2xl text-white"></i>
                             </a>
                         {% else %}
                             <a class="float-right" href="#">
-                                <i class="fa fa-download fa-lg font-2xl"></i>
+                                <i class="fa fa-download fa-lg font-2xl text-white"></i>
                             </a>
                         {% endif %}
                     {% endif %}

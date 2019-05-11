@@ -2,12 +2,12 @@
     {% csrf_token %}
     <div class="col-sm-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-white bg-xing">
                 <strong>{{ title }}</strong>
                 {% if user.is_authenticated %}
                 <span class="float-right">
                     <a class="ml-3" href="{% url list_url_name %}">
-                        <i class="fa fa-list fa-lg"></i>
+                        <i class="fa fa-list fa-lg text-white"></i>
                     </a>
                 </span>
                 {% endif %}
