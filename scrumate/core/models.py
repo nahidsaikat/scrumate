@@ -91,8 +91,8 @@ class Project(models.Model):
 
     @property
     def total_point(self):
-        return Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), task__project=self)\
-                   .aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+        return round(Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), task__project=self)\
+                   .aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0), 2)
 
     @property
     def percent_completed(self):
@@ -184,8 +184,8 @@ class Sprint(models.Model):
 
     @property
     def total_point(self):
-        return Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
-            total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
+        return round(Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
+            total_point=Sum('estimated_hour')).get('total_point') or Decimal(0))
 
     @property
     def percent_completed(self):

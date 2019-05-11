@@ -73,4 +73,73 @@
     </div>
     <!-- /.col-->
   </div>
+
+  <div class="row mt-2">
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #332211;">
+                    <i class="fa fa-list fa-lg"></i> Pending
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for project in pending_project.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #112233;">
+                    <i class="fa fa-list fa-lg"></i> In-Progress
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for project in inprogress_project.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ project.name }} | {{ project.total_point }} | {{ project.percent_completed }}%</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: green;">
+                    <i class="fa fa-list fa-lg"></i> Completed
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for project in complete_project.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+  </div>
+
 </div>
