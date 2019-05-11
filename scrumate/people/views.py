@@ -1,18 +1,15 @@
-from datetime import datetime
-
-from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required, permission_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, redirect, get_object_or_404
 
-from scrumate.people.models import Department, Designation, Employee, Client
 from scrumate.people.filters import DepartmentFilter, DesignationFilter, EmployeeFilter, ClientFilter
 from scrumate.people.forms import DepartmentForm, DesignationForm, EmployeeForm, ClientForm
+from scrumate.people.models import Department, Designation, Employee, Client
 
 User = get_user_model()
 

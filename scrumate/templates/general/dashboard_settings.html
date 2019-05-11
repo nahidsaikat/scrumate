@@ -1,0 +1,113 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="card text-white bg-xing">
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          <h1 style="text-align: center;">Configure Scrumate</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="animated fadeIn pt-2">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+<!--        <div class="card-header">Resources</div>-->
+        <div class="card-body">
+          <div class="row pl-3 pr-3">
+
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-danger">
+                    <strong class="text-muted">Designations</strong>
+                    <br/>
+                    <strong class="h4">{{ designations_count }}</strong>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="callout callout-info">
+                    <strong class="text-muted">Departments</strong>
+                    <br/>
+                    <strong class="h4">{{ departments_count }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-warning">
+                    <strong class="text-muted">Employees</strong>
+                    <br/>
+                    <strong class="h4">{{ employees_count }}</strong>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="callout callout-success">
+                    <strong class="text-muted">Clients</strong>
+                    <br/>
+                    <strong class="h4">{{ clients_count }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <br/>
+        </div>
+      </div>
+    </div>
+    <!-- /.col-->
+  </div>
+
+    <div class="row mt-2">
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> Employees
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for employee in employee_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ employee.full_name }} | {{ employee.designation.name }} | {{ employee.department.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-list fa-lg"></i> Clients
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for client in client_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ client.full_name }} | {{ client.email }} | {{ client.get_sub_type_display }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+  </div>
+</div>

@@ -1,16 +1,52 @@
 from _datetime import datetime
 
+from django.conf import settings as django_settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 
 from scrumate.core.choices import DeliverableStatus, ProjectStatus
 from scrumate.core.models import Deliverable, Project, Sprint
+from scrumate.people.models import Department, Designation, Employee, Client
 
 
 @login_required(login_url='/login/')
 def settings(request, **kwargs):
-    employee = request.user.employee if request.user and hasattr(request.user, 'employee') else None
-    return render(request, 'general/index_settings.html', {'employee': employee})
+    departments_count = Department.objects.count()
+    designations_count = Designation.objects.count()
+    employees_count = Employee.objects.count()
+    clients_count = Client.objects.count()
+
+    employee_list = Employee.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator_emp = Paginator(employee_list, django_settings.PAGE_SIZE)
+    try:
+        employees = paginator_emp.page(page)
+    except PageNotAnInteger:
+        employees = paginator_emp.page(1)
+    except EmptyPage:
+        employees = paginator_emp.page(paginator_emp.num_pages)
+
+    client_list = Client.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator_cli = Paginator(client_list, django_settings.PAGE_SIZE)
+    try:
+        clients = paginator_cli.page(page)
+    except PageNotAnInteger:
+        clients = paginator_cli.page(1)
+    except EmptyPage:
+        clients = paginator_cli.page(paginator_cli.num_pages)
+
+    return render(request, 'general/index_settings.html', {
+        'departments_count': departments_count,
+        'designations_count': designations_count,
+        'employees_count': employees_count,
+        'clients_count': clients_count,
+        'employee_list': employees,
+        'client_list': clients
+    })
 
 
 @login_required(login_url='/login/')

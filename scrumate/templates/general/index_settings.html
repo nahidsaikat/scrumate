@@ -2,7 +2,7 @@
 
 {% block side-menu %}
     <li class="nav-item">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="{% url 'settings' %}">
             <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
     </li>
     <li class="nav-item">
@@ -21,4 +21,10 @@
         <a class="nav-link" href="{% url 'client_list' %}">
             <i class="nav-icon icons cui-people mr-3"></i> Client</a>
     </li>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'general/dashboard_settings.html' %}
+
 {% endblock %}
