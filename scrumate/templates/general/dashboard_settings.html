@@ -83,6 +83,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if employee_list %}
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'employee_list' %}">Load More</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -105,6 +110,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if client_list %}
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'client_list' %}">Load More</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
