@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 
-from scrumate.core.choices import DeliverableStatus, ProjectStatus
-from scrumate.core.models import Deliverable, Project, Sprint
+from scrumate.core.choices import DeliverableStatus, ProjectStatus, TaskStatus, UserStoryStatus
+from scrumate.core.models import Deliverable, Project, Sprint, Release, UserStory, Task, Issue
 from scrumate.people.models import Department, Designation, Employee, Client
 
 
@@ -124,35 +124,30 @@ def project(request, **kwargs):
 
 @login_required(login_url='/login/')
 def project_dashboard(request, project_id, **kwargs):
-    all_project = Project.objects.all()
-    pending_project = Project.objects.filter(status=ProjectStatus.Pending)
-    inprogress_project = Project.objects.filter(status=ProjectStatus.InProgress)
-    complete_project = Project.objects.filter(status=ProjectStatus.Completed)
+
+    release = Release.objects.all()
+    user_story = UserStory.objects.filter(status__in=[UserStoryStatus.Pending, UserStoryStatus.Analysing,
+                                                      UserStoryStatus.AnalysisComplete, UserStoryStatus.Developing])
+    task = Task.objects.filter(status__in=[TaskStatus.Pending, TaskStatus.InProgress, TaskStatus.PartiallyDone])
+    issue = Issue.objects.filter(status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress])
 
     data = {
         'project': Project.objects.get(pk=project_id),
-        'all_project': {
-            'count': all_project.count(),
-            'names': json.dumps([project.name for project in all_project]),
-            'total_points': json.dumps([int(project.total_point) for project in all_project])
+        'release': {
+            'count': release.count(),
+            'instances': release.order_by('-id')[:10]
         },
-        'pending_project': {
-            'count': pending_project.count(),
-            'names': json.dumps([project.name for project in pending_project]),
-            'total_points': json.dumps([int(project.total_point) for project in pending_project]),
-            'instances': pending_project.order_by('-id')[:10]
+        'user_story': {
+            'count': user_story.count(),
+            'instances': user_story.order_by('-id')[:10]
         },
-        'inprogress_project': {
-            'count': inprogress_project.count(),
-            'names': json.dumps([project.name for project in inprogress_project]),
-            'total_points': json.dumps([int(project.total_point) for project in inprogress_project]),
-            'instances': inprogress_project.order_by('-id')[:10]
+        'task': {
+            'count': task.count(),
+            'instances': task.order_by('-id')[:10]
         },
-        'complete_project': {
-            'count': complete_project.count(),
-            'names': json.dumps([project.name for project in complete_project]),
-            'total_points': json.dumps([int(project.total_point) for project in complete_project]),
-            'instances': complete_project.order_by('-id')[:10]
+        'issue': {
+            'count': issue.count(),
+            'instances': issue.order_by('-id')[:10]
         },
     }
 

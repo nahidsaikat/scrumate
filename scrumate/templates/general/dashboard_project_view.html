@@ -18,12 +18,10 @@
           <button class="btn btn-transparent p-0 float-right" type="button">
             <i class="icon-location-pin"></i>
           </button>
-          <div class="text-value">{{ all_project.count }}</div>
-          <div>Total Project</div>
+          <div class="text-value">{{ release.count }}</div>
+          <div>Releases</div>
         </div>
-        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          <canvas class="chart" id="card-chart1" height="70"></canvas>
-        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:60px;"></div>
       </div>
     </div>
     <!-- /.col-->
@@ -33,12 +31,10 @@
           <button class="btn btn-transparent p-0 float-right" type="button">
             <i class="icon-location-pin"></i>
           </button>
-          <div class="text-value">{{ pending_project.count }}</div>
-          <div>Pending Project</div>
+          <div class="text-value">{{ user_story.count }}</div>
+          <div>User Story</div>
         </div>
-        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          <canvas class="chart" id="card-chart2" height="70"></canvas>
-        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:60px;"></div>
       </div>
     </div>
     <!-- /.col-->
@@ -48,12 +44,10 @@
           <button class="btn btn-transparent p-0 float-right" type="button">
             <i class="icon-location-pin"></i>
           </button>
-          <div class="text-value">{{ inprogress_project.count }}</div>
-          <div>In-Progress Project</div>
+          <div class="text-value">{{ task.count }}</div>
+          <div>Tasks</div>
         </div>
-        <div class="chart-wrapper mt-3" style="height:70px;">
-          <canvas class="chart" id="card-chart3" height="70"></canvas>
-        </div>
+        <div class="chart-wrapper mt-3" style="height:60px;"></div>
       </div>
     </div>
     <!-- /.col-->
@@ -63,83 +57,121 @@
           <button class="btn btn-transparent p-0 float-right" type="button">
             <i class="icon-location-pin"></i>
           </button>
-          <div class="text-value">{{ complete_project.count }}</div>
-          <div>Complete Project</div>
+          <div class="text-value">{{ issue.count }}</div>
+          <div>Issues</div>
         </div>
-        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          <canvas class="chart" id="card-chart4" height="70"></canvas>
-        </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:60px;"></div>
       </div>
     </div>
     <!-- /.col-->
   </div>
 
   <div class="row mt-2">
-
-        <div class="col-lg-4">
-            <div class="card">
+        <div class="col-lg-6">
+            <div class="card mr-1">
                 <div class="card-header text-white" style="background-color: #332211;">
-                    <i class="fa fa-list fa-lg"></i> Pending
+                    <i class="fa fa-list fa-lg"></i> Releases
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for project in pending_project.instances %}
+                            {% for item in release.instances %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                    <td>{{ item.name }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if release.instances %}
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'release_list' project_id=project.id %}">Load More</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header text-white" style="background-color: #112233;">
-                    <i class="fa fa-list fa-lg"></i> In-Progress
+        <div class="col-lg-6">
+            <div class="card ml-1">
+                <div class="card-header text-white" style="background-color: DarkSlateBlue ;">
+                    <i class="fa fa-list fa-lg"></i> Issue
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for project in inprogress_project.instances %}
+                            {% for item in issue.instances %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ project.name }} | {{ project.total_point }} | {{ project.percent_completed }}%</td>
+                                    <td>{{ item.name }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if issue.instances %}
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'issue_list' project_id=project.id %}">Load More</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+  </div>
+
+  <div class="row mt-2">
+        <div class="col-lg-6">
+            <div class="card mr-1">
+                <div class="card-header text-white" style="background-color: DarkSlateGray;">
+                    <i class="fa fa-list fa-lg"></i> Tasks
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for item in task.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if task.instances %}
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'task_list' project_id=project.id %}">Load More</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
-
-        <div class="col-lg-4">
-            <div class="card">
+        <div class="col-lg-6">
+            <div class="card ml-1">
                 <div class="card-header text-white" style="background-color: green;">
-                    <i class="fa fa-list fa-lg"></i> Completed
+                    <i class="fa fa-list fa-lg"></i> User Story
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for project in complete_project.instances %}
+                            {% for item in user_story.instances %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                    <td>{{ item.name }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if user_story.instances %}
+                    <div style="text-align: center;">
+                        <a class="btn btn-light" href="{% url 'user_story_list' project_id=project.id %}">Load More</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-
   </div>
 
 </div>
