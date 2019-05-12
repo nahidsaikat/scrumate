@@ -32,9 +32,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if context.running_projects%}
                     <div style="text-align: center;">
                         <a class="btn btn-light" href="{% url 'project_list' %}">Load More</a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -59,9 +61,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% if context.pending_deliverables %}
                     <div style="text-align: center;">
                         <a class="btn btn-light" href="{% url 'sprint' %}">Load More</a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
