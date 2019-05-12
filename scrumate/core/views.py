@@ -94,7 +94,8 @@ def update_project_status(request, pk, **kwargs):
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[3],
         'title': 'Update Status',
-        'url': reverse('project_list')
+        'url': reverse('project_list'),
+        'project': instance
     })
 
 

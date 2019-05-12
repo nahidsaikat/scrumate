@@ -88,7 +88,7 @@
                             {% for project in pending_project.instances %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                    <td><a href="{% url 'project_dashboard' project_id=project.id %}"> {{ project.name }} </a> | {{ project.total_point }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -109,7 +109,7 @@
                             {% for project in inprogress_project.instances %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ project.name }} | {{ project.total_point }} | {{ project.percent_completed }}%</td>
+                                    <td><a href="{% url 'project_dashboard' project_id=project.id %}"> {{ project.name }} </a> | {{ project.total_point }} | {{ project.percent_completed }}%</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -131,7 +131,7 @@
                             {% for project in complete_project.instances %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ project.name }} | {{ project.total_point }}</td>
+                                    <td><a href="{% url 'project_dashboard' project_id=project.id %}"> {{ project.name }} </a> | {{ project.total_point }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
