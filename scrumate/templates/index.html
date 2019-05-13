@@ -60,7 +60,7 @@
 
     <ul class="nav navbar-nav d-md-down-none">
         <li class="nav-item px-3">
-            <a class="nav-link" href="{% url 'project' %}">Projects</a>
+            <a class="nav-link" href="{% url 'project_list' %}">Projects</a>
         </li>
         <li class="nav-item px-3">
             <a class="nav-link" href="{% url 'sprint' %}">Sprint</a>
@@ -100,11 +100,7 @@
     <main class="main pt-3">
         <div class="container-fluid">
             {% block content %}
-                {% if context.dev %}
-                    {% include 'dashboard-dev.html' %}
-                {% else %}
-                    {% include 'dashboard.html' %}
-                {% endif %}
+                {% include 'dashboard.html' %}
             {% endblock %}
         </div>
     </main>
