@@ -73,6 +73,7 @@ def reports(request, **kwargs):
 @login_required(login_url='/login/')
 def sprint(request, **kwargs):
     today = datetime.today()
+    running_sprint = Sprint.objects.filter(start_date__lte=today, end_date__gte=today).first()
     deliverable_qs = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today)
     pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
     in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
@@ -82,6 +83,7 @@ def sprint(request, **kwargs):
         'pending': pending,
         'in_progress': in_progress,
         'done': done,
+        'running_sprint': running_sprint
     }
 
     return render(request, 'general/index_sprint.html', {'data': data})
