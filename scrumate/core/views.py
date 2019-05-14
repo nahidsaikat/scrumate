@@ -95,7 +95,8 @@ def update_project_status(request, pk, **kwargs):
         'field': form.visible_fields()[3],
         'title': 'Update Status',
         'url': reverse('project_list', kwargs={'project_id': pk}),
-        'project': instance
+        'project': instance,
+        'base_template': 'general/index_project_view.html'
     })
 
 
@@ -258,7 +259,8 @@ def update_user_story_status(request, project_id, pk, **kwargs):
         'field': form.visible_fields()[6],
         'title': 'Update Status',
         'url': reverse('user_story_list', kwargs={'project_id': project_id}),
-        'project': project
+        'project': project,
+        'base_template': 'general/index_project_view.html'
     })
 
 
@@ -275,7 +277,8 @@ def update_sprint_status(request, pk, **kwargs):
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[5],
         'title': 'Update Status',
-        'url': reverse('sprint_list')
+        'url': reverse('sprint_list'),
+        'base_template': 'general/index_sprint.html'
     })
 
 
@@ -416,7 +419,8 @@ def update_task_status(request, project_id, pk, **kwargs):
         'field': form.visible_fields()[7],
         'title': 'Update Status',
         'url': reverse('task_list', kwargs={'project_id': project_id}),
-        'project': project
+        'project': project,
+        'base_template': 'general/index_project_view.html'
     })
 
 
@@ -486,7 +490,8 @@ def update_deliverable_status(request, project_id, pk, **kwargs):
         'field': form.visible_fields()[8],
         'title': 'Update Status',
         'url': reverse('deliverable_list', kwargs={'project_id': project_id}),
-        'project': project
+        'project': project,
+        'base_template': 'general/index_project_view.html'
     })
 
 
@@ -562,7 +567,8 @@ def change_actual_hour(pk, request):
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[8],
         'title': 'Set Actual Hour',
-        'url': reverse('daily_scrum_list')
+        'url': reverse('daily_scrum_list'),
+        'base_template': 'general/index_sprint.html'
     })
 
 
@@ -627,5 +633,6 @@ def update_issue_status(request, project_id, pk, **kwargs):
         'field': form.visible_fields()[6],
         'title': 'Update Status',
         'url': reverse('issue_list', kwargs={'project_id': project_id}),
-        'project': Project.objects.get(pk=project_id)
+        'project': Project.objects.get(pk=project_id),
+        'base_template': 'general/index_project_view.html'
     })
