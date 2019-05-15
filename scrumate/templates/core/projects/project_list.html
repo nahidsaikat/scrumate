@@ -43,11 +43,7 @@
                                     <td>{{ pro.client|default_if_none:"" }}</td>
                                     <td>{{ pro.description|default_if_none:"" }}</td>
                                     <td>
-                                        {% if perms.core.update_issue_status %}
-                                            <a href="{% url 'update_project_status' pro.id %}">{{ pro.get_status_display }} - {{ pro.percent_completed }}% </a>
-                                        {% else %}
                                             {{ pro.get_status_display }} - {{ pro.percent_completed }}%
-                                        {% endif %}
                                     </td>
                                     <td>
                                         {% if pro.can_view_commit and perms.core.view_commit_logs %}
