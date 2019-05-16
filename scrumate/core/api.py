@@ -14,7 +14,7 @@ def json_data(model, pk):
 
 
 @login_required(login_url='/login/')
-def task_info(request, project_id, pk, **kwargs):
+def task_info(request, pk, **kwargs):
     return json_data(Task, pk)
 
 

@@ -174,6 +174,7 @@ def release_add(request, project_id, **kwargs):
         if form.is_valid():
             release = form.save(commit=False)
             release.created_by = request.user
+            release.project_id = project_id
             release.save()
             return redirect('release_list', permanent=True, project_id=project_id)
     else:
@@ -197,7 +198,7 @@ def release_edit(request, project_id, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def user_story_list(request, project_id, **kwargs):
-    user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.all())
+    user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.filter(project_id=project_id))
     user_story_list = user_story_filter.qs
     page = request.GET.get('page', 1)
 
@@ -220,6 +221,7 @@ def user_story_add(request, project_id, **kwargs):
         if form.is_valid():
             story = form.save(commit=False)
             story.analysed_by = getattr(request.user, 'employee', None)
+            story.project_id = project_id
             story.save()
             return redirect('user_story_list', permanent=True, project_id=project_id)
     else:
@@ -256,7 +258,7 @@ def update_user_story_status(request, project_id, pk, **kwargs):
 
     project = Project.objects.get(pk=project_id)
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[6],
+        'field': form.visible_fields()[5],
         'title': 'Update Status',
         'url': reverse('user_story_list', kwargs={'project_id': project_id}),
         'project': project,
@@ -354,7 +356,7 @@ def sprint_edit(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def task_list(request, project_id, **kwargs):
-    task_filter = TaskFilter(request.GET, queryset=Task.objects.all())
+    task_filter = TaskFilter(request.GET, queryset=Task.objects.filter(project_id=project_id))
     task_list = task_filter.qs
     page = request.GET.get('page', 1)
 
@@ -426,7 +428,7 @@ def update_task_status(request, project_id, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def deliverable_list(request, project_id, **kwargs):
-    deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.all())
+    deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.filter(project_id=project_id))
     deliverable_list = deliverable_filter.qs
     page = request.GET.get('page', 1)
 
@@ -449,6 +451,7 @@ def deliverable_add(request, project_id, **kwargs):
         if form.is_valid():
             deliverable = form.save(commit=False)
             deliverable.assign_date = datetime.today()
+            deliverable.project_id = project_id
             deliverable.save()
             return redirect('deliverable_list', permanent=True, project_id=project_id)
     else:
@@ -574,7 +577,7 @@ def change_actual_hour(pk, request):
 
 @login_required(login_url='/login/')
 def issue_list(request, project_id, **kwargs):
-    issue_filter = IssueFilter(request.GET, queryset=Issue.objects.all())
+    issue_filter = IssueFilter(request.GET, queryset=Issue.objects.filter(project_id=project_id))
     issue_list = issue_filter.qs
     page = request.GET.get('page', 1)
 
@@ -595,7 +598,9 @@ def issue_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = IssueForm(request.POST)
         if form.is_valid():
-            form.save()
+            issue = form.save(commit=False)
+            issue.project_id = project_id
+            issue.save()
             return redirect('issue_list', permanent=True, project_id=project_id)
     else:
         form = IssueForm()
@@ -630,7 +635,7 @@ def update_issue_status(request, project_id, pk, **kwargs):
         return redirect('issue_list', project_id=project_id)
 
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[6],
+        'field': form.visible_fields()[5],
         'title': 'Update Status',
         'url': reverse('issue_list', kwargs={'project_id': project_id}),
         'project': Project.objects.get(pk=project_id),

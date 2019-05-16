@@ -29,7 +29,7 @@ class ReleaseForm(ModelForm):
     class Meta:
         model = Release
         fields = '__all__'
-        exclude = ('release_log', 'comment', 'delivery_date', 'created_by', 'approved_by')
+        exclude = ('release_log', 'comment', 'delivery_date', 'created_by', 'approved_by', 'project')
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'release_date': DateInput(attrs={'type': 'date'}),
@@ -44,7 +44,7 @@ class UserStoryForm(ModelForm):
     class Meta:
         model = UserStory
         fields = '__all__'
-        exclude = ('description', 'comment', 'code', 'analysed_by', 'approved_by')
+        exclude = ('description', 'comment', 'code', 'analysed_by', 'approved_by', 'project')
         widgets = {
             'summary': Textarea(attrs={'cols': 25, 'rows': 1}),
             'details': Textarea(attrs={'cols': 25, 'rows': 3}),
@@ -111,7 +111,7 @@ class DeliverableForm(ModelForm):
     class Meta:
         model = Deliverable
         fields = '__all__'
-        exclude = ('assign_date', )
+        exclude = ('assign_date', 'project')
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'assign_date': DateInput(attrs={'type': 'date'}),
@@ -152,7 +152,7 @@ class IssueForm(ModelForm):
     class Meta:
         model = Issue
         fields = '__all__'
-        exclude = ('comment', 'resolve_date', 'approved_by', 'code')
+        exclude = ('comment', 'resolve_date', 'approved_by', 'code', 'project')
         widgets = {
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
             'raise_date': DateInput(attrs={'type': 'date'}),

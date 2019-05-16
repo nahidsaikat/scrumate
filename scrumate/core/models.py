@@ -227,6 +227,7 @@ class Task(models.Model):
 
 
 class Deliverable(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     task = models.ForeignKey(Task, on_delete=models.SET_NULL, default=None, null=True)
     name = models.CharField(max_length=100)
     description = models.TextField(default='', null=True, blank=True)
