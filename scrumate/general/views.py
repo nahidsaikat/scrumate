@@ -127,11 +127,14 @@ def project(request, **kwargs):
 @login_required(login_url='/login/')
 def project_dashboard(request, project_id, **kwargs):
 
-    release = Release.objects.all()
+    release = Release.objects.filter(project_id=project_id)
     user_story = UserStory.objects.filter(status__in=[UserStoryStatus.Pending, UserStoryStatus.Analysing,
-                                                      UserStoryStatus.AnalysisComplete, UserStoryStatus.Developing])
-    task = Task.objects.filter(status__in=[TaskStatus.Pending, TaskStatus.InProgress, TaskStatus.PartiallyDone])
-    issue = Issue.objects.filter(status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress])
+                                                      UserStoryStatus.AnalysisComplete, UserStoryStatus.Developing],
+                                          project_id=project_id)
+    task = Task.objects.filter(status__in=[TaskStatus.Pending, TaskStatus.InProgress, TaskStatus.PartiallyDone],
+                               project_id=project_id)
+    issue = Issue.objects.filter(status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress],
+                                 project_id=project_id)
 
     data = {
         'project': Project.objects.get(pk=project_id),
