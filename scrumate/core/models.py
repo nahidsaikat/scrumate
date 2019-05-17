@@ -145,7 +145,7 @@ class Issue(models.Model):
     code = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(default='', blank=True, null=True)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
-    user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True)
+    user_story = models.ForeignKey(UserStory, on_delete=models.SET_NULL, default=None, null=True, blank=True)
     raise_date = models.DateField(default=None)
     resolve_date = models.DateField(default=None, blank=True, null=True)
     raised_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='raised_issues')
