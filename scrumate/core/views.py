@@ -151,7 +151,7 @@ def project_status_report_download(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def release_list(request, project_id, **kwargs):
-    release_filter = ReleaseFilter(request.GET, queryset=Release.objects.filter(project_id=project_id))
+    release_filter = ReleaseFilter(request.GET, queryset=Release.objects.filter(project_id=project_id).order_by('-id'))
     release_list = release_filter.qs
     page = request.GET.get('page', 1)
 
@@ -198,7 +198,7 @@ def release_edit(request, project_id, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def user_story_list(request, project_id, **kwargs):
-    user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.filter(project_id=project_id))
+    user_story_filter = UserStoryFilter(request.GET, queryset=UserStory.objects.filter(project_id=project_id).order_by('-id'))
     user_story_list = user_story_filter.qs
     page = request.GET.get('page', 1)
 
@@ -356,7 +356,7 @@ def sprint_edit(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def task_list(request, project_id, **kwargs):
-    task_filter = TaskFilter(request.GET, queryset=Task.objects.filter(project_id=project_id))
+    task_filter = TaskFilter(request.GET, queryset=Task.objects.filter(project_id=project_id).order_by('-id'))
     task_list = task_filter.qs
     page = request.GET.get('page', 1)
 
@@ -428,7 +428,7 @@ def update_task_status(request, project_id, pk, **kwargs):
 
 @login_required(login_url='/login/')
 def deliverable_list(request, project_id, **kwargs):
-    deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.filter(project_id=project_id))
+    deliverable_filter = DeliverableFilter(request.GET, queryset=Deliverable.objects.filter(project_id=project_id).order_by('-id'))
     deliverable_list = deliverable_filter.qs
     page = request.GET.get('page', 1)
 
@@ -577,7 +577,7 @@ def change_actual_hour(pk, request):
 
 @login_required(login_url='/login/')
 def issue_list(request, project_id, **kwargs):
-    issue_filter = IssueFilter(request.GET, queryset=Issue.objects.filter(project_id=project_id))
+    issue_filter = IssueFilter(request.GET, queryset=Issue.objects.filter(project_id=project_id).order_by('-id'))
     issue_list = issue_filter.qs
     page = request.GET.get('page', 1)
 
