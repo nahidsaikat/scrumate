@@ -19,5 +19,5 @@ def task_info(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-def deliverable_info(request, project_id, pk, **kwargs):
+def deliverable_info(request, pk, **kwargs):
     return json_data(Deliverable, pk)
