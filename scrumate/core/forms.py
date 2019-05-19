@@ -3,9 +3,9 @@ from datetime import datetime
 from django.forms import ModelForm, Textarea, DateInput, HiddenInput, PasswordInput, TextInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
-from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum
+from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, ProjectMember
 from scrumate.core.choices import ProjectType, ProjectStatus, UserStoryStatus, SprintStatus, Category, Priority, \
-    TaskStatus, DeliverableStatus
+    TaskStatus, DeliverableStatus, ProjectMemberRole
 from scrumate.core.utils import generate_day_wise_label
 from scrumate.people.models import Employee, Client, Department
 
@@ -22,6 +22,18 @@ class ProjectForm(ModelForm):
             'type': Select2Widget(choices=ProjectType.choices),
             'status': Select2Widget(choices=ProjectStatus.choices),
             'client': ModelSelect2Widget(model=Client, search_fields=['full_name__icontains']),
+        }
+
+
+class ProjectMemberForm(ModelForm):
+    class Meta:
+        model = ProjectMember
+        fields = '__all__'
+        exclude = ()
+        widgets = {
+            'project': ModelSelect2Widget(model=Project, search_fields=['name__icontains']),
+            'user': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
+            'role': Select2Widget(choices=ProjectMemberRole.choices),
         }
 
 
