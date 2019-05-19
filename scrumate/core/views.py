@@ -151,7 +151,20 @@ def project_status_report_download(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 @permission_required('core.project_members', raise_exception=True)
-def project_members(request, project_id, **kwargs):
+def project_member_list(request, project_id, **kwargs):
+    project = Project.objects.get(pk=project_id)
+
+    member_list = project.projectmember_set.all()
+
+    return render(request, 'core/projects/project_member_list.html', {
+        'member_list': member_list,
+        'project': project
+    })
+
+
+@login_required(login_url='/login/')
+@permission_required('core.project_members', raise_exception=True)
+def project_member_add(request, project_id, **kwargs):
     project = Project.objects.get(pk=project_id)
 
     member_list = project.projectmember_set.all()
