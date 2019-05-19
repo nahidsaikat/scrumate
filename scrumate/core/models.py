@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models import Sum, Q
 
 from scrumate.core.choices import ProjectStatus, ProjectType, UserStoryStatus, SprintStatus, Column, Category, TaskStatus, \
-    DeliverableStatus, Priority
+    DeliverableStatus, Priority, ProjectMemberRole
 from scrumate.core.source_control import get_commit_messages
 from scrumate.people.models import Employee, Client, Department
 
@@ -104,7 +104,7 @@ class Project(models.Model):
 class ProjectMember(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    role = models.IntegerField(default=0)
+    role = models.IntegerField(choices=ProjectMemberRole.choices, default=ProjectMemberRole.Developer)
 
 
 class Release(models.Model):
