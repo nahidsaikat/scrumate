@@ -101,6 +101,12 @@ class Project(models.Model):
         return round((total_done * Decimal(100)) / total, 2)
 
 
+class ProjectMember(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    role = models.IntegerField(default=0)
+
+
 class Release(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(default='', null=True, blank=True)
