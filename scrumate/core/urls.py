@@ -26,6 +26,8 @@ project_view_urlpatterns = [
     path('issue/add/', views.issue_add, name='issue_add'),
     path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),
     path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
+
+    path('project_members/', views.project_members, name='project_members'),
 ]
 
 urlpatterns = [
