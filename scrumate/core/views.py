@@ -170,7 +170,9 @@ def project_member_add(request, project_id, **kwargs):
         form = ProjectMemberForm(request.POST)
         user_id = request.POST.get('user')
         already_assigned = ProjectMember.objects.filter(project_id=project_id, user_id=user_id).count()
-        if form.is_valid() and not already_assigned:
+        if already_assigned:
+            form.add_error('user', 'User is already in the team!')
+        elif form.is_valid():
             member = form.save(commit=False)
             member.project = project
             member.save()
