@@ -186,6 +186,35 @@ def project_member_add(request, project_id, **kwargs):
 
 
 @login_required(login_url='/login/')
+@permission_required('core.project_members', raise_exception=True)
+def project_member_edit(request, project_id, pk, **kwargs):
+    instance = get_object_or_404(ProjectMember, id=pk)
+    form = ProjectMemberForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('project_member_list', permanent=True, project_id=project_id)
+
+    title = 'Edit Member'
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'form': form, 'title': title,
+                                                    'list_url_name': 'project_member_list', 'project': project})
+
+
+@login_required(login_url='/login/')
+@permission_required('core.project_members', raise_exception=True)
+def project_member_delete(request, project_id, pk, **kwargs):
+    instance = get_object_or_404(ProjectMember, id=pk)
+    if instance:
+        instance.delete()
+        return redirect('project_member_list', permanent=True, project_id=project_id)
+
+    title = 'Delete Member'
+    project = Project.objects.get(pk=project_id)
+    return render(request, 'core/common_add.html', {'title': title,
+                                                    'list_url_name': 'project_member_list', 'project': project})
+
+
+@login_required(login_url='/login/')
 def release_list(request, project_id, **kwargs):
     release_filter = ReleaseFilter(request.GET, queryset=Release.objects.filter(project_id=project_id).order_by('-id'))
     release_list = release_filter.qs
