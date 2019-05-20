@@ -11,7 +11,8 @@ from scrumate.core.filters import ProjectFilter, ReleaseFilter, UserStoryFilter,
     DeliverableFilter, DailyScrumFilter, SprintStatusFilter, ProjectStatusFilter
 from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, TaskForm, DeliverableForm, \
     DailyScrumForm, ProjectMemberForm
-from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum
+from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, \
+    ProjectMember
 from scrumate.core.pdf_render import PDFRender
 
 User = get_user_model()
@@ -167,7 +168,9 @@ def project_member_add(request, project_id, **kwargs):
     project = Project.objects.get(pk=project_id)
     if request.method == 'POST':
         form = ProjectMemberForm(request.POST)
-        if form.is_valid():
+        user_id = request.POST.get('user')
+        already_assigned = ProjectMember.objects.filter(project_id=project_id, user_id=user_id).count()
+        if form.is_valid() and not already_assigned:
             member = form.save(commit=False)
             member.project = project
             member.save()
