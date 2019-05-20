@@ -4,15 +4,15 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
 from scrumate.core.filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, TaskFilter, \
     DeliverableFilter, DailyScrumFilter, SprintStatusFilter, ProjectStatusFilter
 from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, TaskForm, DeliverableForm, \
-    DailyScrumForm
-from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum
+    DailyScrumForm, ProjectMemberForm
+from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, \
+    ProjectMember
 from scrumate.core.pdf_render import PDFRender
 
 User = get_user_model()
@@ -151,7 +151,7 @@ def project_status_report_download(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 @permission_required('core.project_members', raise_exception=True)
-def project_members(request, project_id, **kwargs):
+def project_member_list(request, project_id, **kwargs):
     project = Project.objects.get(pk=project_id)
 
     member_list = project.projectmember_set.all()
@@ -160,6 +160,27 @@ def project_members(request, project_id, **kwargs):
         'member_list': member_list,
         'project': project
     })
+
+
+@login_required(login_url='/login/')
+@permission_required('core.project_members', raise_exception=True)
+def project_member_add(request, project_id, **kwargs):
+    project = Project.objects.get(pk=project_id)
+    if request.method == 'POST':
+        form = ProjectMemberForm(request.POST)
+        user_id = request.POST.get('user')
+        already_assigned = ProjectMember.objects.filter(project_id=project_id, user_id=user_id).count()
+        if form.is_valid() and not already_assigned:
+            member = form.save(commit=False)
+            member.project = project
+            member.save()
+            return redirect('project_member_list', permanent=True, project_id=project_id)
+    else:
+        form = ProjectMemberForm()
+
+    title = 'Add Member'
+    return render(request, 'core/common_add.html', {'form': form, 'title': title,
+                                                    'list_url_name': 'project_member_list', 'project': project})
 
 
 @login_required(login_url='/login/')
