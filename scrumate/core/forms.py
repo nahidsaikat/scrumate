@@ -29,7 +29,7 @@ class ProjectMemberForm(ModelForm):
     class Meta:
         model = ProjectMember
         fields = '__all__'
-        exclude = ()
+        exclude = ('project', )
         widgets = {
             'project': ModelSelect2Widget(model=Project, search_fields=['name__icontains']),
             'user': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
