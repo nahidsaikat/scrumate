@@ -4,14 +4,13 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
 from scrumate.core.filters import ProjectFilter, ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, TaskFilter, \
     DeliverableFilter, DailyScrumFilter, SprintStatusFilter, ProjectStatusFilter
 from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, TaskForm, DeliverableForm, \
-    DailyScrumForm
+    DailyScrumForm, ProjectMemberForm
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum
 from scrumate.core.pdf_render import PDFRender
 
@@ -166,13 +165,19 @@ def project_member_list(request, project_id, **kwargs):
 @permission_required('core.project_members', raise_exception=True)
 def project_member_add(request, project_id, **kwargs):
     project = Project.objects.get(pk=project_id)
+    if request.method == 'POST':
+        form = ProjectMemberForm(request.POST)
+        if form.is_valid():
+            member = form.save(commit=False)
+            member.project = project
+            member.save()
+            return redirect('project_member_list', permanent=True, project_id=project_id)
+    else:
+        form = ProjectMemberForm()
 
-    member_list = project.projectmember_set.all()
-
-    return render(request, 'core/projects/project_member_list.html', {
-        'member_list': member_list,
-        'project': project
-    })
+    title = 'Add Member'
+    return render(request, 'core/common_add.html', {'form': form, 'title': title,
+                                                    'list_url_name': 'project_member_list', 'project': project})
 
 
 @login_required(login_url='/login/')
