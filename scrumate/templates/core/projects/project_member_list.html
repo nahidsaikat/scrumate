@@ -20,6 +20,7 @@
                             <th>S/L</th>
                             <th>Name</th>
                             <th>Role</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,6 +29,10 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ member.user.username }}</td>
                                     <td>{{ member.get_role_display }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{% url 'project_member_edit' project_id=project.id pk=member.id %}">Update</a>
+                                        <a class="btn btn-danger" href="{% url 'project_member_delete' project_id=project.id pk=member.id %}">Delete</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
