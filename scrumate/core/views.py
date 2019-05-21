@@ -14,6 +14,7 @@ from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintF
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, \
     ProjectMember
 from scrumate.core.pdf_render import PDFRender
+from scrumate.general.decorators import admin_user
 
 User = get_user_model()
 
@@ -57,6 +58,7 @@ def project_list(request, **kwargs):
     return render(request, 'core/projects/project_list.html', {'projects': projects, 'filter': project_filter})
 
 
+@admin_user
 @login_required(login_url='/login/')
 def project_add(request, **kwargs):
     if request.method == 'POST':
@@ -70,6 +72,7 @@ def project_add(request, **kwargs):
     return render(request, 'core/projects/project_add.html', {'form': form, 'title': title, 'list_url_name': 'project_list'})
 
 
+@admin_user
 @login_required(login_url='/login/')
 def project_edit(request, pk, **kwargs):
     instance = get_object_or_404(Project, id=pk)
