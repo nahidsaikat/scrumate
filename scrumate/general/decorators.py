@@ -16,7 +16,7 @@ def role_wise_permission(function):
 
 def admin_user(function):
     def wrap(request, *args, **kwargs):
-        if request.user.is_stuff:
+        if request.user.is_staff:
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied

@@ -74,8 +74,8 @@ def project_add(request, **kwargs):
 
 @admin_user
 @login_required(login_url='/login/')
-def project_edit(request, pk, **kwargs):
-    instance = get_object_or_404(Project, id=pk)
+def project_edit(request, project_id, **kwargs):
+    instance = get_object_or_404(Project, id=project_id)
     form = ProjectForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
@@ -86,8 +86,8 @@ def project_edit(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 @permission_required('core.update_project_status', raise_exception=True)
-def update_project_status(request, pk, **kwargs):
-    instance = get_object_or_404(Project, id=pk)
+def update_project_status(request, project_id, **kwargs):
+    instance = get_object_or_404(Project, id=project_id)
     form = ProjectForm(request.POST or None, instance=instance)
     if request.POST:
         status = request.POST.get('status')
@@ -97,7 +97,7 @@ def update_project_status(request, pk, **kwargs):
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[3],
         'title': 'Update Status',
-        'url': reverse('project_list', kwargs={'project_id': pk}),
+        'url': reverse('project_list', kwargs={'project_id': project_id}),
         'project': instance,
         'base_template': 'general/index_project_view.html'
     })
@@ -105,8 +105,8 @@ def update_project_status(request, pk, **kwargs):
 
 @login_required(login_url='/login/')
 @permission_required('core.view_commit_logs', raise_exception=True)
-def view_commit_logs(request, pk, **kwargs):
-    instance = get_object_or_404(Project, id=pk)
+def view_commit_logs(request, project_id, **kwargs):
+    instance = get_object_or_404(Project, id=project_id)
     page = request.GET.get('page', 1)
 
     paginator = Paginator(instance.get_commit_messages(), settings.PAGE_SIZE)
@@ -142,9 +142,9 @@ def project_status_report(request, **kwargs):
 
 @login_required(login_url='/login/')
 @permission_required('core.project_status_report_download', raise_exception=True)
-def project_status_report_download(request, pk, **kwargs):
-    release_list = Release.objects.filter(project_id=pk)
-    project = Project.objects.get(pk=pk)
+def project_status_report_download(request, project_id, **kwargs):
+    release_list = Release.objects.filter(project_id=project_id)
+    project = Project.objects.get(pk=project_id)
 
     return PDFRender.render('core/projects/project_status_pdf.html', {
         'release_list': release_list,
