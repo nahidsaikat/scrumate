@@ -26,6 +26,7 @@
                 </div>
                 <div class="card-body">
                     {% for release in release_list %}
+                        {% if release.userstory_set.count %}
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -44,6 +45,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

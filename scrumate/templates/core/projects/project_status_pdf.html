@@ -79,6 +79,7 @@
             <div class="col-lg-12">
                 <span class="center"> Project Status Report of {{ project_name }}</span>
                 {% for release in release_list %}
+                {% if release.userstory_set.count%}
                     <table class="table">
                         <thead>
                         </thead>
@@ -97,6 +98,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                {% endif %}
                 {% endfor %}
                 <hr>
             </div>
