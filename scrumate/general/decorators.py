@@ -1,11 +1,11 @@
 from django.core.exceptions import PermissionDenied
 from scrumate.core.models import Project
+from scrumate.core.choices import ProjectMemberRole
 
 
-def role_wise_permission(function):
+def admin_user(function):
     def wrap(request, *args, **kwargs):
-        project = Project.objects.get(pk=kwargs['project_id'])
-        if request.user in project.projectmember_set.all():
+        if request.user.is_staff:
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -14,9 +14,54 @@ def role_wise_permission(function):
     return wrap
 
 
-def admin_user(function):
+def project_owner(function):
     def wrap(request, *args, **kwargs):
-        if request.user.is_staff:
+        if request.user.is_superuser:
+            return function(request, *args, **kwargs)
+        project_member = request.user.employee.projectmember_set.first()
+        if project_member and project_member.role == ProjectMemberRole.ProjectOwner:
+            return function(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
+
+
+def team_lead(function):
+    def wrap(request, *args, **kwargs):
+        if request.user.is_superuser:
+            return function(request, *args, **kwargs)
+        project_member = request.user.employee.projectmember_set.first()
+        if project_member and project_member.role == ProjectMemberRole.TeamLead:
+            return function(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
+
+
+def developer(function):
+    def wrap(request, *args, **kwargs):
+        if request.user.is_superuser:
+            return function(request, *args, **kwargs)
+        project_member = request.user.employee.projectmember_set.first()
+        if project_member and project_member.role == ProjectMemberRole.Developer:
+            return function(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
+
+
+def owner_or_lead(function):
+    def wrap(request, *args, **kwargs):
+        if request.user.is_superuser:
+            return function(request, *args, **kwargs)
+        project_member = request.user.employee.projectmember_set.first()
+        if project_member and project_member.role in [ProjectMemberRole.ProjectOwner, ProjectMemberRole.TeamLead]:
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied

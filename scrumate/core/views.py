@@ -14,7 +14,7 @@ from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintF
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, \
     ProjectMember
 from scrumate.core.pdf_render import PDFRender
-from scrumate.general.decorators import admin_user
+from scrumate.general.decorators import admin_user, project_owner, owner_or_lead
 
 User = get_user_model()
 
@@ -165,6 +165,7 @@ def project_member_list(request, project_id, **kwargs):
     })
 
 
+@project_owner
 @login_required(login_url='/login/')
 @permission_required('core.project_members', raise_exception=True)
 def project_member_add(request, project_id, **kwargs):
@@ -188,6 +189,7 @@ def project_member_add(request, project_id, **kwargs):
                                                     'list_url_name': 'project_member_list', 'project': project})
 
 
+@project_owner
 @login_required(login_url='/login/')
 @permission_required('core.project_members', raise_exception=True)
 def project_member_edit(request, project_id, pk, **kwargs):
@@ -203,6 +205,7 @@ def project_member_edit(request, project_id, pk, **kwargs):
                                                     'list_url_name': 'project_member_list', 'project': project})
 
 
+@project_owner
 @login_required(login_url='/login/')
 @permission_required('core.project_members', raise_exception=True)
 def project_member_delete(request, project_id, pk, **kwargs):
@@ -235,6 +238,7 @@ def release_list(request, project_id, **kwargs):
     return render(request, 'core/release_list.html', {'releases': releases, 'filter': release_filter, 'project': project})
 
 
+@project_owner
 @login_required(login_url='/login/')
 def release_add(request, project_id, **kwargs):
     if request.method == 'POST':
@@ -252,6 +256,7 @@ def release_add(request, project_id, **kwargs):
     return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list', 'project': project})
 
 
+@project_owner
 @login_required(login_url='/login/')
 def release_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Release, id=pk)
@@ -282,6 +287,7 @@ def user_story_list(request, project_id, **kwargs):
     return render(request, 'core/user_story_list.html', {'user_stories': user_stories, 'filter': user_story_filter, 'project': project})
 
 
+@owner_or_lead
 @login_required(login_url='/login/')
 def user_story_add(request, project_id, **kwargs):
     if request.method == 'POST':
@@ -299,7 +305,7 @@ def user_story_add(request, project_id, **kwargs):
     project = Project.objects.get(pk=project_id)
     return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list', 'project': project})
 
-
+@owner_or_lead
 @login_required(login_url='/login/')
 def user_story_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(UserStory, id=pk)
@@ -313,6 +319,7 @@ def user_story_edit(request, project_id, pk, **kwargs):
     return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'user_story_list', 'project': project})
 
 
+@owner_or_lead
 @login_required(login_url='/login/')
 @permission_required('core.update_user_story_status', raise_exception=True)
 def update_user_story_status(request, project_id, pk, **kwargs):
@@ -440,6 +447,7 @@ def task_list(request, project_id, **kwargs):
     return render(request, 'core/task_list.html', {'tasks': tasks, 'filter': task_filter, 'project': project})
 
 
+@owner_or_lead
 @login_required(login_url='/login/')
 def task_add(request, project_id, **kwargs):
     if request.method == 'POST':
@@ -460,6 +468,7 @@ def task_add(request, project_id, **kwargs):
     return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list', 'project': project})
 
 
+@owner_or_lead
 @login_required(login_url='/login/')
 def task_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Task, id=pk)
@@ -473,6 +482,7 @@ def task_edit(request, project_id, pk, **kwargs):
     return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'task_list', 'project': project})
 
 
+@owner_or_lead
 @login_required(login_url='/login/')
 @permission_required('core.update_task_status', raise_exception=True)
 def update_task_status(request, project_id, pk, **kwargs):
