@@ -146,9 +146,11 @@ def employee_add(request, **kwargs):
                 password=form.cleaned_data['password'],
                 email=form.cleaned_data['email']
             )
+            employee = form.save(commit=False)
             if user:
-                form.cleaned_data['user_id'] = user.id
-            form.save()
+                employee.user = user
+            employee.save()
+
             return redirect('employee_list', permanent=True)
     else:
         form = EmployeeForm()
