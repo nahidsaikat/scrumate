@@ -70,6 +70,7 @@ class Project(models.Model):
     git_username = models.CharField(verbose_name='Github Username', max_length=50, null=True, blank=True)
     git_password = models.CharField(verbose_name='Github Password', max_length=50, null=True, blank=True)
     git_repo = models.CharField(verbose_name='Github Repo', max_length=100, null=True, blank=True)
+    last_sync_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -83,8 +84,12 @@ class Project(models.Model):
             ("project_members", "Can See Members of a Project"),
         )
 
-    def get_commit_messages(self):
+    @property
+    def commit_messages(self):
         return get_commit_messages(self)
+
+    def commit_messages_since(self, since=None):
+        return get_commit_messages(self, since=since)
 
     @property
     def can_view_commit(self):
@@ -100,6 +105,17 @@ class Project(models.Model):
         total = self.total_point or Decimal(1)
         total_done = Deliverable.objects.filter(Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
         return round((total_done * Decimal(100)) / total, 2)
+
+
+class ProjectCommitLog(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='commit_log')
+    sha = models.CharField(max_length=256, unique=True)
+    message = models.CharField(max_length=256)
+    date = models.DateTimeField()
+    author_name = models.CharField(max_length=128)
+    author_email = models.CharField(max_length=128)
+    url = models.URLField(max_length=128)
+    html_url = models.URLField(max_length=128)
 
 
 class ProjectMember(models.Model):

@@ -42,6 +42,7 @@ urlpatterns = [
     path('project/<int:project_id>/edit/', views.project_edit, name='project_edit'),
     path('project/<int:project_id>/update_status/', views.update_project_status, name='update_project_status'),
     path('project/<int:project_id>/view_commit_logs/', views.view_commit_logs, name='view_commit_logs'),
+    path('project/<int:project_id>/sync_commit/', views.sync_commit, name='sync_commit'),
     path('project/project_status_report/', views.project_status_report, name='project_status_report'),
     path('project/<int:project_id>/project_status/download/', views.project_status_report_download, name='project_status_report_download'),
 

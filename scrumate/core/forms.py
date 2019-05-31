@@ -14,7 +14,7 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        exclude = ()
+        exclude = ('last_sync_time', )
         widgets = {
             'git_password': PasswordInput(),
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
