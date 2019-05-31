@@ -36,7 +36,9 @@
                             {% for spr in sprints %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ spr.name }}</td>
+                                    <td>
+                                        <a href="{% url 'sprint_view' spr.id %}">{{ spr.name }}</a>
+                                    </td>
                                     <td>{{ spr.department.name }}</td>
                                     <td>{{ spr.start_date }}</td>
                                     <td>{{ spr.end_date }}</td>

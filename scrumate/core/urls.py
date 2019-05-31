@@ -48,6 +48,7 @@ urlpatterns = [
     path('sprint/', views.sprint_list, name='sprint_list'),
     path('sprint/add/', views.sprint_add, name='sprint_add'),
     path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
+    path('sprint/<int:pk>/', views.sprint_view, name='sprint_view'),
     path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
     path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
     path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),

@@ -190,6 +190,11 @@ class Sprint(models.Model):
         )
 
     @property
+    def is_current(self):
+        today = datetime.datetime.today().date()
+        return self.start_date <= today and self.end_date >= today
+
+    @property
     def total_point(self):
         return round(Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
             total_point=Sum('estimated_hour')).get('total_point') or Decimal(0))
