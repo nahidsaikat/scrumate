@@ -6,7 +6,11 @@
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'project_dashboard' project_id=project.id %}">
-                    <i class="nav-icon icons cui-dashboard mr-3"></i> Dashboard</a>
+                    <i class="fa fa-tachometer icons mr-3"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'sprint_list' project_id=project.id %}">
+                    <i class="nav-icon icon-clock icons mr-3"></i> Sprint List</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'release_list' project_id=project.id %}">
@@ -28,9 +32,9 @@
                 <a class="nav-link" href="{% url 'issue_list' project_id=project.id %}">
                     <i class="nav-icon fa fa-bug mr-3"></i> Issues</a>
             </li>
-            <div class="progress mt-2 mb-2" style="height: 1px;">
+            <li class="progress mt-2 mb-2" style="height: 1px;">
                 <div class="divider-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
+            </li>
             <li class="nav-item bottom">
                 <a class="nav-link" href="{% url 'project_member_list' project_id=project.id %}">
                     <i class="nav-icon icons icon-people mr-3"></i> Members</a>

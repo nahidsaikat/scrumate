@@ -27,6 +27,14 @@ project_view_urlpatterns = [
     path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),
     path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
 
+    path('sprint/', views.sprint_list, name='sprint_list'),
+    path('sprint/add/', views.sprint_add, name='sprint_add'),
+    path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
+    path('sprint/<int:pk>/', views.sprint_view, name='sprint_view'),
+    path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
+    path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
+    path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),
+
     path('project_member/add/', views.project_member_add, name='project_member_add'),
     path('project_member/', views.project_member_list, name='project_member_list'),
     path('project_member/<int:pk>/edit/', views.project_member_edit, name='project_member_edit'),
