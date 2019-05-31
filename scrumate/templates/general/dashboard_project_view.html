@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<div class="animated fadeIn pt-2 pb-2">
+<div class="animated fadeIn pt-2">
   <div class="row">
     <div class="col-sm-6 col-lg-3">
       <div class="card text-white bg-primary mr-2">
@@ -65,5 +65,75 @@
     </div>
     <!-- /.col-->
   </div>
+</div>
 
+<div class="animated fadeIn pt-2">
+  <div class="row">
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header text-white" style="background-color: #332211;">
+                <i class="fa fa-list fa-lg"></i> Pending
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-sm table-bordered">
+                    <thead></thead>
+                    <tbody>
+                        {% for pend in data.pending %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ pend.name }} - {{ pend.estimated_hour }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header text-white" style="background-color: #112233;">
+                <i class="fa fa-list fa-lg"></i> In-Progress
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-sm table-bordered">
+                    <thead></thead>
+                    <tbody>
+                        {% for inp in data.in_progress %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ inp.name }} - {{ inp.estimated_hour }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header text-white" style="background-color: green;">
+                <i class="fa fa-list fa-lg"></i> Done
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-sm table-bordered">
+                    <thead></thead>
+                    <tbody>
+                        {% for done_task in data.done %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ done_task.name }} - {{ done_task.estimated_hour }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+  </div>
 </div>

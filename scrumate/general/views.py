@@ -71,25 +71,6 @@ def reports(request, **kwargs):
 
 
 @login_required(login_url='/login/')
-def sprint(request, **kwargs):
-    today = datetime.today().date()
-    running_sprint = Sprint.objects.filter(start_date__lte=today, end_date__gte=today).first()
-    deliverable_qs = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today)
-    pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
-    in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
-    done = deliverable_qs.filter(status=DeliverableStatus.Done)
-
-    data = {
-        'pending': pending,
-        'in_progress': in_progress,
-        'done': done,
-        'running_sprint': running_sprint
-    }
-
-    return render(request, 'general/index_sprint.html', {'data': data})
-
-
-@login_required(login_url='/login/')
 def project(request, **kwargs):
     all_project = Project.objects.all()
     pending_project = Project.objects.filter(status=ProjectStatus.Pending)
@@ -137,6 +118,20 @@ def project(request, **kwargs):
 
 @login_required(login_url='/login/')
 def project_dashboard(request, project_id, **kwargs):
+    today = datetime.today().date()
+    deliverable_qs = Deliverable.objects.filter(project_id=project_id,
+                                                sprint__start_date__lte=today, sprint__end_date__gte=today)
+    pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
+    in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
+    done = deliverable_qs.filter(status=DeliverableStatus.Done)
+
+    data = {
+        'pending': pending,
+        'in_progress': in_progress,
+        'done': done,
+    }
+
     return render(request, 'general/index_project_view.html', {
+        'data': data,
         'project': Project.objects.get(pk=project_id),
     })
