@@ -125,13 +125,36 @@ def project_dashboard(request, project_id, **kwargs):
     in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
     done = deliverable_qs.filter(status=DeliverableStatus.Done)
 
+    release = Release.objects.filter(project_id=project_id)
+    user_story = UserStory.objects.filter(status__in=[UserStoryStatus.Pending, UserStoryStatus.Analysing,
+                                                      UserStoryStatus.AnalysisComplete, UserStoryStatus.Developing],
+                                          project_id=project_id)
+    task = Task.objects.filter(status__in=[TaskStatus.Pending, TaskStatus.InProgress, TaskStatus.PartiallyDone],
+                               project_id=project_id)
+    issue = Issue.objects.filter(status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress],
+                                 project_id=project_id)
+
     data = {
+        'project': Project.objects.get(pk=project_id),
         'pending': pending,
         'in_progress': in_progress,
         'done': done,
+        'release': {
+            'count': release.count(),
+            'instances': release.order_by('-id')[:10]
+        },
+        'user_story': {
+            'count': user_story.count(),
+            'instances': user_story.order_by('-id')[:10]
+        },
+        'task': {
+            'count': task.count(),
+            'instances': task.order_by('-id')[:10]
+        },
+        'issue': {
+            'count': issue.count(),
+            'instances': issue.order_by('-id')[:10]
+        },
     }
 
-    return render(request, 'general/index_project_view.html', {
-        'data': data,
-        'project': Project.objects.get(pk=project_id),
-    })
+    return render(request, 'general/index_project_view.html', data)
