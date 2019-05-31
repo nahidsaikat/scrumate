@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Project, Release, UserStory, Sprint, Task, Deliverable, DailyScrum
+from .models import Project, Release, UserStory, Sprint, Task, Deliverable, DailyScrum, ProjectCommitLog
 
 admin.site.register(Project)
+admin.site.register(ProjectCommitLog)
 admin.site.register(Release)
 admin.site.register(UserStory)
 # admin.site.register(Division)

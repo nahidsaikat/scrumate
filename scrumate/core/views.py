@@ -3,7 +3,9 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.utils import IntegrityError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
@@ -12,7 +14,7 @@ from scrumate.core.filters import ProjectFilter, ReleaseFilter, UserStoryFilter,
 from scrumate.core.forms import ProjectForm, ReleaseForm, UserStoryForm, SprintForm, IssueForm, TaskForm, DeliverableForm, \
     DailyScrumForm, ProjectMemberForm
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, \
-    ProjectMember
+    ProjectMember, ProjectCommitLog
 from scrumate.core.pdf_render import PDFRender
 from scrumate.general.decorators import admin_user, project_owner, owner_or_lead
 
@@ -106,21 +108,55 @@ def update_project_status(request, project_id, **kwargs):
 @login_required(login_url='/login/')
 @permission_required('core.view_commit_logs', raise_exception=True)
 def view_commit_logs(request, project_id, **kwargs):
-    instance = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id)
+    commit_log = project.commit_log
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(instance.get_commit_messages(), settings.PAGE_SIZE)
+    paginator = Paginator(commit_log.order_by('-date').all(), settings.PAGE_SIZE)
     try:
-        commit_messages = paginator.page(page)
+        commit_log = paginator.page(page)
     except PageNotAnInteger:
-        commit_messages = paginator.page(1)
+        commit_log = paginator.page(1)
     except EmptyPage:
-        commit_messages = paginator.page(paginator.num_pages)
+        commit_log = paginator.page(paginator.num_pages)
 
     return render(request, 'core/projects/commit_logs.html', {
-        'project': instance,
-        'commit_messages': commit_messages
+        'project': project,
+        'commit_log': commit_log
     })
+
+
+@login_required(login_url='/login/')
+@permission_required('core.view_commit_logs', raise_exception=True)
+def sync_commit(request, project_id, **kwargs):
+    project = get_object_or_404(Project, id=project_id)
+    commit_list = project.commit_messages_since(since=project.last_sync_time).reversed
+    last_date = None
+
+    for commit in commit_list:
+        _commit = commit.commit
+        author = _commit.author
+        log = ProjectCommitLog(
+            project=project,
+            sha=_commit.sha,
+            message=_commit.message,
+            date=author.date,
+            author_name=author.name,
+            author_email=author.email,
+            url=_commit.url,
+            html_url=_commit.html_url
+        )
+        try:
+            log.save()
+        except IntegrityError as e:
+            print(e)
+        last_date = author.date
+
+    if last_date:
+        project.last_sync_time = last_date
+        project.save()
+
+    return HttpResponseRedirect(reverse('view_commit_logs', kwargs={'project_id': project.id}))
 
 
 @login_required(login_url='/login/')

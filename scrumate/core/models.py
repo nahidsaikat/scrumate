@@ -108,14 +108,14 @@ class Project(models.Model):
 
 
 class ProjectCommitLog(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    sha = models.CharField(max_length=256)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='commit_log')
+    sha = models.CharField(max_length=256, unique=True)
     message = models.CharField(max_length=256)
     date = models.DateTimeField()
     author_name = models.CharField(max_length=128)
     author_email = models.CharField(max_length=128)
-    author_url = models.URLField(max_length=128)
-    author_html_url = models.URLField(max_length=128)
+    url = models.URLField(max_length=128)
+    html_url = models.URLField(max_length=128)
 
 
 class ProjectMember(models.Model):
