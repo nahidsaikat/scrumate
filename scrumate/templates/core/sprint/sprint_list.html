@@ -1,4 +1,4 @@
-{% extends 'general/index_sprint.html' %}
+{% extends 'general/index_project_view.html' %}
 
 {% block content %}
 <form method="get">
@@ -13,7 +13,7 @@
                 <div class="card-header text-white bg-xing">
                     <i class="fa fa-list fa-lg"></i> Sprints
                     {% if user.is_authenticated %}
-                    <a class="float-right" href="{% url 'sprint_add' %}">
+                    <a class="float-right" href="{% url 'sprint_add' project_id=project.id %}">
                         <i class="fa fa-plus-square-o fa-lg font-2xl text-white"></i>
                     </a>
                     {% endif %}
@@ -37,20 +37,20 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>
-                                        <a href="{% url 'sprint_view' spr.id %}">{{ spr.name }}</a>
+                                        <a href="{% url 'sprint_view' project_id=project.id pk=spr.id %}">{{ spr.name }}</a>
                                     </td>
                                     <td>{{ spr.department.name }}</td>
                                     <td>{{ spr.start_date }}</td>
                                     <td>{{ spr.end_date }}</td>
                                     <td>
                                         {% if perms.core.update_sprint_status %}
-                                            <a href="{% url 'update_sprint_status' spr.id %}">{{ spr.get_status_display }}</a>
+                                            <a href="{% url 'update_sprint_status' project_id=project.id pk=spr.id %}">{{ spr.get_status_display }}</a>
                                         {% else %}
                                             {{ spr.get_status_display }}
                                         {% endif %}
                                     </td>
                                     <td>{{ spr.description }}</td>
-                                    <td><a class="float-right" href="{% url 'sprint_edit' spr.id %}">
+                                    <td><a class="float-right" href="{% url 'sprint_edit' project_id=project.id pk=spr.id %}">
                                         <i class="fa fa-edit fa-lg font-2xl"></i></a>
                                     </td>
                                 </tr>
