@@ -430,6 +430,24 @@ def sprint_edit(request, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
+def sprint_view(request, pk, **kwargs):
+    sprint = Sprint.objects.get(pk=pk)
+    deliverable_qs = Deliverable.objects.filter(sprint=sprint)
+    pending = deliverable_qs.filter(status=DeliverableStatus.Pending)
+    in_progress = deliverable_qs.filter(status=DeliverableStatus.InProgress)
+    done = deliverable_qs.filter(status__in=[DeliverableStatus.Done, DeliverableStatus.Delivered])
+
+    data = {
+        'pending': pending,
+        'in_progress': in_progress,
+        'done': done,
+        'running_sprint': sprint
+    }
+
+    return render(request, 'general/index_sprint.html', {'data': data})
+
+
+@login_required(login_url='/login/')
 def task_list(request, project_id, **kwargs):
     task_filter = TaskFilter(request.GET, queryset=Task.objects.filter(project_id=project_id).order_by('-id'))
     task_list = task_filter.qs

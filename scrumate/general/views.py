@@ -72,7 +72,7 @@ def reports(request, **kwargs):
 
 @login_required(login_url='/login/')
 def sprint(request, **kwargs):
-    today = datetime.today()
+    today = datetime.today().date()
     running_sprint = Sprint.objects.filter(start_date__lte=today, end_date__gte=today).first()
     deliverable_qs = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today)
     pending = deliverable_qs.filter(status=DeliverableStatus.Pending)

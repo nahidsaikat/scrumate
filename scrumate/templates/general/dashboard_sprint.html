@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-lg-12">
       <div class="card text-white bg-xing">
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          <h1 style="text-align: center;">Currently Running Sprint {% if data.running_sprint %} : {{ data.running_sprint.name }}{% endif %}</h1>
+          <h1 style="text-align: center;">{% if data.running_sprint.is_current %}Currently Running Sprint : {% else %}Sprint : {% endif %}{{ data.running_sprint.name }}</h1>
         </div>
       </div>
     </div>
