@@ -75,6 +75,53 @@
   </div>
 
   <div class="row mt-2">
+        <div class="col-lg-6">
+            <div class="card mr-1">
+                <div class="card-header text-white" style="background-color: #183311;">
+                    <i class="fa fa-list fa-lg"></i> Recent Releases
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for item in release.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.project.name }}</td>
+                                    <td>{{ item.release_date }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card ml-1">
+                <div class="card-header text-white" style="background-color: #2c0f47 ;">
+                    <i class="fa fa-list fa-lg"></i> Recent Issues
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead></thead>
+                        <tbody>
+                            {% for item in issue.instances %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.project.name }}</td>
+                                    <td>{{ item.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+  </div>
+
+  <div class="row mt-2">
 
         <div class="col-lg-4">
             <div class="card">

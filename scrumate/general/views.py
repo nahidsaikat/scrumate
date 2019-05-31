@@ -96,6 +96,9 @@ def project(request, **kwargs):
     inprogress_project = Project.objects.filter(status=ProjectStatus.InProgress)
     complete_project = Project.objects.filter(status=ProjectStatus.Completed)
 
+    release = Release.objects.all()
+    issue = Issue.objects.filter(status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress])
+
     data = {
         'all_project': {
             'count': all_project.count(),
@@ -120,40 +123,20 @@ def project(request, **kwargs):
             'total_points': json.dumps([int(project.total_point) for project in complete_project]),
             'instances': complete_project.order_by('-id')[:10]
         },
+        'release': {
+            'count': release.count(),
+            'instances': release.order_by('-id')[:10]
+        },
+        'issue': {
+            'count': issue.count(),
+            'instances': issue.order_by('-id')[:10]
+        }
     }
 
     return render(request, 'general/index_project.html', data)
 
 @login_required(login_url='/login/')
 def project_dashboard(request, project_id, **kwargs):
-
-    release = Release.objects.filter(project_id=project_id)
-    user_story = UserStory.objects.filter(status__in=[UserStoryStatus.Pending, UserStoryStatus.Analysing,
-                                                      UserStoryStatus.AnalysisComplete, UserStoryStatus.Developing],
-                                          project_id=project_id)
-    task = Task.objects.filter(status__in=[TaskStatus.Pending, TaskStatus.InProgress, TaskStatus.PartiallyDone],
-                               project_id=project_id)
-    issue = Issue.objects.filter(status__in=[DeliverableStatus.Pending, DeliverableStatus.InProgress],
-                                 project_id=project_id)
-
-    data = {
+    return render(request, 'general/index_project_view.html', {
         'project': Project.objects.get(pk=project_id),
-        'release': {
-            'count': release.count(),
-            'instances': release.order_by('-id')[:10]
-        },
-        'user_story': {
-            'count': user_story.count(),
-            'instances': user_story.order_by('-id')[:10]
-        },
-        'task': {
-            'count': task.count(),
-            'instances': task.order_by('-id')[:10]
-        },
-        'issue': {
-            'count': issue.count(),
-            'instances': issue.order_by('-id')[:10]
-        },
-    }
-
-    return render(request, 'general/index_project_view.html', data)
+    })
