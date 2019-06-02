@@ -22,7 +22,7 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for pro in context.running_projects %}
+                            {% for pro in running_projects %}
                                 <tr>
                                     <td>{{ forloop.counter}}</td>
                                     <td><a href="{% url 'project_dashboard' project_id=pro.id %}"> {{ pro.name }} </a></td>
@@ -46,7 +46,7 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for pd in context.pending_deliverables %}
+                            {% for pd in pending_deliverables %}
                                 <tr>
                                     <td>{{ forloop.counter}}</td>
                                     <td>{{ pd.name }}</td>
@@ -73,7 +73,7 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for release in context.recent_releases %}
+                            {% for release in recent_releases %}
                                 <tr>
                                     <td>{{ forloop.counter}}</td>
                                     <td>{{ release.name }} | {{ release.release_date }}</td>
@@ -97,7 +97,7 @@
                     <table class="table table-responsive-sm table-bordered">
                         <thead></thead>
                         <tbody>
-                            {% for pd in context.recent_issues %}
+                            {% for pd in recent_issues %}
                                 <tr>
                                     <td>{{ forloop.counter}}</td>
                                     <td>{{ pd.name }}</td>

@@ -7,13 +7,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
-from scrumate.core.filters import ReleaseFilter, UserStoryFilter, IssueFilter, TaskFilter, \
-    DeliverableFilter, DailyScrumFilter
-from scrumate.core.forms import ReleaseForm, UserStoryForm, IssueForm, TaskForm, DeliverableForm, \
-    DailyScrumForm, ProjectMemberForm
-from scrumate.core.models import Project, Release, UserStory, Issue, Task, Deliverable, DailyScrum, \
-    ProjectMember
-from scrumate.general.decorators import project_owner, owner_or_lead
+from scrumate.core.filters import DailyScrumFilter
+from scrumate.core.forms import DailyScrumForm
+from scrumate.core.models import Project, Release, Issue, Deliverable, DailyScrum
 
 User = get_user_model()
 
@@ -26,7 +22,7 @@ def get_dashboard_context(request, **kwargs):
     recent_releases = Release.objects.all().order_by('-release_date')[:6]
     recent_issues = Issue.objects.all().order_by('-raise_date')[:6]
     data = {
-        'home': True,
+        'hide': True,
         'running_projects': running_projects,
         'pending_deliverables': pending_deliverables,
         'recent_releases': recent_releases,
@@ -37,11 +33,11 @@ def get_dashboard_context(request, **kwargs):
 @login_required(login_url='/login/')
 def index(request, **kwargs):
     context = get_dashboard_context(request, **kwargs)
-    return render(request, 'index.html', {'context': context})
+    return render(request, 'index.html', context)
 
 
 @login_required(login_url='/login/')
-def daily_scrum_list(request, **kwargs):
+def daily_scrum_entry(request, **kwargs):
     daily_scrum_filter = DailyScrumFilter(request.GET, queryset=DailyScrum.objects.all())
     daily_scrum_list = daily_scrum_filter.qs
     page = request.GET.get('page', 1)
@@ -54,39 +50,8 @@ def daily_scrum_list(request, **kwargs):
     except EmptyPage:
         daily_scrums = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/daily_scrum/daily_scrum_list.html', {'daily_scrums': daily_scrums, 'filter': daily_scrum_filter})
-
-
-@login_required(login_url='/login/')
-def daily_scrum_add(request, **kwargs):
-    if request.method == 'POST':
-        form = DailyScrumForm(request.POST)
-        if form.is_valid():
-            daily_scrum = form.save(commit=False)
-            daily_scrum.issue = daily_scrum.deliverable.task.issue
-            daily_scrum.task = daily_scrum.deliverable.task
-            daily_scrum.user_story = daily_scrum.deliverable.task.user_story
-            daily_scrum.release = daily_scrum.deliverable.task.release
-            daily_scrum.project = daily_scrum.deliverable.task.project
-            daily_scrum.save()
-            return redirect('daily_scrum_list', permanent=True)
-    else:
-        form = DailyScrumForm()
-    title = 'Daily Scrum Entry'
-    return render(request, 'core/daily_scrum/daily_scrum_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'daily_scrum_list'})
-
-
-@login_required(login_url='/login/')
-def daily_scrum_edit(request, pk, **kwargs):
-    instance = get_object_or_404(DailyScrum, id=pk)
-    form = DailyScrumForm(request.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
-        return redirect('daily_scrum_list')
-    title = 'Edit Daily Scrum Entry'
-    return render(request, 'core/daily_scrum/daily_scrum_add.html',
-                  {'form': form, 'title': title, 'list_url_name': 'daily_scrum_list'})
+    return render(request, 'core/daily_scrum/daily_scrum_list.html', {
+        'daily_scrums': daily_scrums, 'filter': daily_scrum_filter, 'hide': True})
 
 
 @login_required(login_url='/login/')

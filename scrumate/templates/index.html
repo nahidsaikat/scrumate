@@ -42,7 +42,7 @@
     {% block head %}
     {% endblock %}
 </head>
-<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-{% if context.home %}hide{% else %}show{% endif %}">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-{% if hide %}hide{% else %}show{% endif %}">
 <header class="app-header navbar">
 
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
@@ -52,7 +52,7 @@
         <img class="navbar-brand-full" src="/img/brand/logo.png" width="89" height="25" alt="CoreUI Logo">
         <img class="navbar-brand-minimized" src="/img/brand/sygnet.png" width="30" height="30" alt="CoreUI Logo">
     </a>
-    {% if not context.home %}
+    {% if not hide %}
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -63,7 +63,7 @@
             <a class="nav-link" href="{% url 'project_list' %}">Projects</a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="{% url 'daily_scrum_add' %}">Daily Scrum</a>
+            <a class="nav-link" href="{% url 'daily_scrum' %}">Daily Scrum</a>
         </li>
         <li class="nav-item px-3">
             <a class="nav-link" href="{% url 'reports' %}">Reports</a>
@@ -105,10 +105,11 @@
         </div>
     </main>
 </div>
-<footer class="app-footer">
+<footer class="app-footer mt-3">
+    <div id="time"></div>
     <div class="ml-auto">
         SCRUMATE
-        <span>&copy; 2019 <a href="https://www.nahidsaikat.com/">NahidSaikat</a></span>
+        <span>&copy; <span id="year">2019</span> <a href="https://www.nahidsaikat.com/">NahidSaikat</a></span>
     </div>
 </footer>
 <!-- CoreUI and necessary plugins-->
@@ -128,7 +129,9 @@
       $(document).ajaxComplete(function() {
         Pace.restart()
       });
-    </script>
+      $('#time').html(new Date().toDateString());
+      $('#year').html(new Date().getFullYear());
+</script>
 {{ form.media.js }}
 {% block js %}
 {% endblock %}
