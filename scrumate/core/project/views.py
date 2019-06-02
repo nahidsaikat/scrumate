@@ -9,7 +9,7 @@ from django.urls import reverse
 from scrumate.core.filters import ProjectFilter, ProjectStatusFilter
 from scrumate.core.forms import ProjectForm
 from scrumate.core.models import Project, ProjectCommitLog, Release
-from scrumate.core.pdf_render import PDFRender
+from scrumate.general.pdf_render import PDFRender
 from scrumate.general.decorators import admin_user
 
 

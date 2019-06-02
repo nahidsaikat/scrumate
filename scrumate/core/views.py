@@ -7,13 +7,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
-from scrumate.core.filters import ReleaseFilter, UserStoryFilter, SprintFilter, IssueFilter, TaskFilter, \
-    DeliverableFilter, DailyScrumFilter, SprintStatusFilter
-from scrumate.core.forms import ReleaseForm, UserStoryForm, SprintForm, IssueForm, TaskForm, DeliverableForm, \
+from scrumate.core.filters import ReleaseFilter, UserStoryFilter, IssueFilter, TaskFilter, \
+    DeliverableFilter, DailyScrumFilter
+from scrumate.core.forms import ReleaseForm, UserStoryForm, IssueForm, TaskForm, DeliverableForm, \
     DailyScrumForm, ProjectMemberForm
-from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, \
+from scrumate.core.models import Project, Release, UserStory, Issue, Task, Deliverable, DailyScrum, \
     ProjectMember
-from scrumate.core.pdf_render import PDFRender
 from scrumate.general.decorators import project_owner, owner_or_lead
 
 User = get_user_model()

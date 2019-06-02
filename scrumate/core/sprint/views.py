@@ -7,7 +7,7 @@ from scrumate.core.models import Project, Sprint, Deliverable
 from scrumate.core.forms import SprintForm
 from scrumate.core.filters import SprintStatusFilter, SprintFilter
 from scrumate.core.choices import DeliverableStatus
-from scrumate.core.pdf_render import PDFRender
+from scrumate.general.pdf_render import PDFRender
 
 
 @login_required(login_url='/login/')
