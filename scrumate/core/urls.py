@@ -22,13 +22,9 @@ project_view_urlpatterns = [
     path('deliverable/<int:pk>/edit/', views.deliverable_edit, name='deliverable_edit'),
     path('deliverable/<int:pk>/update_status/', views.update_deliverable_status, name='update_deliverable_status'),
 
-    path('issue/', views.issue_list, name='issue_list'),
-    path('issue/add/', views.issue_add, name='issue_add'),
-    path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),
-    path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
-
+    path('issue/', include('scrumate.core.issue.urls'), name='issue'),
     path('sprint/', include('scrumate.core.sprint.urls'), name='sprint'),
-    path('member/', include('scrumate.core.project.member.urls'), name='member'),
+    path('member/', include('scrumate.core.member.urls'), name='member'),
 ]
 
 urlpatterns = [
