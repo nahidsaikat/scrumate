@@ -46,7 +46,13 @@
                                             <a href="{% url 'set_actual_hour' deliverable_id=daily.id %}">Set</a>
                                         {% endif %}
                                     </td>
-                                    <td>{{ daily.assignee.full_name }}</td>
+                                    <td>
+                                        {% if can_assign_dev %}
+                                            <a href="{% url 'assign_dev' deliverable_id=daily.id %}">{{ daily.assignee.full_name }}</a>
+                                        {% else %}
+                                            {{ daily.assignee.full_name }}
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

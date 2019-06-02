@@ -38,7 +38,17 @@ def index(request, **kwargs):
 
 @login_required(login_url='/login/')
 def daily_scrum_entry(request, **kwargs):
-    deliverable_filter = DailyScrumFilter(request.GET, queryset=Deliverable.objects.all().order_by('-id'))
+    today = datetime.today().date()
+    can_assign_dev = request.user.has_perm('assign_deliverable')
+    if can_assign_dev:
+        queryset = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today).order_by('-id')
+    elif hasattr(request.user, 'employee'):
+        queryset = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today,
+                                              assignee=getattr(request.user, 'employee')).order_by('-id')
+    else:
+        queryset = None
+
+    deliverable_filter = DailyScrumFilter(request.GET, queryset=queryset)
     deliverable_list = deliverable_filter.qs
     page = request.GET.get('page', 1)
 
@@ -51,8 +61,14 @@ def daily_scrum_entry(request, **kwargs):
         daily_scrums = paginator.page(paginator.num_pages)
 
     return render(request, 'core/daily_scrum_list.html', {
-        'daily_scrums': daily_scrums, 'filter': deliverable_filter, 'hide': True
+        'hide': True, 'daily_scrums': daily_scrums, 'filter': deliverable_filter, 'can_assign_dev': can_assign_dev
     })
+
+
+@login_required(login_url='/login/')
+@permission_required('core.assign_deliverable', raise_exception=True)
+def assign_dev(request, deliverable_id, **kwargs):
+    return change_actual_hour(deliverable_id, request)
 
 
 @login_required(login_url='/login/')

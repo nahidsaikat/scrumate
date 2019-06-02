@@ -20,6 +20,7 @@ urlpatterns = [
     path('daily_scrum/', views.daily_scrum_entry, name='daily_scrum'),
     path('daily_scrum/<int:deliverable_id>/set_actual_hour/', views.set_actual_hour, name='set_actual_hour'),
     path('daily_scrum/<int:deliverable_id>/update_actual_hour/', views.update_actual_hour, name='update_actual_hour'),
+    path('daily_scrum/<int:deliverable_id>/assign_dev/', views.assign_dev, name='assign_dev'),
 
     # API
     path('task/<int:pk>/task_info/', api.task_info, name='task_info'),

@@ -82,6 +82,7 @@ class Project(models.Model):
             ("project_status_report", "Can See Project Status Report"),
             ("project_status_report_download", "Can Download Project Status Report"),
             ("project_members", "Can See Members of a Project"),
+            ("assign_deliverable", "Can Assign Deliverables"),
         )
 
     @property
