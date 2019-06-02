@@ -27,13 +27,7 @@ project_view_urlpatterns = [
     path('issue/<int:pk>/edit/', views.issue_edit, name='issue_edit'),
     path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
 
-    path('sprint/', views.sprint_list, name='sprint_list'),
-    path('sprint/add/', views.sprint_add, name='sprint_add'),
-    path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
-    path('sprint/<int:pk>/', views.sprint_view, name='sprint_view'),
-    path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
-    path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
-    path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),
+    path('sprint/', include('scrumate.core.sprint.urls'), name='sprint'),
 
     path('project_member/add/', views.project_member_add, name='project_member_add'),
     path('project_member/', views.project_member_list, name='project_member_list'),
@@ -45,14 +39,6 @@ urlpatterns = [
     # Main functionalities
     path('<int:project_id>/', include(project_view_urlpatterns), name='project_view'),
     path('project/', include('scrumate.core.project.urls'), name='project'),
-
-    path('sprint/', views.sprint_list, name='sprint_list'),
-    path('sprint/add/', views.sprint_add, name='sprint_add'),
-    path('sprint/<int:pk>/edit/', views.sprint_edit, name='sprint_edit'),
-    path('sprint/<int:pk>/', views.sprint_view, name='sprint_view'),
-    path('sprint/<int:pk>/update_status/', views.update_sprint_status, name='update_sprint_status'),
-    path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
-    path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),
 
     path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
     path('daily_scrum/add/', views.daily_scrum_add, name='daily_scrum_add'),
