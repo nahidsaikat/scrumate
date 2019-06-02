@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 
 from scrumate.core.choices import ProjectStatus, DeliverableStatus
 from scrumate.core.filters import DailyScrumFilter
-from scrumate.core.forms import DailyScrumForm
+from scrumate.core.forms import DeliverableForm
 from scrumate.core.models import Project, Release, Issue, Deliverable, DailyScrum
 
 User = get_user_model()
@@ -38,11 +38,11 @@ def index(request, **kwargs):
 
 @login_required(login_url='/login/')
 def daily_scrum_entry(request, **kwargs):
-    daily_scrum_filter = DailyScrumFilter(request.GET, queryset=DailyScrum.objects.all())
-    daily_scrum_list = daily_scrum_filter.qs
+    deliverable_filter = DailyScrumFilter(request.GET, queryset=Deliverable.objects.all().order_by('-id'))
+    deliverable_list = deliverable_filter.qs
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(daily_scrum_list, settings.PAGE_SIZE)
+    paginator = Paginator(deliverable_list, settings.PAGE_SIZE)
     try:
         daily_scrums = paginator.page(page)
     except PageNotAnInteger:
@@ -50,33 +50,35 @@ def daily_scrum_entry(request, **kwargs):
     except EmptyPage:
         daily_scrums = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/daily_scrum/daily_scrum_list.html', {
-        'daily_scrums': daily_scrums, 'filter': daily_scrum_filter, 'hide': True})
+    return render(request, 'core/daily_scrum_list.html', {
+        'daily_scrums': daily_scrums, 'filter': deliverable_filter, 'hide': True
+    })
 
 
 @login_required(login_url='/login/')
 @permission_required('core.set_actual_hour', raise_exception=True)
-def set_actual_hour(request, pk, **kwargs):
-    return change_actual_hour(pk, request)
+def set_actual_hour(request, deliverable_id, **kwargs):
+    return change_actual_hour(deliverable_id, request)
 
 
 @login_required(login_url='/login/')
 @permission_required('core.update_actual_hour', raise_exception=True)
-def update_actual_hour(request, pk, **kwargs):
-    return change_actual_hour(pk, request)
+def update_actual_hour(request, deliverable_id, **kwargs):
+    return change_actual_hour(deliverable_id, request)
 
 
-def change_actual_hour(pk, request):
-    instance = get_object_or_404(DailyScrum, id=pk)
-    form = DailyScrumForm(request.POST or None, instance=instance)
+def change_actual_hour(deliverable_id, request):
+    instance = get_object_or_404(Deliverable, id=deliverable_id)
+    form = DeliverableForm(request.POST or None, instance=instance)
     if request.POST:
-        actual_hour = request.POST.get('actual_hour')
+        actual_hour = request.POST.get('estimated_hour')
         instance.actual_hour = actual_hour
         instance.save()
-        return redirect('daily_scrum_list')
+        return redirect('daily_scrum')
     return render(request, 'includes/single_field.html', {
-        'field': form.visible_fields()[8],
+        'hide': True,
+        'field': form.visible_fields()[4],
         'title': 'Set Actual Hour',
-        'url': reverse('daily_scrum_list'),
-        'base_template': 'general/index_sprint.html'
+        'url': reverse('daily_scrum'),
+        'base_template': 'index.html'
     })

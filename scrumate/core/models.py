@@ -261,6 +261,7 @@ class Deliverable(models.Model):
     description = models.TextField(default='', null=True, blank=True)
     sprint = models.ForeignKey(Sprint, on_delete=models.SET_NULL, default=None, null=True)
     estimated_hour = models.DecimalField(verbose_name='Point', default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
+    actual_hour = models.DecimalField(verbose_name='Actual Point', default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
     priority = models.IntegerField(choices=Priority.choices, default=Priority.High, null=True, blank=True)
     assignee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True)
     assign_date = models.DateField(default=None, null=True, blank=True)

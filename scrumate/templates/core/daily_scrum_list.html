@@ -24,12 +24,11 @@
                         <tr>
                             <th>S/L</th>
                             <th>Project</th>
-                            <th>Release</th>
                             <th>Sprint</th>
-                            <th>Task</th>
                             <th>Deliverable</th>
                             <th>Point</th>
-                            <th>Employee</th>
+                            <th>Actual</th>
+                            <th>Assignee</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,12 +36,17 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ daily.project.name }}</td>
-                                    <td>{{ daily.release.name }}</td>
                                     <td>{{ daily.sprint.name }}</td>
-                                    <td>{{ daily.task.name }}</td>
-                                    <td>{{ daily.deliverable.name }}</td>
+                                    <td>{{ daily.name }}</td>
                                     <td>{{ daily.estimated_hour }}</td>
-                                    <td>{{ daily.employee.full_name }}</td>
+                                    <td>
+                                        {% if daily.actual_hour %}
+                                            <a href="{% url 'update_actual_hour' deliverable_id=daily.id %}">{{ daily.actual_hour }}</a>
+                                        {% else %}
+                                            <a href="{% url 'set_actual_hour' deliverable_id=daily.id %}">Set</a>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ daily.assignee.full_name }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
