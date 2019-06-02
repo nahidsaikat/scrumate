@@ -3,10 +3,7 @@ from scrumate.core import views
 from scrumate.core import api
 
 project_view_urlpatterns = [
-    path('release/', views.release_list, name='release_list'),
-    path('release/add/', views.release_add, name='release_add'),
-    path('release/<int:pk>/edit/', views.release_edit, name='release_edit'),
-
+    path('release/', include('scrumate.core.release.urls'), name='release'),
     path('user_story/', include('scrumate.core.user_story.urls'), name='user_story'),
     path('task/', include('scrumate.core.task.urls'), name='task'),
     path('deliverable/', include('scrumate.core.deliverable.urls'), name='deliverable'),
