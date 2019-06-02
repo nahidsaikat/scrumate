@@ -44,15 +44,7 @@ project_view_urlpatterns = [
 urlpatterns = [
     # Main functionalities
     path('<int:project_id>/', include(project_view_urlpatterns), name='project_view'),
-
-    path('project/', views.project_list, name='project_list'),
-    path('project/add/', views.project_add, name='project_add'),
-    path('project/<int:project_id>/edit/', views.project_edit, name='project_edit'),
-    path('project/<int:project_id>/update_status/', views.update_project_status, name='update_project_status'),
-    path('project/<int:project_id>/view_commit_logs/', views.view_commit_logs, name='view_commit_logs'),
-    path('project/<int:project_id>/sync_commit/', views.sync_commit, name='sync_commit'),
-    path('project/project_status_report/', views.project_status_report, name='project_status_report'),
-    path('project/<int:project_id>/project_status/download/', views.project_status_report_download, name='project_status_report_download'),
+    path('project/', include('scrumate.core.project.urls'), name='project'),
 
     path('sprint/', views.sprint_list, name='sprint_list'),
     path('sprint/add/', views.sprint_add, name='sprint_add'),
