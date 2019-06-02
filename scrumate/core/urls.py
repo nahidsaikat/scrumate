@@ -12,11 +12,7 @@ project_view_urlpatterns = [
     path('user_story/<int:pk>/edit/', views.user_story_edit, name='user_story_edit'),
     path('user_story/<int:pk>/update_status/', views.update_user_story_status, name='update_user_story_status'),
 
-    path('task/', views.task_list, name='task_list'),
-    path('task/add/', views.task_add, name='task_add'),
-    path('task/<int:pk>/edit/', views.task_edit, name='task_edit'),
-    path('task/<int:pk>/update_status/', views.update_task_status, name='update_task_status'),
-
+    path('task/', include('scrumate.core.task.urls'), name='task'),
     path('deliverable/', include('scrumate.core.deliverable.urls'), name='deliverable'),
     path('issue/', include('scrumate.core.issue.urls'), name='issue'),
     path('sprint/', include('scrumate.core.sprint.urls'), name='sprint'),
