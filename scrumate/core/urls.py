@@ -28,16 +28,12 @@ project_view_urlpatterns = [
     path('issue/<int:pk>/update_status/', views.update_issue_status, name='update_issue_status'),
 
     path('sprint/', include('scrumate.core.sprint.urls'), name='sprint'),
-
-    path('project_member/add/', views.project_member_add, name='project_member_add'),
-    path('project_member/', views.project_member_list, name='project_member_list'),
-    path('project_member/<int:pk>/edit/', views.project_member_edit, name='project_member_edit'),
-    path('project_member/<int:pk>/delete/', views.project_member_delete, name='project_member_delete'),
+    path('member/', include('scrumate.core.project.member.urls'), name='member'),
 ]
 
 urlpatterns = [
     # Main functionalities
-    path('<int:project_id>/', include(project_view_urlpatterns), name='project_view'),
+    path('project/<int:project_id>/', include(project_view_urlpatterns), name='project_view'),
     path('project/', include('scrumate.core.project.urls'), name='project'),
 
     path('daily_scrum/', views.daily_scrum_list, name='daily_scrum_list'),
