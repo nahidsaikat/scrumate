@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from scrumate.core.choices import DeliverableStatus
+from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.choices import ProjectStatus
 from scrumate.core.models import Project, Release, Issue, Deliverable
 

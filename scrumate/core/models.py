@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Sum, Q
 
-from scrumate.core.choices import DeliverableStatus
+from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.choices import ProjectStatus, ProjectType, ProjectMemberRole
 from scrumate.core.user_story.choices import UserStoryStatus
 from scrumate.core.sprint.choices import SprintStatus

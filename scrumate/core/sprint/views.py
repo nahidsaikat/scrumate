@@ -1,13 +1,12 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 
-from scrumate.core.models import Project, Sprint, Deliverable
+from scrumate.core.deliverable.choices import DeliverableStatus
+from scrumate.core.filters import SprintFilter
 from scrumate.core.forms import SprintForm
-from scrumate.core.filters import SprintStatusFilter, SprintFilter
-from scrumate.core.choices import DeliverableStatus
-from scrumate.general.pdf_render import PDFRender
+from scrumate.core.models import Project, Sprint, Deliverable
 
 
 @login_required(login_url='/login/')
