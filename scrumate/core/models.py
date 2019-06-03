@@ -7,7 +7,7 @@ from django.db.models import Sum, Q
 
 from scrumate.core.choices import ProjectStatus, ProjectType, UserStoryStatus, SprintStatus, Column, Category, TaskStatus, \
     DeliverableStatus, Priority, ProjectMemberRole
-from scrumate.core.source_control import get_commit_messages
+from scrumate.general.source_control import get_commit_messages
 from scrumate.people.models import Employee, Client, Department
 
 User = get_user_model()
