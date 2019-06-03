@@ -146,6 +146,7 @@ def employee_add(request, **kwargs):
                 password=form.cleaned_data['password'],
                 email=form.cleaned_data['email']
             )
+            user.save()
             employee = form.save(commit=False)
             if user:
                 employee.user = user
