@@ -32,35 +32,6 @@ def update_sprint_status(request, project_id, pk, **kwargs):
 
 
 @login_required(login_url='/login/')
-@permission_required('core.sprint_status_report', raise_exception=True)
-def sprint_status_report(request, **kwargs):
-    sprint_status_filter = SprintStatusFilter(request.GET, queryset=Deliverable.objects.all())
-    sprint_status_list = sprint_status_filter.qs
-    sprint = Sprint.objects.get(pk=request.GET.get('sprint')) if request.GET.get('sprint') else None
-
-    if not request.GET.get('sprint', False):
-        sprint_status_list = []
-
-    return render(request, 'core/sprint/sprint_status.html', {
-        'sprint_status': sprint_status_list,
-        'filter': sprint_status_filter,
-        'sprint': sprint
-    })
-
-
-@login_required(login_url='/login/')
-@permission_required('core.sprint_status_report_download', raise_exception=True)
-def sprint_status_report_download(request, pk, **kwargs):
-    sprint_status_list = Deliverable.objects.filter(sprint_id=pk)
-    sprint = Sprint.objects.get(pk=pk)
-
-    return PDFRender.render('core/sprint/sprint_status_pdf.html', {
-        'sprint_status_list': sprint_status_list,
-        'sprint_name': sprint.name
-    })
-
-
-@login_required(login_url='/login/')
 def sprint_list(request, project_id, **kwargs):
     project = Project.objects.get(pk=project_id)
     sprint_filter = SprintFilter(request.GET, queryset=Sprint.objects.all())

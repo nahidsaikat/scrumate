@@ -22,6 +22,9 @@ urlpatterns = [
     path('daily_scrum/<int:deliverable_id>/update_actual_hour/', views.update_actual_hour, name='update_actual_hour'),
     path('daily_scrum/<int:deliverable_id>/assign_dev/', views.assign_dev, name='assign_dev'),
 
+    path('sprint/sprint_status_report/', views.sprint_status_report, name='sprint_status_report'),
+    path('sprint/<int:pk>/sprint_status/download/', views.sprint_status_report_download, name='sprint_status_report_download'),
+
     # API
     path('task/<int:pk>/task_info/', api.task_info, name='task_info'),
     path('deliverable/<int:pk>/deliverable_info/', api.deliverable_info, name='deliverable_info'),
