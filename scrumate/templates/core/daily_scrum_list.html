@@ -48,9 +48,9 @@
                                     </td>
                                     <td>
                                         {% if can_assign_dev %}
-                                            <a href="{% url 'assign_dev' deliverable_id=daily.id %}">{{ daily.assignee.full_name }}</a>
+                                            <a href="{% url 'assign_dev' deliverable_id=daily.id %}">{{ daily.assignee.full_name|default_if_none:'Assign' }}</a>
                                         {% else %}
-                                            {{ daily.assignee.full_name }}
+                                            {{ daily.assignee.full_name|default_if_none:'Not Assigned' }}
                                         {% endif %}
                                     </td>
                                 </tr>

@@ -43,7 +43,7 @@ def daily_scrum_entry(request, **kwargs):
     if can_assign_dev:
         queryset = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today).order_by('-id')
     elif hasattr(request.user, 'employee'):
-        queryset = Deliverable.objects.filter(sprint__start_date__lte=today, sprint__end_date__gte=today,
+        queryset = Deliverable.objects.filter(assign_date=today,
                                               assignee=getattr(request.user, 'employee')).order_by('-id')
     else:
         queryset = None
@@ -68,7 +68,22 @@ def daily_scrum_entry(request, **kwargs):
 @login_required(login_url='/login/')
 @permission_required('core.assign_deliverable', raise_exception=True)
 def assign_dev(request, deliverable_id, **kwargs):
-    return change_actual_hour(deliverable_id, request)
+    instance = get_object_or_404(Deliverable, pk=deliverable_id)
+    form = DeliverableForm(request.POST or None, instance=instance)
+
+    if request.POST:
+        assignee = request.POST.get('assignee')
+        instance.assignee_id = assignee
+        instance.save()
+        return redirect('daily_scrum')
+
+    return render(request, 'includes/single_field.html', {
+        'hide': True,
+        'field': form.visible_fields()[6],
+        'title': 'Assign Dev',
+        'url': reverse('daily_scrum'),
+        'base_template': 'index.html'
+    })
 
 
 @login_required(login_url='/login/')
