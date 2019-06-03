@@ -7,12 +7,6 @@ class Priority(DjangoChoices):
     High = ChoiceItem(3, 'High')
 
 
-class SprintStatus(DjangoChoices):
-    Pending = ChoiceItem(1, 'Pending')
-    OnGoing = ChoiceItem(2, 'On Going')
-    Completed = ChoiceItem(3, 'Completed')
-
-
 class Column(DjangoChoices):
     One = ChoiceItem(1, 'One')
     Two = ChoiceItem(2, 'Two')
