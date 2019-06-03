@@ -1,15 +1,14 @@
+from django.conf import settings
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.utils import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, permission_required
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.conf import settings
 from django.urls import reverse
 
-from scrumate.core.filters import ProjectFilter, ProjectStatusFilter
+from scrumate.core.filters import ProjectFilter
 from scrumate.core.forms import ProjectForm
-from scrumate.core.models import Project, ProjectCommitLog, Release
-from scrumate.general.pdf_render import PDFRender
+from scrumate.core.models import Project, ProjectCommitLog
 from scrumate.general.decorators import admin_user
 
 

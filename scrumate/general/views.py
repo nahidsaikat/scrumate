@@ -6,8 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 
-from scrumate.core.choices import DeliverableStatus, TaskStatus, UserStoryStatus
+from scrumate.core.choices import DeliverableStatus, TaskStatus
 from scrumate.core.project.choices import ProjectStatus
+from scrumate.core.user_story.choices import UserStoryStatus
 from scrumate.core.models import Deliverable, Project, Sprint, Release, UserStory, Task, Issue
 from scrumate.people.models import Department, Designation, Employee, Client
 

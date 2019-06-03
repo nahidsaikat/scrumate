@@ -1,6 +1,5 @@
 import django_filters
 from django.forms import DateInput
-from django_select2.forms import Select2Widget
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable
 
 
