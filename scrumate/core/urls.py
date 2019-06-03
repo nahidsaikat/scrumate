@@ -13,15 +13,10 @@ project_view_urlpatterns = [
 ]
 
 urlpatterns = [
-    # Main functionalities
     path('project/<int:project_id>/', include(project_view_urlpatterns), name='project_view'),
     path('project/', include('scrumate.core.project.urls'), name='project'),
+    path('daily_scrum/', include('scrumate.core.daily_scrum.urls'), name='daily_scrum'),
     path('report/', include('scrumate.core.report.urls'), name='report'),
-
-    path('daily_scrum/', views.daily_scrum_entry, name='daily_scrum'),
-    path('daily_scrum/<int:deliverable_id>/set_actual_hour/', views.set_actual_hour, name='set_actual_hour'),
-    path('daily_scrum/<int:deliverable_id>/update_actual_hour/', views.update_actual_hour, name='update_actual_hour'),
-    path('daily_scrum/<int:deliverable_id>/assign_dev/', views.assign_dev, name='assign_dev'),
 
     # API
     path('task/<int:pk>/task_info/', api.task_info, name='task_info'),
