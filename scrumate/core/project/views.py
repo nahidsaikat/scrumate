@@ -127,32 +127,3 @@ def sync_commit(request, project_id, **kwargs):
         project.save()
 
     return HttpResponseRedirect(reverse('view_commit_logs', kwargs={'project_id': project.id}))
-
-
-@login_required(login_url='/login/')
-@permission_required('core.project_status_report', raise_exception=True)
-def project_status_report(request, **kwargs):
-    project_status_filter = ProjectStatusFilter(request.GET, queryset=Release.objects.all())
-    release_list = project_status_filter.qs
-    project = Project.objects.get(pk=request.GET.get('project')) if request.GET.get('project') else None
-
-    if not request.GET.get('project', False):
-        release_list = []
-
-    return render(request, 'core/projects/project_status.html', {
-        'release_list': release_list,
-        'filter': project_status_filter,
-        'project': project
-    })
-
-
-@login_required(login_url='/login/')
-@permission_required('core.project_status_report_download', raise_exception=True)
-def project_status_report_download(request, project_id, **kwargs):
-    release_list = Release.objects.filter(project_id=project_id)
-    project = Project.objects.get(pk=project_id)
-
-    return PDFRender.render('core/projects/project_status_pdf.html', {
-        'release_list': release_list,
-        'project_name': project.name
-    })
