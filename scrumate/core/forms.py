@@ -4,8 +4,9 @@ from django.forms import ModelForm, Textarea, DateInput, HiddenInput, PasswordIn
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, ProjectMember
-from scrumate.core.choices import ProjectType, ProjectStatus, UserStoryStatus, SprintStatus, Category, Priority, \
-    TaskStatus, DeliverableStatus, ProjectMemberRole
+from scrumate.core.choices import UserStoryStatus, SprintStatus, Category, Priority, \
+    TaskStatus, DeliverableStatus
+from scrumate.core.project.choices import ProjectStatus, ProjectType, ProjectMemberRole
 from scrumate.general.utils import generate_day_wise_label
 from scrumate.people.models import Employee, Client, Department
 

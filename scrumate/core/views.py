@@ -1,14 +1,11 @@
 from datetime import datetime
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required, permission_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
-from scrumate.core.choices import ProjectStatus, DeliverableStatus
-from scrumate.core.filters import DailyScrumFilter
-from scrumate.core.forms import DeliverableForm
+from scrumate.core.choices import DeliverableStatus
+from scrumate.core.project.choices import ProjectStatus
 from scrumate.core.models import Project, Release, Issue, Deliverable
 
 User = get_user_model()
