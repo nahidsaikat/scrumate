@@ -1,6 +1,7 @@
 import django_filters
 from django.forms import DateInput
-from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable
+
+from scrumate.core.models import Issue
 
 
 class IssueFilter(django_filters.FilterSet):

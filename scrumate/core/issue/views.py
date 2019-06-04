@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from scrumate.core.filters import IssueFilter
+from scrumate.core.issue.filters import IssueFilter
 from scrumate.core.models import Issue, Project
 from scrumate.core.issue.forms import IssueForm
 
