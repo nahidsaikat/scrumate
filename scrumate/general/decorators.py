@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from scrumate.core.project.choices import ProjectMemberRole
+from scrumate.core.member.choices import ProjectMemberRole
 
 
 def admin_user(function):

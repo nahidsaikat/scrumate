@@ -7,12 +7,6 @@ class ProjectStatus(DjangoChoices):
     Completed = ChoiceItem(3, 'Completed')
 
 
-class ProjectMemberRole(DjangoChoices):
-    ProjectOwner = ChoiceItem(1, 'ProjectOwner')
-    TeamLead = ChoiceItem(2, 'TeamLead')
-    Developer = ChoiceItem(3, 'Developer')
-
-
 class ProjectType(DjangoChoices):
     Public = ChoiceItem(1, 'Public')
     Private = ChoiceItem(2, 'Private')

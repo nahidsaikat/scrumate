@@ -6,7 +6,8 @@ from django.db import models
 from django.db.models import Sum, Q
 
 from scrumate.core.deliverable.choices import DeliverableStatus
-from scrumate.core.project.choices import ProjectStatus, ProjectType, ProjectMemberRole
+from scrumate.core.project.choices import ProjectStatus, ProjectType
+from scrumate.core.member.choices import ProjectMemberRole
 from scrumate.core.user_story.choices import UserStoryStatus
 from scrumate.core.sprint.choices import SprintStatus
 from scrumate.core.task.choices import TaskStatus, Category

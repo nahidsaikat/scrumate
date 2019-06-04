@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from scrumate.general.decorators import project_owner
 from scrumate.core.models import Project, ProjectMember
-from scrumate.core.project.forms import ProjectMemberForm
+from scrumate.core.member.forms import ProjectMemberForm
 
 
 @login_required(login_url='/login/')
