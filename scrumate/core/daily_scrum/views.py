@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 
 from scrumate.core.filters import DailyScrumFilter
-from scrumate.core.forms import DeliverableForm
+from scrumate.core.deliverable.forms import DeliverableForm
 from scrumate.core.models import Deliverable
 
 

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from scrumate.core.filters import DeliverableFilter
-from scrumate.core.forms import DeliverableForm
+from scrumate.core.deliverable.forms import DeliverableForm
 from scrumate.core.models import Deliverable, Project
 
 
