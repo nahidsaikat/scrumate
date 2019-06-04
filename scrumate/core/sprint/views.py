@@ -5,7 +5,7 @@ from django.shortcuts import render, reverse, redirect, get_object_or_404
 
 from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.filters import SprintFilter
-from scrumate.core.forms import SprintForm
+from scrumate.core.sprint.forms import SprintForm
 from scrumate.core.models import Project, Sprint, Deliverable
 
 
