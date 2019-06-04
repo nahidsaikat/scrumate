@@ -3,14 +3,6 @@ from django.forms import DateInput
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable
 
 
-class TaskFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(lookup_expr='icontains', label='Name')
-
-    class Meta:
-        model = Task
-        fields = ['name', 'project', 'category', 'responsible']
-
-
 class DeliverableFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains', label='Name')
 

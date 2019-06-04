@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from scrumate.general.decorators import owner_or_lead
-from scrumate.core.filters import TaskFilter
+from scrumate.core.task.filters import TaskFilter
 from scrumate.core.models import Task, Project
 from scrumate.core.task.forms import TaskForm
 
