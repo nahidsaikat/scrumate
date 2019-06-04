@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 
-from scrumate.core.filters import SprintStatusFilter
+from scrumate.core.sprint.filters import SprintStatusFilter
 from scrumate.core.project.filters import ProjectStatusFilter
 from scrumate.core.models import Deliverable, Sprint, Release, Project
 from scrumate.general.pdf_render import PDFRender
