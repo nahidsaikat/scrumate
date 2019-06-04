@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from scrumate.general.decorators import owner_or_lead
 from scrumate.core.filters import UserStoryFilter
 from scrumate.core.models import UserStory, Project
-from scrumate.core.forms import UserStoryForm
+from scrumate.core.user_story.forms import UserStoryForm
 
 
 @login_required(login_url='/login/')
