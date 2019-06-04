@@ -18,6 +18,9 @@ pywatchman = "*"
 pytest = "*"
 pytest-django = "*"
 pytest-xdist = "*"
+factory-boy = "*"
+faker = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"
