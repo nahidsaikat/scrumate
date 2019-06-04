@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from scrumate.core.filters import IssueFilter
 from scrumate.core.models import Issue, Project
-from scrumate.core.forms import IssueForm
+from scrumate.core.issue.forms import IssueForm
 
 
 @login_required(login_url='/login/')
