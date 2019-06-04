@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from scrumate.general.decorators import project_owner
 from scrumate.core.models import Project, Release
-from scrumate.core.filters import ReleaseFilter
+from scrumate.core.release.filters import ReleaseFilter
 from scrumate.core.release.forms import ReleaseForm
 
 
