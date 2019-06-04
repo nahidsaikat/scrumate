@@ -3,14 +3,6 @@ from django.forms import DateInput
 from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable
 
 
-class UserStoryFilter(django_filters.FilterSet):
-    # project = django_filters.ModelChoiceFilter(queryset=UserStory.objects.all())
-
-    class Meta:
-        model = UserStory
-        fields = ['project', 'release']
-
-
 class SprintFilter(django_filters.FilterSet):
 
     class Meta:

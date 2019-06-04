@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required, permission_required
 
 from scrumate.general.decorators import owner_or_lead
-from scrumate.core.filters import UserStoryFilter
+from scrumate.core.user_story.filters import UserStoryFilter
 from scrumate.core.models import UserStory, Project
 from scrumate.core.user_story.forms import UserStoryForm
 
