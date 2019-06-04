@@ -1,44 +1,16 @@
 from datetime import datetime
 
-from django.forms import ModelForm, Textarea, DateInput, HiddenInput, PasswordInput, TextInput
+from django.forms import ModelForm, Textarea, DateInput, HiddenInput, TextInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
-from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum, ProjectMember
 from scrumate.core.deliverable.choices import DeliverableStatus
-from scrumate.core.project.choices import ProjectStatus, ProjectType, ProjectMemberRole
-from scrumate.core.user_story.choices import UserStoryStatus
+from scrumate.core.models import Project, Release, UserStory, Sprint, Issue, Task, Deliverable, DailyScrum
 from scrumate.core.sprint.choices import SprintStatus
 from scrumate.core.task.choices import TaskStatus, Category
+from scrumate.core.user_story.choices import UserStoryStatus
 from scrumate.general.choices import Priority
 from scrumate.general.utils import generate_day_wise_label
-from scrumate.people.models import Employee, Client, Department
-
-
-class ProjectForm(ModelForm):
-    class Meta:
-        model = Project
-        fields = '__all__'
-        exclude = ('last_sync_time', )
-        widgets = {
-            'git_password': PasswordInput(),
-            'description': Textarea(attrs={'cols': 25, 'rows': 3}),
-            'entry_date': DateInput(attrs={'type': 'date'}),
-            'type': Select2Widget(choices=ProjectType.choices),
-            'status': Select2Widget(choices=ProjectStatus.choices),
-            'client': ModelSelect2Widget(model=Client, search_fields=['full_name__icontains']),
-        }
-
-
-class ProjectMemberForm(ModelForm):
-    class Meta:
-        model = ProjectMember
-        fields = '__all__'
-        exclude = ('project', )
-        widgets = {
-            'project': ModelSelect2Widget(model=Project, search_fields=['name__icontains']),
-            'user': ModelSelect2Widget(model=Employee, search_fields=['full_name__icontains']),
-            'role': Select2Widget(choices=ProjectMemberRole.choices),
-        }
+from scrumate.people.models import Employee, Department
 
 
 class ReleaseForm(ModelForm):
