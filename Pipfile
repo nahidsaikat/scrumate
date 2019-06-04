@@ -15,6 +15,9 @@ pygithub = "*"
 xhtml2pdf = "*"
 django-watchman = "*"
 pywatchman = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-xdist = "*"
 
 [requires]
 python_version = "3.7"
