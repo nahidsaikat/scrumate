@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from scrumate.core.filters import ProjectFilter
+from scrumate.core.project.filters import ProjectFilter
 from scrumate.core.project.forms import ProjectForm
 from scrumate.core.models import Project, ProjectCommitLog
 from scrumate.general.decorators import admin_user
