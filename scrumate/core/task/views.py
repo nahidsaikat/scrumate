@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from scrumate.general.decorators import owner_or_lead
 from scrumate.core.filters import TaskFilter
 from scrumate.core.models import Task, Project
-from scrumate.core.forms import TaskForm
+from scrumate.core.task.forms import TaskForm
 
 
 @login_required(login_url='/login/')
