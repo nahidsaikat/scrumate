@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from scrumate.core.filters import DeliverableFilter
+from scrumate.core.deliverable.filters import DeliverableFilter
 from scrumate.core.deliverable.forms import DeliverableForm
 from scrumate.core.models import Deliverable, Project
 
