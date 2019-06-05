@@ -4,9 +4,10 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 
 from scrumate.core.deliverable.choices import DeliverableStatus
+from scrumate.core.project.models import Project
 from scrumate.core.sprint.filters import SprintFilter
 from scrumate.core.sprint.forms import SprintForm
-from scrumate.core.models import Project, Sprint, Deliverable
+from scrumate.core.sprint.models import Sprint, Deliverable
 
 
 @login_required(login_url='/login/')

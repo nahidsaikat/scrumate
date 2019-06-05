@@ -3,7 +3,7 @@ from datetime import datetime
 from django.forms import ModelForm, HiddenInput, DateInput, Textarea
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
-from scrumate.core.models import Sprint
+from scrumate.core.sprint.models import Sprint
 from scrumate.core.sprint.choices import SprintStatus
 from scrumate.general.utils import generate_day_wise_label
 from scrumate.people.models import Department
