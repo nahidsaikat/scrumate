@@ -1,6 +1,6 @@
 import django_filters
 
-from scrumate.core.models import Deliverable
+from scrumate.core.deliverable.models import Deliverable
 
 
 class DeliverableFilter(django_filters.FilterSet):

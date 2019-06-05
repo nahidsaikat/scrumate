@@ -6,7 +6,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from scrumate.core.deliverable.filters import DeliverableFilter
 from scrumate.core.deliverable.forms import DeliverableForm
-from scrumate.core.models import Deliverable, Project
+from scrumate.core.deliverable.models import Deliverable
+from scrumate.core.project.models import Project
 
 
 @login_required(login_url='/login/')

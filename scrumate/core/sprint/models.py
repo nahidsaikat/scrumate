@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models import Sum
 
 from scrumate.core.deliverable.choices import DeliverableStatus
-from scrumate.core.models import Deliverable
+from scrumate.core.deliverable.models import Deliverable
 from scrumate.core.sprint.choices import SprintStatus
 from scrumate.people.models import Department
 

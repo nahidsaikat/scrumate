@@ -7,7 +7,8 @@ from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.models import Project
 from scrumate.core.sprint.filters import SprintFilter
 from scrumate.core.sprint.forms import SprintForm
-from scrumate.core.sprint.models import Sprint, Deliverable
+from scrumate.core.sprint.models import Sprint
+from scrumate.core.deliverable.models import Deliverable
 
 
 @login_required(login_url='/login/')

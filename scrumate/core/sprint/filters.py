@@ -1,6 +1,7 @@
 import django_filters
 
-from scrumate.core.sprint.models import Sprint, Deliverable
+from scrumate.core.sprint.models import Sprint
+from scrumate.core.deliverable.models import Deliverable
 
 
 class SprintFilter(django_filters.FilterSet):

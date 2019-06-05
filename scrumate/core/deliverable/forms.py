@@ -2,7 +2,9 @@ from django.forms import ModelForm, DateInput, Textarea
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
 from scrumate.core.deliverable.choices import DeliverableStatus
-from scrumate.core.models import Deliverable, Sprint, Task
+from scrumate.core.deliverable.models import Deliverable
+from scrumate.core.sprint.models import Sprint
+from scrumate.core.models import Task
 from scrumate.general.choices import Priority
 from scrumate.people.models import Employee
 
