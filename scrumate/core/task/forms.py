@@ -1,8 +1,12 @@
 from django.forms import ModelForm, DateInput
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
-from scrumate.core.models import Task, Project, UserStory, Issue, Release
+from scrumate.core.task.models import Task
 from scrumate.core.task.choices import TaskStatus, Category
+from scrumate.core.project.models import Project
+from scrumate.core.user_story.models import UserStory
+from scrumate.core.issue.models import Issue
+from scrumate.core.release.models import Release
 from scrumate.general.choices import Priority
 from scrumate.people.models import Employee
 

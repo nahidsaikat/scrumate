@@ -1,6 +1,6 @@
 import django_filters
 
-from scrumate.core.models import Task
+from scrumate.core.task.models import Task
 
 
 class TaskFilter(django_filters.FilterSet):

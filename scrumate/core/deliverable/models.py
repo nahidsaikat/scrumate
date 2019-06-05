@@ -1,7 +1,7 @@
 from django.db import models
 
 from scrumate.core.deliverable.choices import DeliverableStatus
-from scrumate.core.models import Task
+from scrumate.core.task.models import Task
 from scrumate.core.project.models import Project
 from scrumate.core.sprint.models import Sprint
 from scrumate.general.choices import Priority
