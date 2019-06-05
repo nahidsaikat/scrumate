@@ -1,7 +1,7 @@
 from django.forms import ModelForm, PasswordInput, Textarea, DateInput
 from django_select2.forms import Select2Widget, ModelSelect2Widget
 
-from scrumate.core.models import Project
+from scrumate.core.project.models import Project
 from scrumate.core.project.choices import ProjectStatus, ProjectType
 from scrumate.people.models import Client
 

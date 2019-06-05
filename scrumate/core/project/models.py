@@ -1,6 +1,7 @@
 import datetime
 from decimal import Decimal
 
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Sum, Q
 
@@ -8,6 +9,8 @@ from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.choices import ProjectType, ProjectStatus
 from scrumate.general.source_control import get_commit_messages
 from scrumate.people.models import Client
+
+User = get_user_model()
 
 
 class Project(models.Model):
@@ -70,3 +73,12 @@ class ProjectCommitLog(models.Model):
     url = models.URLField(max_length=128)
     html_url = models.URLField(max_length=128)
 
+
+class OverTime(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+    work_date = models.DateField(default=None)
+    description = models.TextField(default='')
+    assignee = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assignee_over_times')
+    assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_over_times')
+    comment = models.TextField(default='')
+    status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending)
