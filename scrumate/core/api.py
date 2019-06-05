@@ -2,7 +2,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
-from .models import Task, Deliverable
+
+from scrumate.core.deliverable.models import Deliverable
+from scrumate.core.task.models import Task
 
 
 def json_data(model, pk):

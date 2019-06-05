@@ -5,7 +5,6 @@ from django.db import models
 from django.db.models import Sum
 
 from scrumate.core.deliverable.choices import DeliverableStatus
-from scrumate.core.deliverable.models import Deliverable
 from scrumate.core.sprint.choices import SprintStatus
 from scrumate.people.models import Department
 
@@ -37,11 +36,13 @@ class Sprint(models.Model):
 
     @property
     def total_point(self):
+        from scrumate.core.deliverable.models import Deliverable
         return round(Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), sprint=self).aggregate(
             total_point=Sum('estimated_hour')).get('total_point') or Decimal(0))
 
     @property
     def percent_completed(self):
+        from scrumate.core.deliverable.models import Deliverable
         total = self.total_point  or Decimal(1)
         total_done = Deliverable.objects.filter(
             Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), sprint=self).aggregate(

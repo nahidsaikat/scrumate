@@ -7,10 +7,16 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 
 from scrumate.core.deliverable.choices import DeliverableStatus
+from scrumate.core.deliverable.models import Deliverable
+from scrumate.core.issue.models import Issue
 from scrumate.core.project.choices import ProjectStatus
+from scrumate.core.project.models import Project
+from scrumate.core.release.models import Release
+from scrumate.core.sprint.models import Sprint
+from scrumate.core.task.models import Task
 from scrumate.core.user_story.choices import UserStoryStatus
 from scrumate.core.task.choices import TaskStatus
-from scrumate.core.models import Deliverable, Project, Sprint, Release, UserStory, Task, Issue
+from scrumate.core.user_story.models import UserStory
 from scrumate.people.models import Department, Designation, Employee, Client
 
 

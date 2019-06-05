@@ -1,6 +1,7 @@
 import django_filters
 
-from scrumate.core.models import Project, Release
+from scrumate.core.project.models import Project
+from scrumate.core.release.models import Release
 
 
 class ProjectFilter(django_filters.FilterSet):
