@@ -1,7 +1,7 @@
 import django_filters
 from django.forms import DateInput
 
-from scrumate.core.models import Issue
+from scrumate.core.issue.models import Issue
 
 
 class IssueFilter(django_filters.FilterSet):
