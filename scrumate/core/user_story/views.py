@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from scrumate.general.decorators import owner_or_lead
 from scrumate.core.user_story.filters import UserStoryFilter
-from scrumate.core.models import UserStory, Project
+from scrumate.core.project.models import Project
+from scrumate.core.user_story.models import UserStory
 from scrumate.core.user_story.forms import UserStoryForm
 
 

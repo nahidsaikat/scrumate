@@ -1,6 +1,6 @@
 import django_filters
 
-from scrumate.core.models import UserStory
+from scrumate.core.user_story.models import UserStory
 
 
 class UserStoryFilter(django_filters.FilterSet):
