@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models import Sum
 
 from scrumate.core.deliverable.choices import DeliverableStatus
+from scrumate.core.project.models import Project
 from scrumate.core.sprint.choices import SprintStatus
 from scrumate.people.models import Department
 
@@ -18,6 +19,7 @@ class Sprint(models.Model):
     end_date = models.DateField(default=None, null=True, blank=True)
     day_wise_label = models.TextField(default='', null=True, blank=True)
     status = models.IntegerField(choices=SprintStatus.choices, default=1, null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
 
     def __str__(self):
         return self.name

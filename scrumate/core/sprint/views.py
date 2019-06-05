@@ -58,8 +58,10 @@ def sprint_add(request, project_id, **kwargs):
     if request.method == 'POST':
         form = SprintForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('sprint_list', permanent=True)
+            sprint = form.save(commit=False)
+            sprint.project = project
+            sprint.save()
+            return redirect('sprint_list', permanent=True, project_id=project_id)
     else:
         form = SprintForm()
     title = 'New Sprint'

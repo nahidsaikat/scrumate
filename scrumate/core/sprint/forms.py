@@ -13,7 +13,7 @@ class SprintForm(ModelForm):
     class Meta:
         model = Sprint
         fields = '__all__'
-        exclude = ('code', )
+        exclude = ('code', 'project')
         widgets = {
             'day_wise_label': HiddenInput(),
             'description': Textarea(attrs={'cols': 25, 'rows': 3}),
