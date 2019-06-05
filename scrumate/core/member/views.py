@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 
 from scrumate.general.decorators import project_owner
-from scrumate.core.models import ProjectMember
 from scrumate.core.project.models import Project
+from scrumate.core.member.models import ProjectMember
 from scrumate.core.member.forms import ProjectMemberForm
 
 

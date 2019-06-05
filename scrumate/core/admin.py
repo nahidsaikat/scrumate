@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Project, Release, UserStory, Sprint, Task, Deliverable, DailyScrum, ProjectCommitLog
+from .models import Project, Release, UserStory, Sprint, Task, Deliverable
+from scrumate.core.project.models import ProjectCommitLog
 
 admin.site.register(Project)
 admin.site.register(ProjectCommitLog)
