@@ -2,7 +2,8 @@ from django.forms import ModelForm
 from django_select2.forms import ModelSelect2Widget, Select2Widget
 
 from scrumate.core.member.choices import ProjectMemberRole
-from scrumate.core.models import ProjectMember, Project
+from scrumate.core.models import ProjectMember
+from scrumate.core.project.models import Project
 from scrumate.people.models import Employee
 
 
