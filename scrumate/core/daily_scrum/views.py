@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 
 from scrumate.core.daily_scrum.filters import DailyScrumFilter
 from scrumate.core.deliverable.forms import DeliverableForm
-from scrumate.core.models import Deliverable
+from scrumate.core.deliverable.models import Deliverable
 
 
 @login_required(login_url='/login/')

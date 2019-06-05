@@ -1,7 +1,14 @@
 from django.forms import ModelForm, DateInput, Textarea, TextInput
 from django_select2.forms import ModelSelect2Widget
 
-from scrumate.core.models import Deliverable, Sprint, Task, DailyScrum, Project, Release, UserStory, Issue
+from scrumate.core.daily_scrum.models import DailyScrum
+from scrumate.core.deliverable.models import Deliverable
+from scrumate.core.issue.models import Issue
+from scrumate.core.project.models import Project
+from scrumate.core.release.models import Release
+from scrumate.core.sprint.models import Sprint
+from scrumate.core.task.models import Task
+from scrumate.core.user_story.models import UserStory
 from scrumate.people.models import Employee
 
 
