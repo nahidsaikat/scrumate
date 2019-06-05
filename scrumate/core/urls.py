@@ -1,5 +1,4 @@
 from django.urls import path, include
-from scrumate.core import views
 from scrumate.core import api
 
 project_view_urlpatterns = [

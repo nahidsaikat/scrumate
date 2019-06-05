@@ -18,7 +18,7 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles import views
-from scrumate.core.views import index
+from scrumate.core.dashboard.views import index
 
 
 urlpatterns = [
