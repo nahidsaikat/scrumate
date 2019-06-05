@@ -1,6 +1,6 @@
 import django_filters
 
-from scrumate.core.models import Release
+from scrumate.core.release.models import Release
 
 
 class ReleaseFilter(django_filters.FilterSet):
