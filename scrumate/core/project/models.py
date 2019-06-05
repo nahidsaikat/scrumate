@@ -51,13 +51,13 @@ class Project(models.Model):
 
     @property
     def total_point(self):
-        from scrumate.core.models import Deliverable
+        from scrumate.core.deliverable.models import Deliverable
         return round(Deliverable.objects.filter(~Q(status=DeliverableStatus.Rejected), task__project=self)\
                    .aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0), 2)
 
     @property
     def percent_completed(self):
-        from scrumate.core.models import Deliverable
+        from scrumate.core.deliverable.models import Deliverable
         total = self.total_point or Decimal(1)
         total_done = Deliverable.objects.filter(Q(status=DeliverableStatus.Done) | Q(status=DeliverableStatus.Delivered), task__project=self).aggregate(total_point=Sum('estimated_hour')).get('total_point') or Decimal(0)
         return round((total_done * Decimal(100)) / total, 2)
