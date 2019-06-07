@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -43,7 +44,11 @@ INSTALLED_APPS = [
 
     'scrumate.core',
     'scrumate.people',
+
+    'actstream'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,3 +147,11 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 DATE_INPUT_FORMATS = ('%Y-%m-%d', '%d-%m-%Y')
+
+ACTSTREAM_SETTINGS = {
+    'MANAGER': 'actstream.managers.ActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_PREFETCH': True,
+    'USE_JSONFIELD': True,
+    'GFK_FETCH_DEPTH': 1,
+}

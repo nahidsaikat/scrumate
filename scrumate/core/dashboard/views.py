@@ -33,4 +33,4 @@ def get_dashboard_context(request, **kwargs):
 @login_required(login_url='/login/')
 def index(request, **kwargs):
     context = get_dashboard_context(request, **kwargs)
-    return render(request, 'index.html', context)
+    return render(request, 'base.html', context)

@@ -27,9 +27,11 @@ urlpatterns = [
     path('core/', include('scrumate.core.urls')),
     path('people/', include('scrumate.people.urls')),
     path('general/', include('scrumate.general.urls')),
+
     path('select2/', include('django_select2.urls')),
     path('admin/', admin.site.urls),
     path('watchman/', include('watchman.urls')),
+    path('activity/', include('actstream.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
