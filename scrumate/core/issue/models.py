@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.models import Project
@@ -18,6 +19,8 @@ class Issue(models.Model):
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, blank=True, null=True, related_name='approved_issues')
     comment = models.TextField(default='', blank=True, null=True)
     status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

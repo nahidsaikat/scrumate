@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.project.models import Project
 from scrumate.core.release.models import Release
@@ -19,6 +20,8 @@ class UserStory(models.Model):
     approved_by = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='approved_user_stories')
     status = models.IntegerField(choices=UserStoryStatus.choices, default=UserStoryStatus.Pending, null=True, blank=True)
     comment = models.TextField(default='', null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.summary

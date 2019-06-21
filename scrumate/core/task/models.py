@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.issue.models import Issue
 from scrumate.core.project.models import Project
@@ -29,6 +30,8 @@ class Task(models.Model):
     approved_date = models.DateField(default=None, null=True, blank=True)
     status = models.IntegerField(choices=TaskStatus.choices, default=TaskStatus.Pending)
     parent_task = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

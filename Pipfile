@@ -24,6 +24,7 @@ pytest-cov = "*"
 django-activity-stream = "*"
 django-jsonfield = "*"
 django-jsonfield-compat = "*"
+django-simple-history = "*"
 
 [requires]
 python_version = "3.7"

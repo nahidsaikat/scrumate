@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Sum, Q
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.choices import ProjectType, ProjectStatus
@@ -24,6 +25,8 @@ class Project(models.Model):
     git_password = models.CharField(verbose_name='Github Password', max_length=50, null=True, blank=True)
     git_repo = models.CharField(verbose_name='Github Repo', max_length=100, null=True, blank=True)
     last_sync_time = models.DateTimeField(null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -73,6 +76,8 @@ class ProjectCommitLog(models.Model):
     url = models.URLField(max_length=128)
     html_url = models.URLField(max_length=128)
 
+    history = HistoricalRecords()
+
 
 class OverTime(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
@@ -82,3 +87,5 @@ class OverTime(models.Model):
     assigned_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, related_name='assigned_by_over_times')
     comment = models.TextField(default='')
     status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending)
+
+    history = HistoricalRecords()

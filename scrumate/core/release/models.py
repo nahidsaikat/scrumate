@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.project.models import Project
 
@@ -17,6 +18,8 @@ class Release(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='created_releases')
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True, blank=True, related_name='approved_releases')
     comment = models.TextField(default='', null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

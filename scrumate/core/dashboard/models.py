@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from simple_history.models import HistoricalRecords
+
 from scrumate.general.choices import Column
 
 User = get_user_model()
@@ -40,6 +42,8 @@ class Portlet(models.Model):
     html_template = models.CharField(max_length=100)
     data_url = models.CharField(max_length=100)
 
+    history = HistoricalRecords()
+
     def __str__(self):
         return self.name
 
@@ -50,3 +54,5 @@ class DashboardPortlet(models.Model):
     column = models.IntegerField(choices=Column, default=Column.One)
     height = models.DecimalField(default=50, decimal_places=2, max_digits=15)
     width = models.DecimalField(default=100, decimal_places=2, max_digits=15)
+
+    history = HistoricalRecords()

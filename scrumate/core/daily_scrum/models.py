@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.deliverable.models import Deliverable
 from scrumate.core.issue.models import Issue
@@ -23,6 +24,8 @@ class DailyScrum(models.Model):
     actual_hour = models.DecimalField(default=0.0, decimal_places=2, max_digits=15, null=True, blank=True)
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, default=None, null=True)
     comment = models.TextField(default='', null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.project.name + ' ' + self.task.name

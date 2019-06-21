@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.db import models
 from django.db.models import Sum, Q
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.project.models import Project
@@ -20,6 +21,8 @@ class Sprint(models.Model):
     day_wise_label = models.TextField(default='', null=True, blank=True)
     status = models.IntegerField(choices=SprintStatus.choices, default=1, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, default=None, null=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

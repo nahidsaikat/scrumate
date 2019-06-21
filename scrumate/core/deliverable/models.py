@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.task.models import Task
@@ -21,6 +22,8 @@ class Deliverable(models.Model):
     assign_date = models.DateField(default=None, null=True, blank=True)
     release_date = models.DateField(default=None, null=True, blank=True)
     status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending, null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

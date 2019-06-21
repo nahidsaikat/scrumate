@@ -1,15 +1,20 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from simple_history.models import HistoricalRecords
+from simple_history import register
 
 from scrumate.people.choices import PartyType, PartyGender, PartyTitle, PartySubType
 
 User = get_user_model()
+register(User, app=__package__)
 
 
 class Division(models.Model):
     name = models.CharField(max_length=100)
     code = models.CharField(max_length=50)
     description = models.TextField(default='')
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -20,6 +25,8 @@ class Department(models.Model):
     code = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     # division = models.ForeignKey(Division, on_delete=models.SET_NULL, default=None, null=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -32,6 +39,8 @@ class Designation(models.Model):
     parent = models.ForeignKey("self", on_delete=models.SET_NULL, blank=True, default=None, null=True)
     rank = models.IntegerField(default=None, null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=models.DO_NOTHING, default=None)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -50,6 +59,8 @@ class Party(models.Model):
     address_line_2 = models.CharField(max_length=100, null=True, blank=True)
     address_line_3 = models.CharField(max_length=100, null=True, blank=True)
     address_line_4 = models.CharField(max_length=100, null=True, blank=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.full_name
