@@ -23,3 +23,8 @@ class Release(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+            ("release_history", "Can See Release History"),
+        )

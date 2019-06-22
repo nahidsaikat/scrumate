@@ -90,3 +90,8 @@ class OverTime(models.Model):
     status = models.IntegerField(choices=DeliverableStatus.choices, default=DeliverableStatus.Pending)
 
     history = HistoricalRecords()
+
+    class Meta:
+        permissions = (
+            ("over_time_history", "Can See Over Time History"),
+        )

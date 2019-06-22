@@ -32,6 +32,7 @@ class Sprint(models.Model):
             ("update_sprint_status", "Can Update Status of Sprint"),
             ("sprint_status_report", "Can See Sprint Status Report"),
             ("sprint_status_report_download", "Can Download Sprint Status Report"),
+            ("sprint_history", "Can See Sprint History"),
         )
 
     @property

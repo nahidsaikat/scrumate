@@ -39,4 +39,5 @@ class Task(models.Model):
     class Meta:
         permissions = (
             ("update_task_status", "Can Update Status of Task"),
+            ("task_history", "Can See Task History"),
         )

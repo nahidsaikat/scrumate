@@ -29,4 +29,5 @@ class UserStory(models.Model):
     class Meta:
         permissions = (
             ("update_user_story_status", "Can Update Status of User Story"),
+            ("user_story_history", "Can See User Story History"),
         )

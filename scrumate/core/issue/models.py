@@ -28,4 +28,5 @@ class Issue(models.Model):
     class Meta:
         permissions = (
             ("update_issue_status", "Can Update Status of Issue"),
+            ("issue_history", "Can See Issue History"),
         )

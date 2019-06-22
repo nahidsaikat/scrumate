@@ -31,4 +31,5 @@ class Deliverable(models.Model):
     class Meta:
         permissions = (
             ("update_deliverable_status", "Can Update Status of Deliverable"),
+            ("deliverable_history", "Can See Deliverable History"),
         )

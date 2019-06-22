@@ -34,4 +34,5 @@ class DailyScrum(models.Model):
         permissions = (
             ("set_actual_hour", "Can Set Actual Hour of Daily Scrum"),
             ("update_actual_hour", "Can Update Actual Hour of Daily Scrum"),
+            ("daily_scrum_history", "Can See Daily Scrum History"),
         )

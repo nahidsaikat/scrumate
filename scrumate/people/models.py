@@ -31,6 +31,11 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = (
+            ("department_history", "Can See Department History"),
+        )
+
 
 class Designation(models.Model):
     name = models.CharField(max_length=100)
@@ -44,6 +49,11 @@ class Designation(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+            ("designation_history", "Can See Designation History"),
+        )
 
 
 class Party(models.Model):

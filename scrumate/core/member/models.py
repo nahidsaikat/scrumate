@@ -12,3 +12,8 @@ class ProjectMember(models.Model):
     role = models.IntegerField(choices=ProjectMemberRole.choices, default=ProjectMemberRole.Developer)
 
     history = HistoricalRecords()
+
+    class Meta:
+        permissions = (
+            ("project_member_history", "Can See Project Member History"),
+        )
