@@ -7,6 +7,7 @@ from scrumate.core.issue.filters import IssueFilter
 from scrumate.core.issue.models import Issue
 from scrumate.core.issue.forms import IssueForm
 from scrumate.core.project.models import Project
+from scrumate.general.views import HistoryList
 
 
 @login_required(login_url='/login/')
@@ -75,3 +76,27 @@ def update_issue_status(request, project_id, pk, **kwargs):
         'project': Project.objects.get(pk=project_id),
         'base_template': 'general/index_project_view.html'
     })
+
+
+class IssueHistoryList(HistoryList):
+    permission_required = 'scrumate.core.issue_history'
+
+    def get_issue_id(self):
+        return self.kwargs.get('pk')
+
+    def get_project_id(self):
+        return self.kwargs.get('project_id')
+
+    def get_queryset(self):
+        return Issue.history.filter(id=self.get_issue_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = Project.objects.get(pk=self.get_project_id())
+        issue = Issue.objects.get(pk=self.get_issue_id())
+
+        context['project'] = project
+        context['title'] = f'History of {issue.name}'
+        context['back_url'] = reverse('issue_list', kwargs={'project_id': self.get_project_id()})
+        context['base_template'] = 'general/index_project_view.html'
+        return context
