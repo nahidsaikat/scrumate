@@ -269,3 +269,22 @@ class DesignationHistoryList(HistoryList):
         context['back_url'] = reverse('designation_list')
         context['base_template'] = 'general/index_settings.html'
         return context
+
+
+class DepartmentHistoryList(HistoryList):
+    permission_required = 'scrumate.people.department_history'
+
+    def get_department_id(self):
+        return self.kwargs.get('pk')
+
+    def get_queryset(self):
+        return Department.history.filter(id=self.get_department_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        department = Department.objects.get(pk=self.get_department_id())
+
+        context['title'] = f'History of {department.name}'
+        context['back_url'] = reverse('department_list')
+        context['base_template'] = 'general/index_settings.html'
+        return context
