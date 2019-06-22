@@ -40,8 +40,12 @@
                                     <td>{{ cli.phone }}</td>
                                     <td>{{ cli.get_type_display }}</td>
                                     <td>{{ cli.get_sub_type_display }}</td>
-                                    <td><a class="float-right" href="{% url 'client_edit' cli.id %}">
-                                        <i class="fa fa-edit fa-lg font-2xl"></i></a>
+                                    <td>
+                                        <a class="float-right ml-1" href="{% url 'client_history' cli.id %}">
+                                        <i class="fa fa-history fa-lg"></i></a>
+
+                                        <a class="float-right mr-1" href="{% url 'client_edit' cli.id %}">
+                                        <i class="fa fa-edit fa-lg"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

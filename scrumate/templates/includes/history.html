@@ -41,7 +41,7 @@
                                             Deleted
                                         {% endif %}
                                     </td>
-                                    <td>{{ history.history_user }}</td>
+                                    <td>{{ history.history_user|default_if_none:'' }}</td>
                                     <td>{{ history.history_change_reason|default_if_none:'' }}</td>
                                 </tr>
                             {% endfor %}

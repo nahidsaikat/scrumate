@@ -143,6 +143,6 @@ class ProjectHistoryList(HistoryList):
 
         context['project'] = project
         context['title'] = f'History of {project.name}'
-        context['back_url'] = reverse('project_list'),
+        context['back_url'] = reverse('project_list')
         context['base_template'] = 'general/index_project_view.html'
         return context

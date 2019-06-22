@@ -6,10 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
+from scrumate.core.project.models import Project
 from scrumate.people.filters import DepartmentFilter, DesignationFilter, EmployeeFilter, ClientFilter
 from scrumate.people.forms import DepartmentForm, DesignationForm, EmployeeForm, ClientForm
 from scrumate.people.models import Department, Designation, Employee, Client
+from scrumate.general.views import HistoryList
 
 User = get_user_model()
 
@@ -209,3 +212,24 @@ def client_edit(request, pk, **kwargs):
         return redirect('client_list')
     title = 'Edit Client'
     return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
+
+
+class ClientHistoryList(HistoryList):
+
+    def get_client_id(self):
+        return self.kwargs.get('pk')
+
+    def get_project_id(self):
+        return self.kwargs.get('project_id')
+
+    def get_queryset(self):
+        return Client.history.filter(id=self.get_client_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        client = Client.objects.get(pk=self.get_client_id())
+
+        context['title'] = f'History of {client.full_name}'
+        context['back_url'] = reverse('client_list')
+        context['base_template'] = 'general/index_settings.html'
+        return context
