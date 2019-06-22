@@ -130,7 +130,6 @@ def sync_commit(request, project_id, **kwargs):
 
 
 class ProjectHistoryList(HistoryList):
-    redirect_field_name = 'project_history'
     permission_required = 'scrumate.core.project_history'
 
     def get_project_id(self):
