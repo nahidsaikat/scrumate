@@ -9,6 +9,7 @@ from scrumate.core.sprint.filters import SprintFilter
 from scrumate.core.sprint.forms import SprintForm
 from scrumate.core.sprint.models import Sprint
 from scrumate.core.deliverable.models import Deliverable
+from scrumate.general.views import HistoryList
 
 
 @login_required(login_url='/login/')
@@ -100,3 +101,27 @@ def sprint_view(request, project_id, pk, **kwargs):
         'running_sprint': sprint,
         'project': project
     })
+
+
+class SprintHistoryList(HistoryList):
+    permission_required = 'scrumate.core.sprint_history'
+
+    def get_sprint_id(self):
+        return self.kwargs.get('pk')
+
+    def get_project_id(self):
+        return self.kwargs.get('project_id')
+
+    def get_queryset(self):
+        return Sprint.history.filter(id=self.get_sprint_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = Project.objects.get(pk=self.get_project_id())
+        sprint = Sprint.objects.get(pk=self.get_sprint_id())
+
+        context['project'] = project
+        context['title'] = f'History of {sprint.name}'
+        context['back_url'] = reverse('sprint_list', kwargs={'project_id': self.get_project_id()})
+        context['base_template'] = 'general/index_project_view.html'
+        return context
