@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:project_id>/update_status/', views.update_project_status, name='update_project_status'),
     path('<int:project_id>/view_commit_logs/', views.view_commit_logs, name='view_commit_logs'),
     path('<int:project_id>/sync_commit/', views.sync_commit, name='sync_commit'),
+    path('<int:project_id>/history/', views.ProjectHistoryList.as_view(), name='project_history'),
 ]

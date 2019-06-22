@@ -5,6 +5,7 @@ from django.db.utils import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.generic import ListView
 
 from scrumate.core.project.filters import ProjectFilter
 from scrumate.core.project.forms import ProjectForm
@@ -126,3 +127,15 @@ def sync_commit(request, project_id, **kwargs):
         project.save()
 
     return HttpResponseRedirect(reverse('view_commit_logs', kwargs={'project_id': project.id}))
+
+
+class ProjectHistoryList(ListView):
+    template_name = 'core/projects/history.html'
+
+    def get_queryset(self):
+        return Project.history.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=self.kwargs.get('project_id'))
+        return context

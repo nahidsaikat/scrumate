@@ -1,0 +1,69 @@
+{% extends 'general/index_project_view.html' %}
+
+{% block content %}
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header text-white bg-xing">
+                    <i class="fa fa-list fa-lg"></i> {{ project.name }}
+                    {% if user.is_authenticated %}
+                    <a class="float-right pl-3" href="{% url 'sync_commit' project.id %}">
+                        <i class="fa fa-refresh icons font-2xl text-white"></i>
+                    </a>
+                    <a class="float-right" href="{% url 'project_list' %}">
+                        <i class="icon-arrow-left-circle icons font-2xl mt-4 text-white"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th>S/L</th>
+                            <th>Author</th>
+                            <th>Time</th>
+                            <th>Messages</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for commit in commit_log %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ commit.author_name }}</td>
+                                    <td>{{ commit.date }}</td>
+                                    <td>{{ commit.message }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if commit_log.has_other_pages %}
+                        <ul class="pagination">
+                            {% if commit_log.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ commit_log.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in commit_log.paginator.page_range %}
+                                {% if commit_log.number == i %}
+                                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if commit_log.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ commit_log.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
