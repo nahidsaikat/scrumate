@@ -19,6 +19,7 @@ urlpatterns = [
     path('employee/', views.employee_list, name='employee_list'),
     path('employee/add/', views.employee_add, name='employee_add'),
     path('employee/<int:pk>/edit/', views.employee_edit, name='employee_edit'),
+    path('employee/<int:pk>/history/', views.EmployeeHistoryList.as_view(), name='employee_history'),
 
     path('client/', views.client_list, name='client_list'),
     path('client/add/', views.client_add, name='client_add'),

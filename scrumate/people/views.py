@@ -219,9 +219,6 @@ class ClientHistoryList(HistoryList):
     def get_client_id(self):
         return self.kwargs.get('pk')
 
-    def get_project_id(self):
-        return self.kwargs.get('project_id')
-
     def get_queryset(self):
         return Client.history.filter(id=self.get_client_id())
 
@@ -231,5 +228,23 @@ class ClientHistoryList(HistoryList):
 
         context['title'] = f'History of {client.full_name}'
         context['back_url'] = reverse('client_list')
+        context['base_template'] = 'general/index_settings.html'
+        return context
+
+
+class EmployeeHistoryList(HistoryList):
+
+    def get_employee_id(self):
+        return self.kwargs.get('pk')
+
+    def get_queryset(self):
+        return Employee.history.filter(id=self.get_employee_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        employee = Employee.objects.get(pk=self.get_employee_id())
+
+        context['title'] = f'History of {employee.full_name}'
+        context['back_url'] = reverse('employee_list')
         context['base_template'] = 'general/index_settings.html'
         return context
