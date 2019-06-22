@@ -8,6 +8,7 @@ from scrumate.core.user_story.filters import UserStoryFilter
 from scrumate.core.project.models import Project
 from scrumate.core.user_story.models import UserStory
 from scrumate.core.user_story.forms import UserStoryForm
+from scrumate.general.views import HistoryList
 
 
 @login_required(login_url='/login/')
@@ -80,3 +81,27 @@ def update_user_story_status(request, project_id, pk, **kwargs):
         'project': project,
         'base_template': 'general/index_project_view.html'
     })
+
+
+class UserStoryHistoryList(HistoryList):
+    permission_required = 'scrumate.core.user_story_history'
+
+    def get_user_story_id(self):
+        return self.kwargs.get('pk')
+
+    def get_project_id(self):
+        return self.kwargs.get('project_id')
+
+    def get_queryset(self):
+        return UserStory.history.filter(id=self.get_user_story_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = Project.objects.get(pk=self.get_project_id())
+        user_story = UserStory.objects.get(pk=self.get_user_story_id())
+
+        context['project'] = project
+        context['title'] = f'History of {user_story.summary}'
+        context['back_url'] = reverse('user_story_list', kwargs={'project_id': self.get_project_id()})
+        context['base_template'] = 'general/index_project_view.html'
+        return context

@@ -46,8 +46,12 @@
                                             {{ story.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td><a class="float-right" href="{% url 'user_story_edit' project_id=project.id pk=story.id %}">
-                                        <i class="fa fa-edit fa-lg font-2xl"></i></a>
+                                    <td>
+                                        <a class="float-right ml-1" href="{% url 'user_story_history' project_id=project.id pk=story.id %}">
+                                        <i class="fa fa-history fa-lg"></i></a>
+
+                                        <a class="float-right mr-1" href="{% url 'user_story_edit' project_id=project.id pk=story.id %}">
+                                        <i class="fa fa-edit fa-lg"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

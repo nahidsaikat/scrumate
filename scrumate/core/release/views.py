@@ -83,4 +83,3 @@ class ReleaseHistoryList(HistoryList):
         context['back_url'] = reverse('release_list', kwargs={'project_id': self.get_project_id()})
         context['base_template'] = 'general/index_project_view.html'
         return context
-
