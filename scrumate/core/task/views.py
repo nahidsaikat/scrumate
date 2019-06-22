@@ -9,6 +9,7 @@ from scrumate.core.task.models import Task
 from scrumate.general.decorators import owner_or_lead
 from scrumate.core.task.filters import TaskFilter
 from scrumate.core.task.forms import TaskForm
+from scrumate.general.views import HistoryList
 
 
 @login_required(login_url='/login/')
@@ -84,3 +85,27 @@ def update_task_status(request, project_id, pk, **kwargs):
         'project': project,
         'base_template': 'general/index_project_view.html'
     })
+
+
+class TaskHistoryList(HistoryList):
+    permission_required = 'scrumate.core.task_history'
+
+    def get_task_id(self):
+        return self.kwargs.get('pk')
+
+    def get_project_id(self):
+        return self.kwargs.get('project_id')
+
+    def get_queryset(self):
+        return Task.history.filter(id=self.get_task_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = Project.objects.get(pk=self.get_project_id())
+        task = Task.objects.get(pk=self.get_task_id())
+
+        context['project'] = project
+        context['title'] = f'History of {task.name}'
+        context['back_url'] = reverse('task_list', kwargs={'project_id': self.get_project_id()})
+        context['base_template'] = 'general/index_project_view.html'
+        return context
