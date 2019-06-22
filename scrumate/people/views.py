@@ -250,3 +250,22 @@ class EmployeeHistoryList(HistoryList):
         context['back_url'] = reverse('employee_list')
         context['base_template'] = 'general/index_settings.html'
         return context
+
+
+class DesignationHistoryList(HistoryList):
+    permission_required = 'scrumate.people.designation_history'
+
+    def get_designation_id(self):
+        return self.kwargs.get('pk')
+
+    def get_queryset(self):
+        return Designation.history.filter(id=self.get_designation_id())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        designation = Designation.objects.get(pk=self.get_designation_id())
+
+        context['title'] = f'History of {designation.name}'
+        context['back_url'] = reverse('designation_list')
+        context['base_template'] = 'general/index_settings.html'
+        return context
