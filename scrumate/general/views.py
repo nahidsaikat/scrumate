@@ -5,6 +5,7 @@ from django.conf import settings as django_settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
+from django.views.generic import ListView
 
 from scrumate.core.deliverable.choices import DeliverableStatus
 from scrumate.core.deliverable.models import Deliverable
@@ -167,3 +168,9 @@ def project_dashboard(request, project_id, **kwargs):
     }
 
     return render(request, 'general/index_project_view.html', data)
+
+
+class HistoryList(ListView):
+    template_name = 'includes/history.html'
+    context_object_name = 'history_list'
+    paginate_by = django_settings.PAGE_SIZE

@@ -5,12 +5,12 @@ from django.db.utils import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import ListView
 
 from scrumate.core.project.filters import ProjectFilter
 from scrumate.core.project.forms import ProjectForm
 from scrumate.core.project.models import Project, ProjectCommitLog
 from scrumate.general.decorators import admin_user
+from scrumate.general.views import HistoryList
 
 
 @login_required(login_url='/login/')
@@ -129,10 +129,7 @@ def sync_commit(request, project_id, **kwargs):
     return HttpResponseRedirect(reverse('view_commit_logs', kwargs={'project_id': project.id}))
 
 
-class ProjectHistoryList(ListView):
-    template_name = 'core/projects/history.html'
-    context_object_name = 'history_list'
-    paginate_by = settings.PAGE_SIZE
+class ProjectHistoryList(HistoryList):
 
     def get_project_id(self):
         return self.kwargs.get('project_id')
