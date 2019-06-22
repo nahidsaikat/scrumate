@@ -215,6 +215,8 @@ def client_edit(request, pk, **kwargs):
 
 
 class ClientHistoryList(HistoryList):
+    redirect_field_name = 'client_history'
+    permission_required = 'scrumate.people.client_history'
 
     def get_client_id(self):
         return self.kwargs.get('pk')
@@ -233,6 +235,8 @@ class ClientHistoryList(HistoryList):
 
 
 class EmployeeHistoryList(HistoryList):
+    redirect_field_name = 'employee_history'
+    permission_required = 'scrumate.people.employee_history'
 
     def get_employee_id(self):
         return self.kwargs.get('pk')

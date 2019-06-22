@@ -3,6 +3,7 @@ from _datetime import datetime
 
 from django.conf import settings as django_settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.views.generic import ListView
@@ -170,7 +171,9 @@ def project_dashboard(request, project_id, **kwargs):
     return render(request, 'general/index_project_view.html', data)
 
 
-class HistoryList(ListView):
+class HistoryList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'includes/history.html'
     context_object_name = 'history_list'
     paginate_by = django_settings.PAGE_SIZE
+
+    login_url = django_settings.LOGIN_URL

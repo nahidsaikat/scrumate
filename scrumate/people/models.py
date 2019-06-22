@@ -75,8 +75,18 @@ class Employee(Party):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
 
+    class Meta:
+        permissions = (
+            ("employee_history", "Can See Employee History"),
+        )
+
 
 class Client(Party):
     type = models.IntegerField(choices=PartyType.choices, default=PartyType.Customer)
     sub_type = models.IntegerField(choices=PartySubType.choices, default=PartySubType.Organization)
+
+    class Meta:
+        permissions = (
+            ("client_history", "Can See Client History"),
+        )
 
