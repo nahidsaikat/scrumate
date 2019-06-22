@@ -132,16 +132,17 @@ def sync_commit(request, project_id, **kwargs):
 class ProjectHistoryList(ListView):
     template_name = 'core/projects/history.html'
     context_object_name = 'history_list'
+    paginate_by = settings.PAGE_SIZE
 
-    def get_project(self):
-        return Project.objects.get(pk=self.kwargs.get('project_id'))
+    def get_project_id(self):
+        return self.kwargs.get('project_id')
 
     def get_queryset(self):
-        return Project.history.filter(id=self.get_project().id)
+        return Project.history.filter(id=self.get_project_id())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        project = self.get_project()
+        project = Project.objects.get(pk=self.get_project_id())
 
         context['project'] = project
         context['title'] = f'History of {project.name}'

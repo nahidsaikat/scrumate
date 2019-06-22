@@ -47,22 +47,22 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if commit_log.has_other_pages %}
+                    {% if is_paginated %}
                         <ul class="pagination">
-                            {% if commit_log.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ commit_log.previous_page_number }}">&laquo;</a></li>
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                             {% endif %}
-                            {% for i in commit_log.paginator.page_range %}
-                                {% if commit_log.number == i %}
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
                                     <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
                                 {% else %}
                                     <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if commit_log.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ commit_log.next_page_number }}">&raquo;</a></li>
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
                             {% endif %}
@@ -75,4 +75,3 @@
 </div>
 
 {% endblock %}
-
