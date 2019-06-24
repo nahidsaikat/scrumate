@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import DetailView
 from django.urls import reverse
 
 from scrumate.core.project.models import Project
@@ -288,3 +289,8 @@ class DepartmentHistoryList(HistoryList):
         context['back_url'] = reverse('department_list')
         context['base_template'] = 'general/index_settings.html'
         return context
+
+
+class EmployeeDetailView(DetailView):
+    queryset = Employee.objects.all()
+    template_name = 'people/employee_list.html'

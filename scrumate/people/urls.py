@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('employee/', views.employee_list, name='employee_list'),
     path('employee/add/', views.employee_add, name='employee_add'),
+    path('employee/<int:pk>/', views.EmployeeDetailView.as_view(), name='employee_view'),
     path('employee/<int:pk>/edit/', views.employee_edit, name='employee_edit'),
     path('employee/<int:pk>/history/', views.EmployeeHistoryList.as_view(), name='employee_history'),
 
