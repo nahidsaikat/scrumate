@@ -293,4 +293,5 @@ class DepartmentHistoryList(HistoryList):
 
 class EmployeeDetailView(DetailView):
     queryset = Employee.objects.all()
-    template_name = 'people/employee_list.html'
+    template_name = 'people/employee_view.html'
+    context_object_name = 'employee'

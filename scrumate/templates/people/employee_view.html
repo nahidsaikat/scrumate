@@ -1,0 +1,110 @@
+{% extends 'general/index_settings.html' %}
+
+{% block content %}
+
+<div class="animated fadeIn pt-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-user"></i> Profile
+                    {% if user.is_authenticated and employee %}
+                    <a class="float-right" href="{% url 'employee_edit' employee.id %}">
+                        <i class="fa fa-edit fa-lg font-2xl"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"><span class="float-right">First Name</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.first_name }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                        <label class="col-md-2 col-form-label"><span class="float-right">Last Name</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.last_name }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"><span class="float-right">Title</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.get_title_display }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                        <label class="col-md-2 col-form-label"><span class="float-right">Nick Name</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.nick_name }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"><span class="float-right">Email</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.email }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                        <label class="col-md-2 col-form-label"><span class="float-right">Phone</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.phone }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"><span class="float-right">Code</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.code }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                        <label class="col-md-2 col-form-label"><span class="float-right">Gender</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.get_gender_display }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"><span class="float-right">Department</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.department.name }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                        <label class="col-md-2 col-form-label"><span class="float-right">Designation</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.designation.name }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label"><span class="float-right">Address Line 1</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.address_line_1 }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                        <label class="col-md-2 col-form-label"><span class="float-right">Address Line 2</span></label>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="text-input" value="{{ employee.address_line_2 }}" readonly />
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
