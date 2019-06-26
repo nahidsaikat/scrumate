@@ -301,6 +301,7 @@ class EmployeeDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         instance = self.get_object()
         context['form'] = EmployeeForm(instance=instance)
-        context['list_url_name'] = 'employee_list'
+        context['edit_url'] = reverse('employee_edit', kwargs={'pk': instance.pk})
+        context['list_url'] = reverse('employee_list')
         context['title'] = instance.full_name
         return context

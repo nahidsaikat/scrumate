@@ -10,18 +10,16 @@
                 <strong>{{ title }}</strong>
                 {% if user.is_authenticated %}
                 <span class="float-right">
-                    {% if project%}
-                    <a class="ml-3" href="{% url list_url_name project_id=project.id %}">
+                    <a class="ml-3" href="{{ edit_url }}">
+                        <i class="fa fa-edit fa-lg text-white"></i>
+                    </a>
+                    <a class="ml-3" href="{{ list_url }}">
                         <i class="fa fa-list fa-lg text-white"></i>
                     </a>
-                    {% else %}
-                    <a class="ml-3" href="{% url list_url_name %}">
-                        <i class="fa fa-list fa-lg text-white"></i>
-                    </a>
-                    {% endif %}
                 </span>
                 {% endif %}
             </div>
+
             <div class="card-body">
                 <div class="row">
                 {% for field in form.visible_fields %}
@@ -36,6 +34,5 @@
             </div>
         </div>
     </div>
-
 
 {% endblock %}
