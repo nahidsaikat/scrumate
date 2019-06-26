@@ -1,0 +1,41 @@
+{% extends 'general/index_settings.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header text-white bg-xing">
+                <strong>{{ title }}</strong>
+                {% if user.is_authenticated %}
+                <span class="float-right">
+                    {% if project%}
+                    <a class="ml-3" href="{% url list_url_name project_id=project.id %}">
+                        <i class="fa fa-list fa-lg text-white"></i>
+                    </a>
+                    {% else %}
+                    <a class="ml-3" href="{% url list_url_name %}">
+                        <i class="fa fa-list fa-lg text-white"></i>
+                    </a>
+                    {% endif %}
+                </span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                {% for field in form.visible_fields %}
+                    <div class="col-5 ml-3 mr-3">
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class="form-control" placeholder=field.text.label readonly="readonly" %}
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

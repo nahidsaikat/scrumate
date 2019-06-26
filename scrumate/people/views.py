@@ -293,5 +293,14 @@ class DepartmentHistoryList(HistoryList):
 
 class EmployeeDetailView(DetailView):
     queryset = Employee.objects.all()
-    template_name = 'people/employee_view.html'
+    template_name = 'includes/generic_view.html'
     context_object_name = 'employee'
+    model = Employee
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context['form'] = EmployeeForm(instance=instance)
+        context['list_url_name'] = 'employee_list'
+        context['title'] = instance.full_name
+        return context
