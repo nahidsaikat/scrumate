@@ -26,6 +26,7 @@ urlpatterns = [
 
     path('client/', views.client_list, name='client_list'),
     path('client/add/', views.client_add, name='client_add'),
+    path('client/<int:pk>/', views.ClientDetailView.as_view(), name='client_view'),
     path('client/<int:pk>/edit/', views.client_edit, name='client_edit'),
     path('client/<int:pk>/history/', views.ClientHistoryList.as_view(), name='client_history'),
 ]

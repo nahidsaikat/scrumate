@@ -35,7 +35,10 @@
                             {% for cli in clients %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ cli.full_name }}</td>
+                                    <td>
+                                        <a href="{% url 'client_view' cli.id %}">
+                                        {{ cli.full_name }}</a>
+                                    </td>
                                     <td>{{ cli.email}}</td>
                                     <td>{{ cli.phone }}</td>
                                     <td>{{ cli.get_type_display }}</td>

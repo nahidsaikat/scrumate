@@ -295,7 +295,6 @@ class EmployeeDetailView(DetailView):
     queryset = Employee.objects.all()
     template_name = 'includes/generic_view.html'
     context_object_name = 'employee'
-    model = Employee
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -303,5 +302,20 @@ class EmployeeDetailView(DetailView):
         context['form'] = EmployeeForm(instance=instance)
         context['edit_url'] = reverse('employee_edit', kwargs={'pk': instance.pk})
         context['list_url'] = reverse('employee_list')
+        context['title'] = instance.full_name
+        return context
+
+
+class ClientDetailView(DetailView):
+    queryset = Client.objects.all()
+    template_name = 'includes/generic_view.html'
+    context_object_name = 'client'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context['form'] = ClientForm(instance=instance)
+        context['edit_url'] = reverse('client_edit', kwargs={'pk': instance.pk})
+        context['list_url'] = reverse('client_list')
         context['title'] = instance.full_name
         return context
