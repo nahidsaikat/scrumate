@@ -24,7 +24,6 @@
                         <tr>
                             <th>S/L</th>
                             <th>Story</th>
-                            <th>Details</th>
                             <th>Project</th>
                             <th>Release</th>
                             <th>Status</th>
@@ -36,9 +35,11 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ story.summary }}</td>
-                                    <td>{{ story.details }}</td>
                                     <td>{{ story.project.name }}</td>
-                                    <td>{{ story.release.name }}</td>
+                                    <td>
+                                        <a href="{% url 'release_view' project_id=project.id pk=story.release.id %}">
+                                        {{ story.release.name }}</a>
+                                    </td>
                                     <td>
                                         {% if perms.core.update_user_story_status %}
                                             <a href="{% url 'update_user_story_status' project_id=project.id pk=story.id %}">{{ story.get_status_display }}</a>
