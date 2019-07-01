@@ -36,7 +36,10 @@
                             {% for iss in issues %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ iss.name }}</td>
+                                    <td>
+                                        <a href="{% url 'issue_view' project_id=project.id pk=iss.id %}">
+                                            {{ iss.name }}</a>
+                                    </td>
                                     <td>{{ iss.project.name }}</td>
                                     <td class="text-center">
                                         {% if iss.user_story.id%}
