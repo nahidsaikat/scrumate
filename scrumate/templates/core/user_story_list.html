@@ -34,7 +34,10 @@
                             {% for story in user_stories %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ story.summary }}</td>
+                                    <td>
+                                        <a href="{% url 'user_story_view' project_id=project.id pk=story.id %}">
+                                        {{ story.summary }}</a>
+                                    </td>
                                     <td>{{ story.project.name }}</td>
                                     <td>
                                         <a href="{% url 'release_view' project_id=project.id pk=story.release.id %}">

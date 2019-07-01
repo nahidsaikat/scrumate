@@ -2,6 +2,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic import DetailView
 
 from scrumate.general.decorators import owner_or_lead
 from scrumate.core.user_story.filters import UserStoryFilter
@@ -104,4 +105,21 @@ class UserStoryHistoryList(HistoryList):
         context['title'] = f'History of {user_story.summary}'
         context['back_url'] = reverse('user_story_list', kwargs={'project_id': self.get_project_id()})
         context['base_template'] = 'general/index_project_view.html'
+        return context
+
+
+class UserStoryDetailView(DetailView):
+    queryset = UserStory.objects.all()
+    template_name = 'includes/generic_view.html'
+    context_object_name = 'user_story'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_id = self.kwargs.get('project_id')
+        instance = self.get_object()
+        context['form'] = UserStoryForm(instance=instance)
+        context['edit_url'] = reverse('user_story_edit', kwargs={'project_id': project_id, 'pk': instance.pk})
+        context['list_url'] = reverse('user_story_list', kwargs={'project_id': project_id})
+        context['title'] = instance.summary
+        context['project'] = Project.objects.get(pk=project_id)
         return context
