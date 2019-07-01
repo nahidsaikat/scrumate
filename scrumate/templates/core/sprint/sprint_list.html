@@ -36,7 +36,8 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>
-                                        {{ spr.name }}
+                                        <a href="{% url 'sprint_view' project_id=project.id pk=spr.id %}">
+                                        {{ spr.name }}</a>
                                     </td>
                                     <td>{{ spr.department.name }}</td>
                                     <td>{{ spr.start_date }}</td>
@@ -49,7 +50,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <a href="{% url 'sprint_view' project_id=project.id pk=spr.id %}">
+                                        <a href="{% url 'sprint_task_list' project_id=project.id pk=spr.id %}">
                                         <i class="fa fa-tasks fa-lg"></i></a>
 
                                         <a class="float-right ml-1" href="{% url 'sprint_history' project_id=project.id pk=spr.id %}">
