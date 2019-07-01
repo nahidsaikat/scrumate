@@ -34,7 +34,10 @@
                             {% for des in designations %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ des.name }}</td>
+                                    <td>
+                                        <a href="{% url 'designation_view' des.id %}">
+                                            {{ des.name }}</a>
+                                    </td>
                                     <td>{{ des.code }}</td>
                                     <td>{{ des.description }}</td>
                                     <td>{{ des.department.name }}</td>

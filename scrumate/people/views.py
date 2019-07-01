@@ -319,3 +319,19 @@ class ClientDetailView(DetailView):
         context['list_url'] = reverse('client_list')
         context['title'] = instance.full_name
         return context
+
+
+
+class DesignationDetailView(DetailView):
+    queryset = Designation.objects.all()
+    template_name = 'includes/generic_view.html'
+    context_object_name = 'designation'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context['form'] = DesignationForm(instance=instance)
+        context['edit_url'] = reverse('designation_edit', kwargs={'pk': instance.pk})
+        context['list_url'] = reverse('designation_list')
+        context['title'] = instance.name
+        return context
