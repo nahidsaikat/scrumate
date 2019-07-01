@@ -35,7 +35,10 @@
                             {% for rel in releases %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ rel.name }}</td>
+                                    <td>
+                                        <a href="{% url 'release_view' project_id=project.id pk=rel.id %}">
+                                        {{ rel.name }}</a>
+                                    </td>
                                     <td>{{ rel.version }}</td>
                                     <td>{{ rel.project.name }}</td>
                                     <td>{{ rel.release_date }}</td>

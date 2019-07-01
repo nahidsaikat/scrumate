@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.generic import DetailView
 
 from scrumate.general.decorators import project_owner
 from scrumate.core.project.models import Project
@@ -82,4 +83,21 @@ class ReleaseHistoryList(HistoryList):
         context['title'] = f'History of {release.name}'
         context['back_url'] = reverse('release_list', kwargs={'project_id': self.get_project_id()})
         context['base_template'] = 'general/index_project_view.html'
+        return context
+
+
+class ReleaseDetailView(DetailView):
+    queryset = Release.objects.all()
+    template_name = 'includes/generic_view.html'
+    context_object_name = 'release'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_id = self.kwargs.get('project_id')
+        instance = self.get_object()
+        context['form'] = ReleaseForm(instance=instance)
+        context['edit_url'] = reverse('release_edit', kwargs={'project_id': project_id, 'pk': instance.pk})
+        context['list_url'] = reverse('release_list', kwargs={'project_id': project_id})
+        context['title'] = instance.name
+        context['project'] = Project.objects.get(pk=project_id)
         return context
