@@ -28,8 +28,7 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Status</th>
-                            <th>Description</th>
-                            <th>Action</th>
+                            <th class="text-center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,7 +36,7 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>
-                                        <a href="{% url 'sprint_view' project_id=project.id pk=spr.id %}">{{ spr.name }}</a>
+                                        {{ spr.name }}
                                     </td>
                                     <td>{{ spr.department.name }}</td>
                                     <td>{{ spr.start_date }}</td>
@@ -49,8 +48,10 @@
                                             {{ spr.get_status_display }}
                                         {% endif %}
                                     </td>
-                                    <td>{{ spr.description }}</td>
                                     <td>
+                                        <a href="{% url 'sprint_view' project_id=project.id pk=spr.id %}">
+                                        <i class="fa fa-tasks fa-lg"></i></a>
+
                                         <a class="float-right ml-1" href="{% url 'sprint_history' project_id=project.id pk=spr.id %}">
                                         <i class="fa fa-history fa-lg"></i></a>
 
