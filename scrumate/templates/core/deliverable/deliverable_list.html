@@ -37,7 +37,10 @@
                             {% for deli in deliverables %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ deli.name }}</td>
+                                    <td>
+                                        <a href="{% url 'deliverable_view' project_id=project.id pk=deli.id %}">
+                                            {{ deli.name }}</a>
+                                    </td>
                                     <td>
                                         <a href="{% url 'task_view' project_id=project.id pk=deli.task.id %}">
                                             <i class="fa fa-external-link fa-lg"></i></a>

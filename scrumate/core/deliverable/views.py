@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.views.generic import DetailView
 
 from scrumate.core.deliverable.filters import DeliverableFilter
 from scrumate.core.deliverable.forms import DeliverableForm
@@ -104,4 +105,21 @@ class DeliverableHistoryList(HistoryList):
         context['title'] = f'History of {deliverable.name}'
         context['back_url'] = reverse('deliverable_list', kwargs={'project_id': self.get_project_id()})
         context['base_template'] = 'general/index_project_view.html'
+        return context
+
+
+class DeliverableDetailView(DetailView):
+    queryset = Deliverable.objects.all()
+    template_name = 'includes/generic_view.html'
+    context_object_name = 'deliverable'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project_id = self.kwargs.get('project_id')
+        instance = self.get_object()
+        context['form'] = DeliverableForm(instance=instance)
+        context['edit_url'] = reverse('deliverable_edit', kwargs={'project_id': project_id, 'pk': instance.pk})
+        context['list_url'] = reverse('deliverable_list', kwargs={'project_id': project_id})
+        context['title'] = instance.name
+        context['project'] = Project.objects.get(pk=project_id)
         return context
