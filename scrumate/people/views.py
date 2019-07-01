@@ -303,6 +303,7 @@ class EmployeeDetailView(DetailView):
         context['edit_url'] = reverse('employee_edit', kwargs={'pk': instance.pk})
         context['list_url'] = reverse('employee_list')
         context['title'] = instance.full_name
+        context['base_template'] = 'general/index_settings.html'
         return context
 
 
@@ -318,6 +319,7 @@ class ClientDetailView(DetailView):
         context['edit_url'] = reverse('client_edit', kwargs={'pk': instance.pk})
         context['list_url'] = reverse('client_list')
         context['title'] = instance.full_name
+        context['base_template'] = 'general/index_settings.html'
         return context
 
 
@@ -333,6 +335,7 @@ class DesignationDetailView(DetailView):
         context['edit_url'] = reverse('designation_edit', kwargs={'pk': instance.pk})
         context['list_url'] = reverse('designation_list')
         context['title'] = instance.name
+        context['base_template'] = 'general/index_settings.html'
         return context
 
 
@@ -348,4 +351,5 @@ class DepartmentDetailView(DetailView):
         context['edit_url'] = reverse('department_edit', kwargs={'pk': instance.pk})
         context['list_url'] = reverse('department_list')
         context['title'] = instance.name
+        context['base_template'] = 'general/index_settings.html'
         return context

@@ -142,4 +142,5 @@ class SprintDetailView(DetailView):
         context['list_url'] = reverse('sprint_list', kwargs={'project_id': project_id})
         context['title'] = instance.name
         context['project'] = Project.objects.get(pk=project_id)
+        context['base_template'] = 'general/index_project_view.html'
         return context

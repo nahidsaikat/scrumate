@@ -122,4 +122,5 @@ class UserStoryDetailView(DetailView):
         context['list_url'] = reverse('user_story_list', kwargs={'project_id': project_id})
         context['title'] = instance.summary
         context['project'] = Project.objects.get(pk=project_id)
+        context['base_template'] = 'general/index_project_view.html'
         return context
