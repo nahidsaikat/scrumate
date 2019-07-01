@@ -321,7 +321,6 @@ class ClientDetailView(DetailView):
         return context
 
 
-
 class DesignationDetailView(DetailView):
     queryset = Designation.objects.all()
     template_name = 'includes/generic_view.html'
@@ -333,5 +332,20 @@ class DesignationDetailView(DetailView):
         context['form'] = DesignationForm(instance=instance)
         context['edit_url'] = reverse('designation_edit', kwargs={'pk': instance.pk})
         context['list_url'] = reverse('designation_list')
+        context['title'] = instance.name
+        return context
+
+
+class DepartmentDetailView(DetailView):
+    queryset = Department.objects.all()
+    template_name = 'includes/generic_view.html'
+    context_object_name = 'department'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context['form'] = DepartmentForm(instance=instance)
+        context['edit_url'] = reverse('department_edit', kwargs={'pk': instance.pk})
+        context['list_url'] = reverse('department_list')
         context['title'] = instance.name
         return context
