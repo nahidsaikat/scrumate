@@ -28,7 +28,6 @@
                             <th>User Story</th>
                             <th>Raise Date</th>
                             <th>Raised By</th>
-                            <th>Description</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -39,10 +38,21 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ iss.name }}</td>
                                     <td>{{ iss.project.name }}</td>
-                                    <td>{{ iss.user_story.summary }}</td>
+                                    <td class="text-center">
+                                        {% if iss.user_story.id%}
+                                        <a href="{% url 'user_story_view' project_id=project.id pk=iss.user_story.id %}" title="{{ iss.user_story.summary }}">
+                                            <i class="fa fa-external-link fa-lg"></i></a>
+                                        {% else %}
+                                            <a title="N/A">
+                                                <i class="fa fa-external-link fa-lg"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ iss.raise_date }}</td>
-                                    <td>{{ iss.raised_by.full_name }}</td>
-                                    <td>{{ iss.description }}</td>
+                                    <td>
+                                        <a href="{% url 'employee_view' iss.raised_by.id %}">
+                                            {{ iss.raised_by.full_name }}</a>
+                                    </td>
                                     <td>
                                         {% if perms.core.update_issue_status %}
                                             <a href="{% url 'update_issue_status' project_id=project.id pk=iss.id %}">{{ iss.get_status_display }}</a>
