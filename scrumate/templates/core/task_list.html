@@ -40,7 +40,10 @@
                                     <td>{{ tas.project.name }}</td>
                                     <td>{{ tas.get_priority_display }}</td>
                                     <td>{{ tas.start_date }}</td>
-                                    <td>{{ tas.assignee.full_name }}</td>
+                                    <td>
+                                        <a href="{% url 'employee_view' tas.assignee.id %}">
+                                        {{ tas.assignee.full_name }}</a>
+                                    </td>
                                     <td>
                                         {% if perms.core.update_task_status %}
                                             <a href="{% url 'update_task_status' project_id=project.id pk=tas.id %}">{{ tas.get_status_display }}</a>
