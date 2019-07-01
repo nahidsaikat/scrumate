@@ -38,11 +38,20 @@
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ deli.name }}</td>
-                                    <td>{{ deli.task.name }}</td>
-                                    <td>{{ deli.sprint.name }}</td>
+                                    <td>
+                                        <a href="{% url 'task_view' project_id=project.id pk=deli.task.id %}">
+                                            <i class="fa fa-external-link fa-lg"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'sprint_view' project_id=project.id pk=deli.sprint.id %}">
+                                            {{ deli.sprint.name }}</a>
+                                    </td>
                                     <td>{{ deli.estimated_hour }}</td>
                                     <td>{{ deli.get_priority_display }}</td>
-                                    <td>{{ deli.assignee.full_name }}</td>
+                                    <td>
+                                        <a href="{% url 'employee_view' deli.assignee.id %}">
+                                            {{ deli.assignee.full_name }}</a>
+                                    </td>
                                     <td>
                                         {% if perms.core.update_deliverable_status %}
                                             <a href="{% url 'update_deliverable_status' project_id=project.id pk=deli.id %}">{{ deli.get_status_display }}</a>
