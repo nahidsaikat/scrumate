@@ -36,7 +36,10 @@
                             {% for tas in tasks %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ tas.name }}</td>
+                                    <td>
+                                        <a href="{% url 'task_view' project_id=project.id pk=tas.id %}">
+                                        {{ tas.name }}</a>
+                                    </td>
                                     <td>{{ tas.project.name }}</td>
                                     <td>{{ tas.get_priority_display }}</td>
                                     <td>{{ tas.start_date }}</td>
