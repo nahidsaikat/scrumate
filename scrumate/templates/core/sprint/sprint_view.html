@@ -7,7 +7,15 @@
     <div class="col-sm-12 col-lg-12">
       <div class="card text-white bg-xing">
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          <h1 style="text-align: center;">{% if running_sprint.is_current %}Currently Running Sprint : {% else %}Sprint : {% endif %}{{ running_sprint.name }}</h1>
+          <p style="text-align: center;">
+            <span class="float-left medium-text mt-2">
+              <a class="text-white" href="{% url 'sprint_add' project_id=project.id %}"><i class="fa fa-plus fa-lg"></i></a>
+            </span>
+            <span class="large-text">{% if running_sprint.is_current %}Currently Running Sprint : {% else %}Sprint : {% endif %}{{ running_sprint.name }}</span>
+            <span class="float-right medium-text mt-2">
+              <a class="text-white" href="{% url 'sprint_list' project_id=project.id %}"><i class="fa fa-list fa-lg"></i></a>
+            </span>
+          </p>
         </div>
       </div>
     </div>
@@ -15,74 +23,74 @@
 </div>
 
 <div class="animated fadeIn pt-2">
-    <div class="row">
+  <div class="row">
 
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header text-white" style="background-color: #332211;">
-                    <i class="fa fa-list fa-lg"></i> Pending
-                </div>
-                <div class="card-body">
-                    <table class="table table-responsive-sm table-bordered">
-                        <thead></thead>
-                        <tbody>
-                            {% for pend in pending %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ pend.name }} - {{ pend.estimated_hour }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header text-white" style="background-color: #332211;">
+          <i class="fa fa-list fa-lg"></i> Pending
         </div>
-
-
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header text-white" style="background-color: #112233;">
-                    <i class="fa fa-list fa-lg"></i> In-Progress
-                </div>
-                <div class="card-body">
-                    <table class="table table-responsive-sm table-bordered">
-                        <thead></thead>
-                        <tbody>
-                            {% for inp in in_progress %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ inp.name }} - {{ inp.estimated_hour }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="card-body">
+          <table class="table table-responsive-sm table-bordered">
+            <thead></thead>
+            <tbody>
+            {% for pend in pending %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ pend.name }} - {{ pend.estimated_hour }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
         </div>
-
-
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header text-white" style="background-color: green;">
-                    <i class="fa fa-list fa-lg"></i> Done
-                </div>
-                <div class="card-body">
-                    <table class="table table-responsive-sm table-bordered">
-                        <thead></thead>
-                        <tbody>
-                            {% for done_task in done %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ done_task.name }} - {{ done_task.estimated_hour }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </div>
+
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header text-white" style="background-color: #112233;">
+          <i class="fa fa-list fa-lg"></i> In-Progress
+        </div>
+        <div class="card-body">
+          <table class="table table-responsive-sm table-bordered">
+            <thead></thead>
+            <tbody>
+            {% for inp in in_progress %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ inp.name }} - {{ inp.estimated_hour }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header text-white" style="background-color: green;">
+          <i class="fa fa-list fa-lg"></i> Done
+        </div>
+        <div class="card-body">
+          <table class="table table-responsive-sm table-bordered">
+            <thead></thead>
+            <tbody>
+            {% for done_task in done %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ done_task.name }} - {{ done_task.estimated_hour }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 
