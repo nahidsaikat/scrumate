@@ -5,3 +5,12 @@
 .medium-text {
     font-size: 20px;
 }
+
+.alert {
+    margin-bottom: 0rem !important;
+}
+
+.messages {
+    width: 47%;
+    margin-left: 14px;
+}

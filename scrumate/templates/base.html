@@ -73,6 +73,18 @@
             <a class="nav-link" href="{% url 'settings' %}">Settings</a>
         </li>
     </ul>
+    <div class="text-center messages">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}success{% endif %} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
