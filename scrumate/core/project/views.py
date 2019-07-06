@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.utils import IntegrityError
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -36,8 +37,11 @@ def project_add(request, **kwargs):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            form.save()
+            project = form.save()
+            messages.success(request, f'Project {project.name} created successfully!')
             return redirect('project_list', permanent=True)
+        else:
+            messages.success(request, f'Invalid data!')
     else:
         form = ProjectForm()
     title = 'New Project'
@@ -50,8 +54,11 @@ def project_edit(request, project_id, **kwargs):
     instance = get_object_or_404(Project, id=project_id)
     form = ProjectForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        project = form.save()
+        messages.success(request, f'Project {project.name} updated successfully!')
         return redirect('project_list')
+    else:
+        messages.success(request, f'Invalid data!')
     title = 'Edit Project'
     return render(request, 'core/projects/project_add.html', {'form': form, 'title': title, 'list_url_name': 'project_list'})
 
@@ -65,6 +72,7 @@ def update_project_status(request, project_id, **kwargs):
         status = request.POST.get('status')
         instance.status = status
         instance.save()
+        messages.success(request, f'Project status updated successfully!')
         return redirect('project_list')
     return render(request, 'includes/single_field.html', {
         'field': form.visible_fields()[3],
