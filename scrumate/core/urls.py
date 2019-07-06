@@ -1,5 +1,4 @@
 from django.urls import path, include
-from scrumate.core import api
 
 project_view_urlpatterns = [
     path('release/', include('scrumate.core.release.urls'), name='release'),
@@ -16,8 +15,4 @@ urlpatterns = [
     path('project/', include('scrumate.core.project.urls'), name='project'),
     path('daily_scrum/', include('scrumate.core.daily_scrum.urls'), name='daily_scrum'),
     path('report/', include('scrumate.core.report.urls'), name='report'),
-
-    # API
-    path('task/<int:pk>/task_info/', api.task_info, name='task_info'),
-    path('deliverable/<int:pk>/deliverable_info/', api.deliverable_info, name='deliverable_info'),
 ]
