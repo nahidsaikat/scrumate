@@ -9,7 +9,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView
 from django.urls import reverse
 
-from scrumate.core.project.models import Project
 from scrumate.people.filters import DepartmentFilter, DesignationFilter, EmployeeFilter, ClientFilter
 from scrumate.people.forms import DepartmentForm, DesignationForm, EmployeeForm, ClientForm
 from scrumate.people.models import Department, Designation, Employee, Client
@@ -61,8 +60,11 @@ def department_add(request, **kwargs):
     if request.method == 'POST':
         form = DepartmentForm(request.POST)
         if form.is_valid():
-            form.save()
+            department = form.save()
+            messages.success(request, f'"{department.name}" added successfully!')
             return redirect('department_list', permanent=True)
+        else:
+            messages.success(request, f'Invalid data!')
     else:
         form = DepartmentForm()
     title = 'New Department'
@@ -74,8 +76,11 @@ def department_edit(request, pk, **kwargs):
     instance = get_object_or_404(Department, id=pk)
     form = DepartmentForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        department = form.save()
+        messages.success(request, f'"{department.name}" updated successfully!')
         return redirect('department_list')
+    else:
+        messages.success(request, f'Invalid data!')
     title = 'Edit Department'
     return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'department_list'})
 
@@ -102,8 +107,11 @@ def designation_add(request, **kwargs):
     if request.method == 'POST':
         form = DesignationForm(request.POST)
         if form.is_valid():
-            form.save()
+            designation = form.save()
+            messages.success(request, f'"{designation.name}" added successfully!')
             return redirect('designation_list', permanent=True)
+        else:
+            messages.success(request, f'Invalid data!')
     else:
         form = DesignationForm()
     title = 'New Designation'
@@ -115,8 +123,11 @@ def designation_edit(request, pk, **kwargs):
     instance = get_object_or_404(Designation, id=pk)
     form = DesignationForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        designation = form.save()
+        messages.success(request, f'"{designation.name}" updated successfully!')
         return redirect('designation_list')
+    else:
+        messages.success(request, f'Invalid data!')
     title = 'Edit Designation'
     return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'designation_list'})
 
@@ -155,8 +166,11 @@ def employee_add(request, **kwargs):
             if user:
                 employee.user = user
             employee.save()
+            messages.success(request, f'Employee "{employee.full_name}" created successfully!')
 
             return redirect('employee_list', permanent=True)
+        else:
+            messages.success(request, f'Invalid data!')
     else:
         form = EmployeeForm()
     title = 'New Employee'
@@ -168,8 +182,11 @@ def employee_edit(request, pk, **kwargs):
     instance = get_object_or_404(Employee, id=pk)
     form = EmployeeForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        employee = form.save()
+        messages.success(request, f'Employee "{employee.full_name}" updated successfully!')
         return redirect('employee_list')
+    else:
+        messages.success(request, f'Invalid data!')
     title = 'Edit Employee'
     return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'employee_list'})
 
@@ -196,8 +213,11 @@ def client_add(request, **kwargs):
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
-            form.save()
+            client = form.save()
+            messages.success(request, f'Client "{client.full_name}" created successfully!')
             return redirect('client_list', permanent=True)
+        else:
+            messages.success(request, f'Invalid data!')
     else:
         form = ClientForm()
     title = 'New Client'
@@ -209,8 +229,11 @@ def client_edit(request, pk, **kwargs):
     instance = get_object_or_404(Client, id=pk)
     form = ClientForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        client = form.save()
+        messages.success(request, f'Client "{client.full_name}" updated successfully!')
         return redirect('client_list')
+    else:
+        messages.success(request, f'Invalid data!')
     title = 'Edit Client'
     return render(request, 'people/common_people_add.html', {'form': form, 'title': title, 'list_url_name': 'client_list'})
 
