@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.views.generic import DetailView
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, reverse, redirect, get_object_or_404
@@ -23,6 +24,7 @@ def update_sprint_status(request, project_id, pk, **kwargs):
         status = request.POST.get('status')
         instance.status = status
         instance.save()
+        messages.success(request, f'Status updated for "{instance.name}" successfully!')
         return redirect('sprint_list', project_id=project_id)
 
     return render(request, 'includes/single_field.html', {
@@ -63,7 +65,10 @@ def sprint_add(request, project_id, **kwargs):
             sprint = form.save(commit=False)
             sprint.project = project
             sprint.save()
+            messages.success(request, f'"{sprint.name}" added successfully!')
             return redirect('sprint_list', permanent=True, project_id=project_id)
+        else:
+            messages.success(request, f'Invalid data!')
     else:
         form = SprintForm()
     title = 'New Sprint'
@@ -78,8 +83,11 @@ def sprint_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Sprint, id=pk)
     form = SprintForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        sprint = form.save()
+        messages.success(request, f'"{sprint.name}" updated successfully!')
         return redirect('sprint_list')
+    else:
+        messages.error(request, f'Invalid data!')
     title = 'Edit Sprint'
     return render(request, 'core/sprint/sprint_add.html', {
         'form': form, 'title': title, 'list_url_name': 'sprint_list', 'project': project
