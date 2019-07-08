@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -37,6 +38,7 @@ def issue_add(request, project_id, **kwargs):
             issue = form.save(commit=False)
             issue.project_id = project_id
             issue.save()
+            messages.success(request, "Issue added successfully!")
             return redirect('issue_list', permanent=True, project_id=project_id)
     else:
         form = IssueForm()
@@ -52,6 +54,7 @@ def issue_edit(request, project_id, pk, **kwargs):
     form = IssueForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
+        messages.success(request, "Issue updated successfully!")
         return redirect('issue_list', project_id=project_id)
 
     title = 'Edit Issue'
@@ -68,6 +71,7 @@ def update_issue_status(request, project_id, pk, **kwargs):
         status = request.POST.get('status')
         instance.status = status
         instance.save()
+        messages.success(request, "Issue status updated successfurrl!")
         return redirect('issue_list', project_id=project_id)
 
     return render(request, 'includes/single_field.html', {
