@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -49,6 +50,7 @@ def assign_dev(request, deliverable_id, **kwargs):
         assignee = request.POST.get('assignee')
         instance.assignee_id = assignee
         instance.save()
+        messages.success(request, f'Developer assigned successfully!')
         return redirect('daily_scrum')
 
     return render(request, 'includes/single_field.html', {
@@ -79,6 +81,7 @@ def change_actual_hour(deliverable_id, request):
         actual_hour = request.POST.get('estimated_hour')
         instance.actual_hour = actual_hour
         instance.save()
+        messages.success(request, f'Hour is up to date!')
         return redirect('daily_scrum')
     return render(request, 'includes/single_field.html', {
         'hide': True,
