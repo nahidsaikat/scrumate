@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
@@ -41,7 +42,10 @@ def release_add(request, project_id, **kwargs):
             release.created_by = request.user
             release.project_id = project_id
             release.save()
+            messages.success(request, f'"{release.name}" added successfully!')
             return redirect('release_list', permanent=True, project_id=project_id)
+        else:
+            messages.error(request, f'Invalid data!')
     else:
         form = ReleaseForm()
     title = 'New Release'
@@ -55,8 +59,11 @@ def release_edit(request, project_id, pk, **kwargs):
     instance = get_object_or_404(Release, id=pk)
     form = ReleaseForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
+        release = form.save()
+        messages.success(request, f'"{release.name}" updated successfully!')
         return redirect('release_list', permanent=True, project_id=project_id)
+    else:
+        messages.error(request, f'Invalid data!')
     title = 'Edit Release'
     project = Project.objects.get(pk=project_id)
     return render(request, 'core/common_add.html', {'form': form, 'title': title, 'list_url_name': 'release_list', 'project': project})
