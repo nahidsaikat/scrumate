@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -39,6 +40,7 @@ def deliverable_add(request, project_id, **kwargs):
             deliverable.assign_date = datetime.today()
             deliverable.project_id = project_id
             deliverable.save()
+            messages.success(request, "Deliverable added successfully!")
             return redirect('deliverable_list', permanent=True, project_id=project_id)
     else:
         form = DeliverableForm()
@@ -55,6 +57,7 @@ def deliverable_edit(request, project_id, pk, **kwargs):
     form = DeliverableForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
+        messages.success(request, "Deliverable updated successfully!")
         return redirect('deliverable_list', project_id=project_id)
 
     title = 'Edit Deliverable'
@@ -72,6 +75,7 @@ def update_deliverable_status(request, project_id, pk, **kwargs):
         status = request.POST.get('status')
         instance.status = status
         instance.save()
+        messages.success(request, "Deliverable status updated successfully!")
         return redirect('deliverable_list', project_id=project_id)
 
     project = Project.objects.get(pk=project_id)
