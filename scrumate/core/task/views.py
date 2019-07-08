@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -43,7 +44,10 @@ def task_add(request, project_id, **kwargs):
             task.assigned_by = getattr(request.user, 'employee', None)
             task.assign_date = datetime.today()
             task.save()
+            messages.success(request, "Task added successfully!")
             return redirect('task_list', permanent=True, project_id=project_id)
+        else:
+            messages.error(request, "Invalid data!")
     else:
         form = TaskForm()
 
@@ -59,7 +63,10 @@ def task_edit(request, project_id, pk, **kwargs):
     form = TaskForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
+        messages.success(request, "Task updated successfully!")
         return redirect('task_list', project_id=project_id)
+    else:
+        messages.error(request, "Invalid data!")
 
     title = 'Edit Task'
     project = Project.objects.get(pk=project_id)
@@ -76,6 +83,7 @@ def update_task_status(request, project_id, pk, **kwargs):
         status = request.POST.get('status')
         instance.status = status
         instance.save()
+        messages.success(request, "Task status updated successfully!")
         return redirect('task_list', project_id=project_id)
 
     project = Project.objects.get(pk=project_id)
