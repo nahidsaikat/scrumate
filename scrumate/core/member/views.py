@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 
 from scrumate.general.decorators import project_owner
@@ -31,10 +32,12 @@ def project_member_add(request, project_id, **kwargs):
         already_assigned = ProjectMember.objects.filter(project_id=project_id, user_id=user_id).count()
         if already_assigned:
             form.add_error('user', 'User is already in the team!')
+            messages.warning(request, f'User already assigned to "{project.name}"!')
         elif form.is_valid():
             member = form.save(commit=False)
             member.project = project
             member.save()
+            messages.success(request, f'Member added to "{project.name}" successfully!')
             return redirect('project_member_list', permanent=True, project_id=project_id)
     else:
         form = ProjectMemberForm()
@@ -52,6 +55,7 @@ def project_member_edit(request, project_id, pk, **kwargs):
     form = ProjectMemberForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
+        messages.success(request, f'Member updated successfully!')
         return redirect('project_member_list', permanent=True, project_id=project_id)
 
     title = 'Edit Member'
@@ -67,6 +71,7 @@ def project_member_delete(request, project_id, pk, **kwargs):
     instance = get_object_or_404(ProjectMember, id=pk)
     if instance:
         instance.delete()
+        messages.success(request, f'Member deleted successfully!')
         return redirect('project_member_list', permanent=True, project_id=project_id)
 
     title = 'Delete Member'
