@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_select2',
     'watchman',
     'simple_history',
+    'django_comments',
 
     'scrumate.core',
     'scrumate.people',

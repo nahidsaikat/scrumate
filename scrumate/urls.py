@@ -32,6 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('watchman/', include('watchman.urls')),
     path('activity/', include('actstream.urls')),
+    path('comments/', include('django_comments.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

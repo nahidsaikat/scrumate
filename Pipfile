@@ -25,6 +25,7 @@ django-activity-stream = "*"
 django-jsonfield = "*"
 django-jsonfield-compat = "*"
 django-simple-history = "*"
+django-contrib-comments = "*"
 
 [requires]
 python_version = "3.7"
